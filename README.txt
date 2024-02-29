@@ -1,6 +1,7 @@
 # FJC Line Scheduler
 
 A small script to automate aspects of schedule creation for the line department at Fargo Jet Center
+Eventualy this project will become an open source tool avalible to the public once it's passed its initial stages
 
 ----PTO formatting rules----
 
@@ -13,7 +14,7 @@ Why did they pay me to make this instead of purchasing something else you may as
 
 ----TODO----
 -Output Generation
- *Read a CSV File
+ *Import and Read a CSV File
  *Parse the file into an array of employee objects
   -Parse times into objects that can be filters by PTO Requests
   -Parse PTO Requests weather by day or times
