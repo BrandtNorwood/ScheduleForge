@@ -4,8 +4,8 @@ A small script to automate aspects of schedule creation for the line department 
 
 ----PTO formatting rules----
 
-A request for 12:00-14:00 on january 12th would look like 01/12/24<1200:1400 with the date and time seperated by `<` and the start and end times seperated by `:`
-Multiple requests for the same user are seperated in the string by the `&` char. For example if the user also needed all of the 13th off it would become 01/12/24<1200:1400&01/13/24
+A request for 12:00-14:00 on january 12th would look like `01/12/24<1200:1400` with the date and time seperated by `<` and the start and end times seperated by `:`
+Multiple requests for the same user are seperated in the string by the `&` char. For example if the user also needed all of the 13th off it would become `01/12/24<1200:1400&01/13/24`
 Date without time assumes the user will be taking the whole day off.
 
 Why did they pay me to make this instead of purchasing something else you may ask?
