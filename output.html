@@ -6,20 +6,20 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="parser.js"></script>
         <style>
 
         </style>
     </head>
     <body>
+        <input type="file" id="fileInput">
+        <script>
+            document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
+                console.log(readFile(this.files[0]));
+            });
+        </script>
         <table id="table"></table>
         
-        <script> 
-            var fs = require("fs");
 
-            fs.readFile('TestData.csv', function (err, data) {
-                console.log(data);
-            });
-
-        </script>
     </body>
 </html>
