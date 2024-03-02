@@ -14,10 +14,7 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 ----TODO----
 -Output Generation
- *Import and Read a CSV File
  *Parse the file into an array of employee objects
-  -Parse times into objects that can be filters by PTO Requests
-  -Parse PTO Requests weather by day or times
  *filter out PTO requests
  *generate the table
   -select colors from color table depending on index number
