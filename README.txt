@@ -5,8 +5,8 @@ Eventualy this project will become an open source tool avalible to the public on
 
 ----PTO formatting rules----
 
-A request for 12:00-14:00 on january 12th would look like `01/12/24<1200:1400` with the date and time seperated by `<` and the start and end times seperated by `:`
-Multiple requests for the same user are seperated in the string by the `&` char. For example if the user also needed all of the 13th off it would become `01/12/24<1200:1400&01/13/24`
+A request for 12:00-14:00 on january 12th would look like `01/12/24<1200:01/12/24<1400` with the date and time seperated by `<` and the start and end times seperated by `:`
+Multiple requests for the same user are seperated in the string by the `&` char. For example if the user also needed all of the 15th off it would become `01/12/24<1200:01/12/24<1400&01/15/24`
 Date without time assumes the user will be taking the whole day off.
 
 The Program should automaticly remove PTO requests that are older then a week from the current system time.
