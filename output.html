@@ -15,7 +15,7 @@
         <input type="file" id="fileInput">
         <script>
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
-                console.log(readFile(this.files[0]));
+                parseFile(this.files[0]).then(result => {console.log(result);});
             });
         </script>
         <table id="table"></table>
