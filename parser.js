@@ -4,67 +4,66 @@
 */
 
 //this function takes the given csv file and splits it into an array of objects
-function readFile(fileName){
-    const reader = new FileReader();
-    reader.onload = function fileReadCompleted() {
-        if(reader.result == null) {return;};
+function parseFile(fileName){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function fileReadCompleted() {
+            if(reader.result == null) {return;};
 
-        //takes file output and sorts into rows
-        var rows = reader.result.split('\n');
+            //takes file output and sorts into rows
+            var rows = reader.result.split('\n');
 
-        //splits the rows into columns
-        var rawValues = new Array();
-        rows.forEach(element => {
-            element = element.split(',');
+            //splits the rows into columns
+            var rawValues = new Array();
+            rows.forEach(element => {
+                element = element.split(',');
 
-            //only add if theres content in the rows and kill function if data is malformed
-            if(element.length == 10){
-                rawValues.push(element);
-            } else if(element.length > 1){return;}
-        });
-
-        //quick check to make sure the CSV file contains more then the headers
-        if (rawValues.length > 1){
-
-            //pop the headers off the top of the csv
-            var headers = rawValues[0];
-            rawValues.splice(0,1);
-
-            var rawObjects = new Array();
-
-            //loops down the rows
-            rawValues.forEach(element =>{
-                var thisUser = {};
-
-                //creates objects from the rows defined by headers
-                for (i=0;i<headers.length;i++){
-                    thisUser[headers[i]] = element[i];
-                }
-                rawObjects.push(thisUser);
+                //only add if theres content in the rows and kill function if data is malformed
+                if(element.length == 10){
+                    rawValues.push(element);
+                } else if(element.length > 1){return;}
             });
 
-            return rawObjects;
+            //quick check to make sure the CSV file contains more then the headers
+            if (rawValues.length > 1){
 
-        }
-    };
-    reader.readAsText(fileName);  
+                //pop the headers off the top of the csv
+                var headers = rawValues[0];
+                rawValues.splice(0,1);
+
+                var rawObjects = new Array();
+
+                //loops down the rows
+                rawValues.forEach(element =>{
+                    var thisUser = {};
+
+                    //creates objects from the rows defined by headers
+                    //parses time or PTO where appropriate
+                    for (let i=0;i<headers.length;i++){
+                        if (i>1&&i<9){thisUser[headers[i]] = parseTime(element[i]);}
+                        else if (i==9){thisUser[headers[i]] = parsePTO(element[i]);}
+                        else {thisUser[headers[i]] = element[i];}
+                    }
+                    rawObjects.push(thisUser);
+                });
+                
+                resolve(rawObjects);
+            }
+        };
+        reader.readAsText(fileName);
+    });  
 }
 
 //DIY Time class since you cant create just a time value in JS
 class Time {
-    //for when we want to pass a raw 4char string as time
+    //for when we want to pass a raw 4 char string as time
     constructor(rawTime){
         let splitTime = rawTime.match(/.{1,2}/g);
         this.hour = splitTime[0];
         this.minute = splitTime[1]
     }
-    //for when we have seperate hour and min ints
-    constructor(hour,minute){
-        this.hour = hour;
-        this.minute = minute;
-    }
     //subtract one Time object from another
-    diffrence(diffTime){
+    difference(diffTime){
         return new Time(this.hour - diffTime.hour, this.minute = diffTime.minute);
     }
     //Overloading the toString method for output
@@ -75,9 +74,11 @@ class Time {
 
 //take a 'start:end' format time and split it into two Time objects
 function parseTime(rawTime){
+    if(rawTime == ""){return;}
+
     rawTime = rawTime.split(':');
     
-    if (rawTime.length = 2){
+    if (rawTime.length == 2){
         var startTime = new Time (rawTime[0]);
         var endTime = new Time (rawTime[1]); 
     }else{return;}
@@ -106,6 +107,8 @@ function parseDate(rawDate,start){
 
 //Function takes the PTO requests and splits them into an array of start/end date objects
 function parsePTO(rawPTO){
+    if(rawPTO == ""){return;}
+
     var requests = rawPTO.split('&'); //split by & symbol per formatting rules
     var outputs = new Array();
 
@@ -121,4 +124,13 @@ function parsePTO(rawPTO){
     });
 
     return outputs;
+}
+
+//Function for choosing the employee colors of the output table based on their index number
+function pickColor(index){
+    let map = ["#A93226","#17A589","#2471A3","#D68910","#616A6B","#6C3483","#28B463","#2471A3","#E74C3C","#F4D03F","#48C9B0","#AF7AC5","#E67E22","#2E86C1","#1E8449"];
+
+    //Im aware this is bad practice but it works!
+    if (index > map.length){return pickColor(index-map.length);}
+    else {return map[index];}
 }
