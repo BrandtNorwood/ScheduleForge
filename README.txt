@@ -14,6 +14,7 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 ----TODO----
 -Output Generation
+ *BUG - Time Parser cannot process data that is formatted like 400 instead of 0400.
  *Parse the file into an array of employee objects
  *filter out PTO requests
  *generate the table
