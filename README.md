@@ -1,5 +1,5 @@
 # CSV Based Schedule generator 
-# By Niko Norwood
+### By Niko Norwood
 
 A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site is built around the user uploading and downloading a CSV file instead of storing data in a server so there is no transfer of sensitive data over the internet. 
 
