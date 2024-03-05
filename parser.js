@@ -58,9 +58,9 @@ function parseFile(fileName){
 class Time {
     //for when we want to pass a raw 4 char string as time
     constructor(rawTime){
-        let splitTime = rawTime.match(/.{1,2}/g);
-        this.hour = splitTime[0];
-        this.minute = splitTime[1]
+        this.minute = rawTime.slice(-2);
+        rawTime = rawTime.slice(0, -2); 
+        this.hour = rawTime;
     }
     //subtract one Time object from another
     difference(diffTime){
