@@ -134,3 +134,22 @@ function pickColor(index){
     if (index > map.length){return pickColor(index-map.length);}
     else {return map[index];}
 }
+
+//Used to store current state of the file
+var fileData = new Array();
+
+//function is called when user first selects file. Loads info and opens the editor
+function loadPage(fileName){
+    parseFile(fileName).then(result => {
+        fileData = result;
+
+        var empSelect = document.getElementById("empSelect");
+
+        document.getElementById("downloadDiv").style.display="none";
+        document.getElementById("edit").style.display="";
+
+        for (var i=0; i < fileData.length; i++){
+            empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
+        }
+    });
+}
