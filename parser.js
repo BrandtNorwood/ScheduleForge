@@ -8,11 +8,24 @@
 //Global Variables
 var genDate = AutoTimeSkip(new Date(Date.now())); //Stores date 
 var fileData = new Array(); //Used to store current state of the file
-var genData = new Array();
+var genData = new Array();  //Used to store current weeks data
+
+//Populates the week display feild
+function loadWeekDisplay(){
+    var weekDisplay = document.getElementById("weekDisplay");
+
+    weekDisplay.replaceChildren();
+    weekDisplay.appendChild(document.createTextNode(
+        (genDate.getMonth()+1) + "/" + genDate.getDate() + "/" + genDate.getFullYear() + " - " +
+        (genDate.getMonth()+1) + "/" + (genDate.getDate()+7) + "/" + genDate.getFullYear()
+    ));
+}
 
 //used to set the generator date one week ahead or behind
 function timeSkipButton(forward){
-    genDate.setDate(genDate.getDate + (forward ? 7:-7));
+    genDate.setDate(genDate.getDate() + (forward ? 7:-7));
+    loadWeekDisplay();
+    generateTable();
 }
 
 //used to set individual shifts for PTO Fitering
@@ -128,13 +141,13 @@ function parseDate(rawDate,start){
     if (start == null){start = false;}
 
     if (dateAndTime.length > 1){
-        return new Date(dateAndTime[0] + dateAndTime[1]);
+        return new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
     }else {
         //If there is only a date and no time we use the start value to push out the time to either the start or end of the day
         if (start){
-            return new Date(dateAndTime[0] + "00:00");
+            return new Date(dateAndTime[0] + 'T00:00');
         } else {
-            return new Date(dateAndTime[0] + "23:59");
+            return new Date(dateAndTime[0] + "T23:59:59");
         }
     }
 }
@@ -162,10 +175,11 @@ function parsePTO(rawPTO){
 
 //Function for choosing the employee colors of the output table based on their index number
 function pickColor(index){
-    let map = ["#A93226","#17A589","#2471A3","#D68910","#616A6B","#6C3483","#28B463","#2471A3","#E74C3C","#F4D03F","#48C9B0","#AF7AC5","#E67E22","#2E86C1","#1E8449"];
+    let map = ["#f5aa42", "#7de5ff", "#ff7d7d", "#a4ff7d", "#7db1ff", "#f4ff7d", "#88ff7d", "#e97dff", "#7dd8ff", "#837dff", "#86ff7d",
+                 "#ff61a6", "#ffa261", "#61ffad", "#6193ff", "#ffad61", "#ff6193", "#ad61ff", "#adff61"];
 
     //Im aware this is bad practice but it works!
-    if (index > map.length){return pickColor(index-map.length);}
+    if (index >= map.length){return pickColor(index-map.length);}
     else {return map[index];}
 }
 
@@ -177,19 +191,18 @@ function loadPage(fileName){
         var empSelect = document.getElementById("empSelect");
 
         document.getElementById("downloadDiv").style.display="none";
-        document.getElementById("edit").style.display="";
+        //document.getElementById("edit").style.display=""; Re-enable this pannel when its actualy built
+        document.getElementById("outputPane").style.display="";
+        generateTable();
 
         for (var i=0; i < fileData.length; i++){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
         }
-
-        console.log(fileData);
-        parseWeek();
     });
 }
 
 function parseWeek(){
-    genData = fileData;
+    genData = JSON.parse(JSON.stringify(fileData));
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -202,5 +215,73 @@ function parseWeek(){
             }
         });
     });
-    console.log(genData);
+}
+
+function filterPTO(){
+    //Function will remove PTO requests from 
+}
+
+function outputDay(shiftObject){
+    let start = shiftObject.startTime;
+    let end = shiftObject.endTime;
+
+    return (
+        start.getHours() + ":" + 
+        start.getMinutes().toString().padStart(2, '0') + " - " + 
+        end.getHours() + ":" + 
+        end.getMinutes().toString().padStart(2, '0')
+    );
+}
+
+function generateTable(){
+    parseWeek();
+
+    //Create table HTML object
+    var table = document.createElement('table');
+    table.setAttribute("id","table");
+
+    //Use these to define feilds once instead of 500 times
+    const feilds = ['Name','Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    //Creates Top lables
+    let topLabels = document.createElement('tr'); 
+    for (let i = 0; i < feilds.length; i++){
+        let labelElement = document.createElement('th');
+        if (feilds[i] == "Name"){
+            labelElement.appendChild(document.createTextNode(feilds[i]));
+        } else{
+            let thisDate = generateDay(i-1,new Time('0000'))
+            labelElement.appendChild(document.createTextNode(
+                feilds[i] + " " + (thisDate.getMonth()+1) + "/" + thisDate.getDate() + "/" + thisDate.getFullYear()
+            ));
+        }
+        topLabels.appendChild(labelElement);
+    }
+    table.appendChild(topLabels);
+
+    //Creates Employee Rows
+    genData.forEach(employee =>{
+        let empElement = document.createElement('tr');
+
+        empElement.style.background = pickColor(employee.Index);
+
+        feilds.forEach(feild =>{
+            feildElement = document.createElement('th');
+
+            if (employee[feild]) {
+                if (feild == "Name"){
+                    feildElement.appendChild(document.createTextNode(employee[feild]));
+                }else{
+                    feildElement.appendChild(document.createTextNode(outputDay(employee[feild])));
+                }
+            }
+            empElement.appendChild(feildElement);
+        });
+        table.appendChild(empElement);
+    });
+
+    //clear outputPane, attach table
+    document.getElementById("outputPane").replaceChildren();
+    document.getElementById("outputPane").appendChild(table);
+
 }
