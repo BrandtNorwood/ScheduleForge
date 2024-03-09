@@ -1,0 +1,68 @@
+:root {
+    --primary: #3390d6;
+    --secondary: #d67933;
+    --text: #121212;
+    --background :#fff;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--primary);
+}
+
+
+li {
+    float: left;
+}
+
+button {
+    border-radius:10%;
+    color:var(--text);
+    background-color: var(--primary);
+    display: block;
+    padding: 8px;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+#weekDisplay{
+    margin: 5%,10%;
+    padding: 8px;
+}
+
+table{
+    width: 100%;
+    color:black;
+    background-color: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+/*This needs to be fixed before production*/
+th, td {
+    padding-bottom: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+@media print {
+    * {
+        visibility: hidden;
+    }
+
+    #outputPane * {
+        font-size: small;
+        visibility: visible;
+    }
+}
