@@ -28,6 +28,7 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 ## TODO
 * Output Generation
+  - Sort Shifts by start time
   - filter out PTO requests
   - Properly parce shifts that roll into the next day
   - Support multiple shifts per day?
