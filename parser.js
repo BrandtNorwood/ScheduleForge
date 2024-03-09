@@ -4,6 +4,40 @@
 */
 
 //this function takes the given csv file and splits it into an array of objects
+
+//Global Variables
+var genDate = AutoTimeSkip(new Date(Date.now())); //Stores date 
+var fileData = new Array(); //Used to store current state of the file
+var genData = new Array();
+
+//used to set the generator date one week ahead or behind
+function timeSkipButton(forward){
+    genDate.setDate(genDate.getDate + (forward ? 7:-7));
+}
+
+//used to set individual shifts for PTO Fitering
+function generateDay(dayOfWeek, time){
+    let newDay = new Date(genDate);
+
+    newDay.setDate(newDay.getDate() + dayOfWeek);
+    newDay.setHours(time.hour);
+    newDay.setMinutes(time.minute);
+    newDay.setSeconds(0);
+
+    return newDay;
+}
+
+//returns a date set to the next sunday
+function AutoTimeSkip(thisDate){
+    thisDate.setDate(thisDate.getDate() + (7-thisDate.getDay())); 
+    thisDate.setHours(0);
+    thisDate.setMinutes(0);
+    thisDate.setSeconds(0);
+
+    return thisDate;
+}
+
+
 function parseFile(fileName){
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -135,9 +169,6 @@ function pickColor(index){
     else {return map[index];}
 }
 
-//Used to store current state of the file
-var fileData = new Array();
-
 //function is called when user first selects file. Loads info and opens the editor
 function loadPage(fileName){
     parseFile(fileName).then(result => {
@@ -151,5 +182,25 @@ function loadPage(fileName){
         for (var i=0; i < fileData.length; i++){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
         }
+
+        console.log(fileData);
+        parseWeek();
     });
+}
+
+function parseWeek(){
+    genData = fileData;
+
+    //Chat GPT fixed this code! (it was very ugly before)
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    genData.forEach(employee => {
+        daysOfWeek.forEach(day => {
+            if (employee[day]) {
+                employee[day].startTime = generateDay(daysOfWeek.indexOf(day), employee[day].startTime);
+                employee[day].endTime = generateDay(daysOfWeek.indexOf(day), employee[day].endTime);
+            }
+        });
+    });
+    console.log(genData);
 }
