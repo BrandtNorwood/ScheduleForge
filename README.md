@@ -31,6 +31,8 @@ The Program should automaticly remove PTO requests that are older then a week fr
   - BUG - Time Parser cannot process data that is formatted like 400 instead of 0400.
   - Parse the file into an array of employee objects
   - filter out PTO requests
+  - Properly parce shifts that roll into the next day
+  - Support multiple shifts per day?
   - generate the table
     - select colors from color table depending on index number
 
