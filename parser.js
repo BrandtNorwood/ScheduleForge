@@ -3,13 +3,6 @@
     Niko Norwood - 2/29/2024
 */
 
-//this function takes the given csv file and splits it into an array of objects
-
-//Global Variables
-var genDate = AutoTimeSkip(new Date(Date.now())); //Stores date 
-var fileData = new Array(); //Used to store current state of the file
-var genData = new Array();  //Used to store current weeks data
-
 //Populates the week display feild
 function loadWeekDisplay(){
     var weekDisplay = document.getElementById("weekDisplay");
@@ -21,6 +14,8 @@ function loadWeekDisplay(){
     ));
 }
 
+
+
 //used to set the generator date one week ahead or behind
 function timeSkipButton(forward){
     genDate.setDate(genDate.getDate() + (forward ? 7:-7));
@@ -28,17 +23,7 @@ function timeSkipButton(forward){
     generateTable();
 }
 
-//used to set individual shifts for PTO Fitering
-function generateDay(dayOfWeek, time){
-    let newDay = new Date(genDate);
 
-    newDay.setDate(newDay.getDate() + dayOfWeek);
-    newDay.setHours(time.hour);
-    newDay.setMinutes(time.minute);
-    newDay.setSeconds(0);
-
-    return newDay;
-}
 
 //returns a date set to the next sunday
 function AutoTimeSkip(thisDate){
@@ -51,6 +36,8 @@ function AutoTimeSkip(thisDate){
 }
 
 
+
+//this function takes the given csv file and splits it into an array of objects
 function parseFile(fileName){
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -101,6 +88,8 @@ function parseFile(fileName){
     });  
 }
 
+
+
 //DIY Time class since you cant create just a time value in JS
 class Time {
     //for when we want to pass a raw 4 char string as time
@@ -119,7 +108,9 @@ class Time {
     }
 }
 
-//take a 'start:end' format time and split it into two Time objects
+
+
+//take a 'start:end' format string and split it into two Time objects
 function parseTime(rawTime){
     if(rawTime == ""){return;}
 
@@ -132,6 +123,8 @@ function parseTime(rawTime){
 
     return {startTime,endTime};
 }
+
+
 
 //This function takes in a raw Date value, splits it into time and date, and creates a date object from it.
 function parseDate(rawDate,start){
@@ -151,6 +144,8 @@ function parseDate(rawDate,start){
         }
     }
 }
+
+
 
 //Function takes the PTO requests and splits them into an array of start/end date objects
 function parsePTO(rawPTO){
@@ -173,15 +168,22 @@ function parsePTO(rawPTO){
     return outputs;
 }
 
-//Function for choosing the employee colors of the output table based on their index number
-function pickColor(index){
-    let map = ["#f5aa42", "#7de5ff", "#ff7d7d", "#a4ff7d", "#7db1ff", "#f4ff7d", "#88ff7d", "#e97dff", "#7dd8ff", "#837dff", "#86ff7d",
-                 "#ff61a6", "#ffa261", "#61ffad", "#6193ff", "#ffad61", "#ff6193", "#ad61ff", "#adff61"];
 
-    //Im aware this is bad practice but it works!
-    if (index >= map.length){return pickColor(index-map.length);}
-    else {return map[index];}
+
+//
+function outputDay(shiftObject){
+    let start = shiftObject.startTime;
+    let end = shiftObject.endTime;
+
+    return (
+        start.getHours() + ":" + 
+        start.getMinutes().toString().padStart(2, '0') + " - " + 
+        end.getHours() + ":" + 
+        end.getMinutes().toString().padStart(2, '0')
+    );
 }
+
+
 
 //function is called when user first selects file. Loads info and opens the editor
 function loadPage(fileName){
@@ -199,89 +201,4 @@ function loadPage(fileName){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
         }
     });
-}
-
-function parseWeek(){
-    genData = JSON.parse(JSON.stringify(fileData));
-
-    //Chat GPT fixed this code! (it was very ugly before)
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    genData.forEach(employee => {
-        daysOfWeek.forEach(day => {
-            if (employee[day]) {
-                employee[day].startTime = generateDay(daysOfWeek.indexOf(day), employee[day].startTime);
-                employee[day].endTime = generateDay(daysOfWeek.indexOf(day), employee[day].endTime);
-            }
-        });
-    });
-}
-
-function filterPTO(){
-    //Function will remove PTO requests from 
-}
-
-function outputDay(shiftObject){
-    let start = shiftObject.startTime;
-    let end = shiftObject.endTime;
-
-    return (
-        start.getHours() + ":" + 
-        start.getMinutes().toString().padStart(2, '0') + " - " + 
-        end.getHours() + ":" + 
-        end.getMinutes().toString().padStart(2, '0')
-    );
-}
-
-function generateTable(){
-    parseWeek();
-
-    //Create table HTML object
-    var table = document.createElement('table');
-    table.setAttribute("id","table");
-
-    //Use these to define feilds once instead of 500 times
-    const feilds = ['Name','Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-    //Creates Top lables
-    let topLabels = document.createElement('tr'); 
-    for (let i = 0; i < feilds.length; i++){
-        let labelElement = document.createElement('th');
-        if (feilds[i] == "Name"){
-            labelElement.appendChild(document.createTextNode(feilds[i]));
-        } else{
-            let thisDate = generateDay(i-1,new Time('0000'))
-            labelElement.appendChild(document.createTextNode(
-                feilds[i] + " " + (thisDate.getMonth()+1) + "/" + thisDate.getDate() + "/" + thisDate.getFullYear()
-            ));
-        }
-        topLabels.appendChild(labelElement);
-    }
-    table.appendChild(topLabels);
-
-    //Creates Employee Rows
-    genData.forEach(employee =>{
-        let empElement = document.createElement('tr');
-
-        empElement.style.background = pickColor(employee.Index);
-
-        feilds.forEach(feild =>{
-            feildElement = document.createElement('th');
-
-            if (employee[feild]) {
-                if (feild == "Name"){
-                    feildElement.appendChild(document.createTextNode(employee[feild]));
-                }else{
-                    feildElement.appendChild(document.createTextNode(outputDay(employee[feild])));
-                }
-            }
-            empElement.appendChild(feildElement);
-        });
-        table.appendChild(empElement);
-    });
-
-    //clear outputPane, attach table
-    document.getElementById("outputPane").replaceChildren();
-    document.getElementById("outputPane").appendChild(table);
-
 }
