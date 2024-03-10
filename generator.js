@@ -4,7 +4,9 @@
 */
 
 function generateTable(){
-    parseWeek();
+    unfilteredGenData = parseWeek(genData);
+    filteredGenData = filterPTO(unfilteredGenData);
+    console.log(filteredGenData);
 
     //Create table HTML object
     var table = document.createElement('table');
@@ -31,7 +33,7 @@ function generateTable(){
     table.appendChild(topLabels);
 
     //Creates Employee Rows
-    genData.forEach(employee =>{
+    filteredGenData.forEach(employee =>{
         let empElement = document.createElement('tr');
 
         feilds.forEach(feild =>{
@@ -60,8 +62,23 @@ function generateTable(){
 
 
 //Function filters out PTO requests
-function filterPTO(){
-    
+function filterPTO(data){
+    data.forEach(employee =>{
+        if (employee.PTO){
+            console.log("Filtering PTO on " + employee.Name)
+            employee.PTO.forEach(request =>{
+                const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+                days.forEach(day => {
+                    if (employee[day]){
+                        console.log(employee[day].startTime > request.start , employee[day] < request.end);
+                        
+                        if(employee[day].startTime > request.start , employee[day] < request.end){employee[day] = null; console.log('triggered null')}
+                    }
+                })
+            })
+        }
+    });
+    return data;
 }
 
 
@@ -79,13 +96,13 @@ function pickColor(index){
 
 
 //Parses Time objects into Date Objects 
-function parseWeek(){
-    genData = JSON.parse(JSON.stringify(fileData));
+function parseWeek(dataIn){
+    dataIn = JSON.parse(JSON.stringify(fileData));
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    genData.forEach(employee => {
+    dataIn.forEach(employee => {
         daysOfWeek.forEach(day => {
             if (employee[day]) {
                 employee[day].startTime = generateDay(daysOfWeek.indexOf(day), employee[day].startTime);
@@ -93,6 +110,8 @@ function parseWeek(){
             }
         });
     });
+
+    return dataIn;
 }
 
 //used to set individual shifts for PTO Fitering

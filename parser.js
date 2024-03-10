@@ -74,8 +74,8 @@ function parseFile(fileName){
                     //creates objects from the rows defined by headers
                     //parses time or PTO where appropriate
                     for (let i=0;i<headers.length;i++){
-                        if (i>1&&i<9){thisUser[headers[i]] = parseTime(element[i]);}
-                        else if (i==9){thisUser[headers[i]] = parsePTO(element[i]);}
+                        if (i>1&&i<9){thisUser[headers[i].trim()] = parseTime(element[i]);}
+                        else if (i==9){thisUser[headers[i].trim()] = parsePTO(element[i]);}
                         else {thisUser[headers[i]] = element[i];}
                     }
                     rawObjects.push(thisUser);
@@ -103,8 +103,8 @@ class Time {
         return new Time(this.hour - diffTime.hour, this.minute = diffTime.minute);
     }
     //Overloading the toString method for output
-    toString(){
-        return this.hour + ":" + this.minute;
+    toString() {
+        return this.hour.padStart(2, '0') + ":" + this.minute.padStart(2, '0') + ":00";
     }
 }
 
@@ -126,21 +126,47 @@ function parseTime(rawTime){
 
 
 
+//Stupid JS Date constructor needs ISO 8601 so ChatGPT whiped this up for me
+function convertToISODate(dateString) {
+    // Split the date string into month, day, and year components
+    const [month, day, year] = dateString.split('/').map(Number);
+
+    // Construct a new Date object using the components
+    const dateObject = new Date(year, month - 1, day);
+
+    // Convert the date object to an ISO 8601 format string
+    const isoDateString = dateObject.toISOString().split('T')[0];
+
+    return isoDateString;
+}
+
+
+
 //This function takes in a raw Date value, splits it into time and date, and creates a date object from it.
 function parseDate(rawDate,start){
+    //I was seeing \r in the rawDate value so this is a cheaty way around that
+    rawDate = rawDate.trim()
     dateAndTime = rawDate.split('<');
 
     //if start value was not passed we assume its false
     if (start == null){start = false;}
 
+    dateAndTime[0] = convertToISODate(dateAndTime[0]);
+
     if (dateAndTime.length > 1){
-        return new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
+        let output = new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
+        console.log(output);
+        return output;
     }else {
         //If there is only a date and no time we use the start value to push out the time to either the start or end of the day
         if (start){
-            return new Date(dateAndTime[0] + 'T00:00');
+            let output = new Date(dateAndTime[0] + 'T00:00');
+            console.log(output);
+            return output;
         } else {
-            return new Date(dateAndTime[0] + "T23:59:59");
+            let output = new Date(dateAndTime[0] + "T23:59:59");
+            console.log(output);
+            return output;
         }
     }
 }
@@ -149,7 +175,7 @@ function parseDate(rawDate,start){
 
 //Function takes the PTO requests and splits them into an array of start/end date objects
 function parsePTO(rawPTO){
-    if(rawPTO == ""){return;}
+    if(rawPTO.trim() == ""){return null;}
 
     var requests = rawPTO.split('&'); //split by & symbol per formatting rules
     var outputs = new Array();
