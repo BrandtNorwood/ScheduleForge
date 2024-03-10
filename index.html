@@ -9,16 +9,15 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="parser.js"></script>
+        <script src="generator.js"></script>
         <link rel="stylesheet" href="defaultLook.css">
     </head>
     <body>
 
         <ul>
-            <!--<li><button>Save</button></li>  Re-enable when Exporting is implemented-->
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
-            <li id="weekDisplay"><script>loadWeekDisplay();</script><li>
-            <!--<li style="float:right"><button>Generate</button></li>  Re-enable when editing pane is built-->
+            <li id="weekDisplay"><li>
         </ul>
 
         <div id="downloadDiv" style="padding-left: 44%; padding-top:15%;"> 
@@ -34,16 +33,23 @@
             </ul>
         </div>
 
-        <div id = "outputPane" style="display: none;">test</div>
+        <div id = "outputPane" style="display: none;"></div> <!--This is where the output will be displayed when generated-->
 
         <script>
+            //Global Variables
+            var genDate = AutoTimeSkip(new Date(Date.now())); //Stores date 
+            var fileData = new Array(); //Used to store current state of the file
+            var genData = new Array();  //Used to store current weeks data
+
+            //Loads the selected week into the navbar on load
+            loadWeekDisplay();
+
+            //Listens for a file to be uploaded on pageload
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
                 loadPage(this.files[0]);
-                generateTable();
             });
         </script>
         
 
     </body>
 </html>
- 
