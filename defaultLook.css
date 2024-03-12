@@ -51,6 +51,7 @@ table{
 
 /*This needs to be fixed before production*/
 th, td {
+    background-clip: padding-box;
     padding-bottom: 5px;
     border: 1px solid black;
     border-collapse: collapse;
