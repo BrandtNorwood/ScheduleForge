@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="parser.js"></script>
         <script src="generator.js"></script>
+        <script src="editer.js"></script>
         <link rel="stylesheet" href="defaultLook.css">
     </head>
     <body>
@@ -18,6 +19,8 @@
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
             <li id="weekDisplay"><li>
+            <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
+            <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> Generate </button></li>    
         </ul>
 
         <div id="downloadDiv" style="padding-left: 44%; padding-top:15%;"> 
@@ -31,13 +34,15 @@
                 <li><button>Add Employee</button></li>
                 <li><button>Remove Employee</button></li>
             </ul>
+
+            <div id="previewPane"></div>
         </div>
 
         <div id = "outputPane" style="display: none;"></div> <!--This is where the output will be displayed when generated-->
 
         <script>
             //Global Variables
-            var genDate = AutoTimeSkip(new Date(Date.now())); //Stores date 
+            var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
             var genData = new Array();  //Used to store current weeks data
 

@@ -80,7 +80,7 @@ function parseFile(fileName){
                     }
                     rawObjects.push(thisUser);
                 });
-                
+            
                 resolve(rawObjects);
             }
         };
@@ -155,17 +155,20 @@ function parseDate(rawDate,start){
 
     if (dateAndTime.length > 1){
         let output = new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
-        console.log(output);
+        output.setFullYear(output.getFullYear() + 100);
+        //console.log(output);
         return output;
     }else {
         //If there is only a date and no time we use the start value to push out the time to either the start or end of the day
         if (start){
             let output = new Date(dateAndTime[0] + 'T00:00');
-            console.log(output);
+            output.setFullYear(output.getFullYear() + 100); 
+            //console.log(output);
             return output;
         } else {
             let output = new Date(dateAndTime[0] + "T23:59:59");
-            console.log(output);
+            output.setFullYear(output.getFullYear() + 100);
+            //console.log(output);
             return output;
         }
     }
@@ -221,7 +224,7 @@ function loadPage(fileName){
         document.getElementById("downloadDiv").style.display="none";
         //document.getElementById("edit").style.display=""; Re-enable this pannel when its actualy built
         document.getElementById("outputPane").style.display="";
-        generateTable();
+        generateTable(genData);
 
         for (var i=0; i < fileData.length; i++){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);

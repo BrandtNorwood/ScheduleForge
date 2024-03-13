@@ -6,7 +6,6 @@
 function generateTable(){
     unfilteredGenData = parseWeek(genData);
     filteredGenData = filterPTO(unfilteredGenData);
-    console.log(filteredGenData);
 
     //Create table HTML object
     var table = document.createElement('table');
@@ -40,7 +39,8 @@ function generateTable(){
             feildElement = document.createElement('th');
 
             if (employee[feild]) {
-                feildElement.style.background = pickColor(employee.Index);
+                if(employee[feild].filtered){}
+                else {feildElement.style.background = pickColor(employee.Index);}
 
                 if (feild == "Name"){
                     feildElement.appendChild(document.createTextNode(employee[feild]));
@@ -65,14 +65,12 @@ function generateTable(){
 function filterPTO(data){
     data.forEach(employee =>{
         if (employee.PTO){
-            console.log("Filtering PTO on " + employee.Name)
             employee.PTO.forEach(request =>{
                 const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
                 days.forEach(day => {
                     if (employee[day]){
-                        console.log(employee[day].startTime > request.start , employee[day] < request.end);
                         
-                        if(employee[day].startTime > request.start , employee[day] < request.end){employee[day] = null; console.log('triggered null')}
+                        if(employee[day].startTime > request.start , employee[day].endTime < request.end){employee[day].filtered = true;}
                     }
                 })
             })
@@ -97,7 +95,8 @@ function pickColor(index){
 
 //Parses Time objects into Date Objects 
 function parseWeek(dataIn){
-    dataIn = JSON.parse(JSON.stringify(fileData));
+    dataIn = new Array();
+    fileData.forEach(entry =>{dataIn.push(entry)});
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
