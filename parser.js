@@ -21,6 +21,7 @@ function timeSkipButton(forward){
     genDate.setDate(genDate.getDate() + (forward ? 7:-7));
     loadWeekDisplay();
     generateTable();
+    loadPreview();
 }
 
 
@@ -156,19 +157,16 @@ function parseDate(rawDate,start){
     if (dateAndTime.length > 1){
         let output = new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
         output.setFullYear(output.getFullYear() + 100);
-        //console.log(output);
         return output;
     }else {
         //If there is only a date and no time we use the start value to push out the time to either the start or end of the day
         if (start){
             let output = new Date(dateAndTime[0] + 'T00:00');
             output.setFullYear(output.getFullYear() + 100); 
-            //console.log(output);
             return output;
         } else {
             let output = new Date(dateAndTime[0] + "T23:59:59");
             output.setFullYear(output.getFullYear() + 100);
-            //console.log(output);
             return output;
         }
     }
@@ -199,7 +197,7 @@ function parsePTO(rawPTO){
 
 
 
-//
+//Parses a shift object into readable text
 function outputDay(shiftObject){
     let start = shiftObject.startTime;
     let end = shiftObject.endTime;
@@ -217,17 +215,18 @@ function outputDay(shiftObject){
 //function is called when user first selects file. Loads info and opens the editor
 function loadPage(fileName){
     parseFile(fileName).then(result => {
-        fileData = result;
+        fileData = [...result];
 
         var empSelect = document.getElementById("empSelect");
 
         document.getElementById("downloadDiv").style.display="none";
         //document.getElementById("edit").style.display=""; Re-enable this pannel when its actualy built
         document.getElementById("outputPane").style.display="";
-        generateTable(genData);
+        generateTable();
 
         for (var i=0; i < fileData.length; i++){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
         }
+
     });
 }

@@ -44,7 +44,7 @@
             //Global Variables
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
-            var genData = new Array();  //Used to store current weeks data
+            //var genData = new Array();  //Used to store current weeks data
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
@@ -52,6 +52,10 @@
             //Listens for a file to be uploaded on pageload
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
                 loadPage(this.files[0]);
+            });
+
+            document.getElementById("empSelect").addEventListener("change", (event) => {
+                loadPreview(genData);
             });
         </script>
         

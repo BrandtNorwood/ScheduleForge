@@ -9,6 +9,7 @@ function loadEditor() {
     document.getElementById("genButton").style.display="";
     document.getElementById("edit").style.display="";
     document.getElementById("outputPane").style.display="none";
+    loadPreview();
 }
 
 function loadGenerator(){
@@ -20,13 +21,12 @@ function loadGenerator(){
 
 
 
-document.getElementById("empSelect").addEventListener("change", (event) => {
-    loadPreview(event.target.value);
-});
-
-
 //Loads Preveiw pane. Most of this code is stolen from the table generator
-function loadPreview(employeeSelected){
+function loadPreview(){
+    var employeeSelected = document.getElementById("empSelect").value
+    var unfilteredGenData = parseWeek(fileData);
+    var filteredGenData = filterPTO(unfilteredGenData);
+
     //Create table HTML object
     var table = document.createElement('table');
     table.setAttribute("id","table");
@@ -51,9 +51,8 @@ function loadPreview(employeeSelected){
     }
     table.appendChild(topLabels);
 
-    genData.forEach(employee =>{
-
-        if(employee.name == employeeSelected){
+    filteredGenData.forEach(employee =>{
+        if(employee.Name == employeeSelected){
 
             let empElement = document.createElement('tr');
 

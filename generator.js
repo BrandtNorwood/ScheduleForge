@@ -4,7 +4,7 @@
 */
 
 function generateTable(){
-    unfilteredGenData = parseWeek(genData);
+    unfilteredGenData = parseWeek(fileData);
     filteredGenData = filterPTO(unfilteredGenData);
 
     //Create table HTML object
@@ -94,9 +94,8 @@ function pickColor(index){
 
 
 //Parses Time objects into Date Objects 
-function parseWeek(dataIn){
-    dataIn = new Array();
-    fileData.forEach(entry =>{dataIn.push(entry)});
+function parseWeek(inputData){
+    var dataIn = deepCopy(inputData)
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -123,4 +122,27 @@ function generateDay(dayOfWeek, time){
     newDay.setSeconds(0);
 
     return newDay;
+}
+
+
+
+//Used to fix a bug with JSON deep copies and shalow copies overwriting filedata
+function deepCopy(input) {
+    if (Array.isArray(input)) {
+        return input.map(item => deepCopy(item));
+    } else if (typeof input === 'object' && input !== null) {
+        const copiedObject = {};
+        for (let key in input) {
+            if (input.hasOwnProperty(key)) {
+                if (input[key] instanceof Date) {
+                    copiedObject[key] = new Date(input[key]); // Create a new Date object
+                } else {
+                    copiedObject[key] = deepCopy(input[key]);
+                }
+            }
+        }
+        return copiedObject;
+    } else {
+        return input;
+    }
 }
