@@ -42,6 +42,8 @@ function generateTable(){
                 if(employee[feild].filtered){}
                 else {feildElement.style.background = pickColor(employee.Index);}
 
+                if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
+
                 if (feild == "Name"){
                     feildElement.appendChild(document.createTextNode(employee[feild]));
                 }else{
@@ -69,8 +71,21 @@ function filterPTO(data){
                 const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
                 days.forEach(day => {
                     if (employee[day]){
-                        
-                        if(employee[day].startTime > request.start , employee[day].endTime < request.end){employee[day].filtered = true;}
+                        //console.log(employee.Name , employee[day] , request);
+
+                        //Stack of logic for readability
+                        var startB4start = employee[day].startTime >= request.start;
+                        var endAfterEnd = employee[day].endTime <= request.end; 
+                        var startB4End = employee[day].startTime <= request.end;
+                        var startAfterStart = employee[day].startTime >= request.start;
+                        var endB4End = employee[day].endTime <= request.end;
+                        var endAfterStart = employee[day].endTime >= request.start;
+
+                        //If the request encompases the entirity of the shift we unhighlight it
+                        if(startB4start && endAfterEnd){employee[day].filtered = true;}
+                        else if (startAfterStart && startB4End && endAfterEnd){employee[day].startTime = request.end; employee[day].changed = true;}
+                        else if (endAfterStart && endB4End){employee[day].endTime = request.start; employee[day].changed = true;}
+
                     }
                 })
             })

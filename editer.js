@@ -60,7 +60,10 @@ function loadPreview(){
                 feildElement = document.createElement('th');
 
                 if (employee[feild]) {
-                    feildElement.style.background = pickColor(employee.Index);
+                    if(employee[feild].filtered){}
+                    else {feildElement.style.background = pickColor(employee.Index);}
+
+                    if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
 
                     if (feild == "Name"){
                         feildElement.appendChild(document.createTextNode(employee[feild]));
