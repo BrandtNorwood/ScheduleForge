@@ -4,7 +4,7 @@
 A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site is built around the user uploading and downloading a CSV file instead of storing data in a server so there is no transfer of sensitive data over the internet. 
 
 
-This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at <URL TBD> 
+This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/CSV_Scheduler/](url)
 
 
 ## CSV FILE FORMATTING RULES
