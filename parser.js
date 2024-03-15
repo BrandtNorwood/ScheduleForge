@@ -21,6 +21,7 @@ function timeSkipButton(forward){
     genDate.setDate(genDate.getDate() + (forward ? 7:-7));
     loadWeekDisplay();
     generateTable();
+    loadPreview();
 }
 
 
@@ -80,7 +81,7 @@ function parseFile(fileName){
                     }
                     rawObjects.push(thisUser);
                 });
-                
+            
                 resolve(rawObjects);
             }
         };
@@ -154,19 +155,13 @@ function parseDate(rawDate,start){
     dateAndTime[0] = convertToISODate(dateAndTime[0]);
 
     if (dateAndTime.length > 1){
-        let output = new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
-        console.log(output);
-        return output;
+        return new Date(dateAndTime[0] + "T" + new Time(dateAndTime[1]).toString());
     }else {
         //If there is only a date and no time we use the start value to push out the time to either the start or end of the day
         if (start){
-            let output = new Date(dateAndTime[0] + 'T00:00');
-            console.log(output);
-            return output;
+            return new Date(dateAndTime[0] + 'T00:00');
         } else {
-            let output = new Date(dateAndTime[0] + "T23:59:59");
-            console.log(output);
-            return output;
+            return new Date(dateAndTime[0] + "T23:59:59");
         }
     }
 }
@@ -185,9 +180,9 @@ function parsePTO(rawPTO){
 
         //if there is only one date present we pass it to both start and end and let the parseDate stretch the time
         if(startEnd.length > 1){
-            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[1],false)});
+            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[1],false).setSeconds(30)});
         }else{
-            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[0],false)});
+            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[0],false).setSeconds(30)});
         }
     });
 
@@ -196,7 +191,7 @@ function parsePTO(rawPTO){
 
 
 
-//
+//Parses a shift object into readable text
 function outputDay(shiftObject){
     let start = shiftObject.startTime;
     let end = shiftObject.endTime;
@@ -214,7 +209,7 @@ function outputDay(shiftObject){
 //function is called when user first selects file. Loads info and opens the editor
 function loadPage(fileName){
     parseFile(fileName).then(result => {
-        fileData = result;
+        fileData = [...result];
 
         var empSelect = document.getElementById("empSelect");
 
@@ -226,5 +221,6 @@ function loadPage(fileName){
         for (var i=0; i < fileData.length; i++){
             empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
         }
+
     });
 }

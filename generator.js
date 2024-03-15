@@ -4,9 +4,8 @@
 */
 
 function generateTable(){
-    unfilteredGenData = parseWeek(genData);
+    unfilteredGenData = parseWeek(fileData);
     filteredGenData = filterPTO(unfilteredGenData);
-    console.log(filteredGenData);
 
     //Create table HTML object
     var table = document.createElement('table');
@@ -40,7 +39,10 @@ function generateTable(){
             feildElement = document.createElement('th');
 
             if (employee[feild]) {
-                feildElement.style.background = pickColor(employee.Index);
+                if(employee[feild].filtered){}
+                else {feildElement.style.background = pickColor(employee.Index);}
+
+                if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
 
                 if (feild == "Name"){
                     feildElement.appendChild(document.createTextNode(employee[feild]));
@@ -65,14 +67,25 @@ function generateTable(){
 function filterPTO(data){
     data.forEach(employee =>{
         if (employee.PTO){
-            console.log("Filtering PTO on " + employee.Name)
             employee.PTO.forEach(request =>{
                 const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
                 days.forEach(day => {
                     if (employee[day]){
-                        console.log(employee[day].startTime > request.start , employee[day] < request.end);
-                        
-                        if(employee[day].startTime > request.start , employee[day] < request.end){employee[day] = null; console.log('triggered null')}
+                        //console.log(employee.Name , employee[day] , request);
+
+                        //Stack of logic for readability
+                        var startB4start = employee[day].startTime >= request.start;
+                        var endAfterEnd = employee[day].endTime <= request.end; 
+                        var startB4End = employee[day].startTime <= request.end;
+                        var startAfterStart = employee[day].startTime >= request.start;
+                        var endB4End = employee[day].endTime <= request.end;
+                        var endAfterStart = employee[day].endTime >= request.start;
+
+                        //If the request encompases the entirity of the shift we unhighlight it
+                        if(startB4start && endAfterEnd){employee[day].filtered = true;}
+                        else if (startAfterStart && startB4End && endAfterEnd){employee[day].startTime = request.end; employee[day].changed = true;}
+                        else if (endAfterStart && endB4End){employee[day].endTime = request.start; employee[day].changed = true;}
+
                     }
                 })
             })
@@ -96,8 +109,8 @@ function pickColor(index){
 
 
 //Parses Time objects into Date Objects 
-function parseWeek(dataIn){
-    dataIn = JSON.parse(JSON.stringify(fileData));
+function parseWeek(inputData){
+    var dataIn = deepCopy(inputData)
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -124,4 +137,27 @@ function generateDay(dayOfWeek, time){
     newDay.setSeconds(0);
 
     return newDay;
+}
+
+
+
+//Used to fix a bug with JSON deep copies and shalow copies overwriting filedata
+function deepCopy(input) {
+    if (Array.isArray(input)) {
+        return input.map(item => deepCopy(item));
+    } else if (typeof input === 'object' && input !== null) {
+        const copiedObject = {};
+        for (let key in input) {
+            if (input.hasOwnProperty(key)) {
+                if (input[key] instanceof Date) {
+                    copiedObject[key] = new Date(input[key]); // Create a new Date object
+                } else {
+                    copiedObject[key] = deepCopy(input[key]);
+                }
+            }
+        }
+        return copiedObject;
+    } else {
+        return input;
+    }
 }
