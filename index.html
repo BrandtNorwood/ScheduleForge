@@ -36,6 +36,25 @@
             </ul>
 
             <div id="previewPane"></div>
+
+            <!--Ugly stack for selecting which days and at what times someone should work-->
+            <form id="shiftEditor">
+                <div class="dayDiv"><input id="SunOn" type="checkbox"><label for="SunOn">Sunday</label>
+                    <div id="sunTimes" class="shiftDis"><input id="startSun" type="time"><input id="endSun" type="time"></div></div>
+                <div class="dayDiv"><input id="MonOn" type="checkbox"><label for="MonOn">Monday</label>
+                    <div id="monTimes" class="shiftDis"><input id="startMon" type="time"><input id="endMon" type="time"></div></div>
+                <div class="dayDiv"><input id="TueOn" type="checkbox"><label for="TueOn">Tuesday</label>
+                    <div id="tueTimes" class="shiftDis"><input id="startTue" type="time"><input id="endTue" type="time"></div></div>
+                <div class="dayDiv"><input id="WedOn" type="checkbox"><label for="WedOn">Wednesday</label>
+                    <div id="wedTimes" class="shiftDis"><input id="startWed" type="time"><input id="endWed" type="time"></div></div>
+                <div class="dayDiv"><input id="ThuOn" type="checkbox"><label for="ThuOn">Thursday</label>
+                    <div id="thuTimes" class="shiftDis"><input id="startThu" type="time"><input id="endThu" type="time"></div></div>
+                <div class="dayDiv"><input id="FriOn" type="checkbox"><label for="FriOn">Friday</label>
+                    <div id="friTimes" class="shiftDis"><input id="startFri" type="time"><input id="endFri" type="time"></div></div>   
+                <div class="dayDiv"><input id="SatOn" type="checkbox"><label for="SatOn">Saturday</label>
+                    <div id="satTimes" class="shiftDis"><input id="startSat" type="time"><input id="endSat" type="time"></div></div>
+            
+                </form>
         </div>
 
         <div id = "outputPane" style="display: none;"></div> <!--This is where the output will be displayed when generated-->

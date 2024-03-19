@@ -34,12 +34,16 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 
 * Input Sheet
-  - Allow editing current user
+  - Allow editing current schedule
   - add new PTO Requests
     - Remove ones older then one week of current date when outputing
   - Add new User
+  - Remove Current User
+  - MASSIVE UI Overhaul
 
 
-
-Why did they pay me to make this instead of purchasing something else you may ask?
-  No clue but I got paid non the less!
+The "Dev" Enviroments (where I've writen this at)
+* Starbucks
+* Atomic Coffee
+* Bedroom
+* Work (shhhh)

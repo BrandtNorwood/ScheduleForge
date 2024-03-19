@@ -1,7 +1,11 @@
 /*  File Holds functions for editing the csv file.
 
-    Niko Norwood - TBD
+    Niko Norwood - March 19 2024
 */
+//
+var selectedEmployee = new Object();
+
+
 
 //These two functions handle the tab switcher button at the top of the page
 function loadEditor() {
@@ -51,6 +55,10 @@ function loadPreview(){
     }
     table.appendChild(topLabels);
 
+    fileData.forEach(employee =>{
+        if(employee.Name == employeeSelected){selectedEmployee = employee;}
+    });
+
     filteredGenData.forEach(employee =>{
         if(employee.Name == employeeSelected){
 
@@ -74,10 +82,32 @@ function loadPreview(){
                 empElement.appendChild(feildElement);
             });
             table.appendChild(empElement);
+
+            loadTimeEditor();
         }
     });
 
     //clear outputPane, attach table
     document.getElementById("previewPane").replaceChildren();
     document.getElementById("previewPane").appendChild(table);
+}
+
+
+
+//to load times and checkboxes
+function loadTimeEditor(){  
+    let shiftEditor = document.getElementById("shiftEditor");
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    days.forEach(day => {
+        if (selectedEmployee[day]){
+            document.getElementById((day + "On")).checked = true;
+
+            console.log(selectedEmployee[day].startTime.toString());
+            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString();
+            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString();
+        } else {
+            document.getElementById((day + "On")).checked = false;
+        }
+    });
 }
