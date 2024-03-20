@@ -57,7 +57,15 @@
                 <div class="dayDiv"><input id="SatOn" type="checkbox"><label for="SatOn">Saturday</label>
                     <div id="SatTimes" class="shiftDis"><input id="startSat" type="time"><input id="endSat" type="time"></div></div>
                 
-                <input type="button" id="saveChanges" value="Save Changes" onclick="saveShiftChanges()">
+                <input type="button" value="Save Changes" onclick="saveShiftChanges()">
+            </form>
+
+            <form id="PTOEditor">
+                <h2>PTO Requests</h2>
+                <input type="button" value="Delete Request" onclick="">
+                <input type="button" value="New Request" onclick="">
+                <select id = "PTOSelect"></select>
+                
             </form>
         </div>
 
@@ -67,7 +75,6 @@
             //Global Variables
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
-            //var genData = new Array();  //Used to store current weeks data
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
@@ -77,9 +84,22 @@
                 loadPage(this.files[0]);
             });
 
+            //Reloads the page when a new Employee is selected 
             document.getElementById("empSelect").addEventListener("change", (event) => {
-                loadPreview();
+                loadPreview();//this also calls the other functions nessesary
             });
+
+            /*little Easter egg for ya :3
+
+            The "Dev" Enviroments (where I've worked on this at)
+             * Starbucks in MHD by 94
+             * Starbucks in MHD by 10
+             * Atomic Coffee
+             * Bedroom
+             * Work (shhhh)
+            
+             */
+
         </script>
         
 
