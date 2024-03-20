@@ -1,7 +1,11 @@
 /*  File Holds functions for editing the csv file.
 
-    Niko Norwood - TBD
+    Niko Norwood - March 19 2024
 */
+//
+var selectedEmployee = new Object();
+
+
 
 //These two functions handle the tab switcher button at the top of the page
 function loadEditor() {
@@ -17,6 +21,7 @@ function loadGenerator(){
     document.getElementById("genButton").style.display="none";
     document.getElementById("edit").style.display="none";
     document.getElementById("outputPane").style.display="";
+    generateTable()
 }
 
 
@@ -51,6 +56,10 @@ function loadPreview(){
     }
     table.appendChild(topLabels);
 
+    fileData.forEach(employee =>{
+        if(employee.Name == employeeSelected){selectedEmployee = employee;}
+    });
+
     filteredGenData.forEach(employee =>{
         if(employee.Name == employeeSelected){
 
@@ -74,10 +83,94 @@ function loadPreview(){
                 empElement.appendChild(feildElement);
             });
             table.appendChild(empElement);
+
+            loadTimeEditor();
         }
     });
 
     //clear outputPane, attach table
     document.getElementById("previewPane").replaceChildren();
     document.getElementById("previewPane").appendChild(table);
+}
+
+
+
+//to load times and checkboxes
+function loadTimeEditor(){  
+    let shiftEditor = document.getElementById("shiftEditor");
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    days.forEach(day => {
+        //if this day is currently scheduled
+        if (selectedEmployee[day]){
+            //Check the box for the day and fill in the time feilds
+            document.getElementById((day + "On")).checked = true;
+            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString();
+            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString();
+            
+            //makes sure the time selectors are not grayed out
+            document.getElementById((day+"Times")).classList.remove("inactive");
+        } else {
+            //Uncheck box and set time feilds to their defaults
+            document.getElementById((day + "On")).checked = false;
+            document.getElementById(("start" + day)).value = "12:00";
+            document.getElementById(("end" + day)).value = "14:00";
+
+            //Grays out the time selectors
+            document.getElementById((day+"Times")).classList.add("inactive");
+        }
+    });
+}
+
+
+
+//Updates highlighting on the weekly shift editor (called )
+function updateShiftHighlights(){
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    days.forEach(day =>{
+        if(document.getElementById((day+"On")).checked){
+            document.getElementById((day+"Times")).classList.remove("inactive");
+        } else {
+            document.getElementById((day+"Times")).classList.add("inactive");
+        }
+    });
+}
+
+
+
+//Takes times from the edit panel and populates the fileData Array
+function saveShiftChanges(){
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    days.forEach(day =>{
+        console.log(day);
+        if(document.getElementById((day+"On")).checked){
+            let startTimeSelected = convertInputToTime(document.getElementById(("start" + day)).value);
+            let endTimeSelected = convertInputToTime(document.getElementById(("end" + day)).value);
+
+            console.log(selectedEmployee)
+            selectedEmployee[day] = {startTime:startTimeSelected, endTime:endTimeSelected}
+        } else {
+            selectedEmployee[day] = null;
+        }
+    });
+
+    loadPreview();
+}
+
+
+
+
+//Chat GPT solution to turning the HTML time strings into ones I can pass to the Time constructer
+function convertInputToTime(timeString) {
+    // Extract hour and minute components
+    const [hour, minute] = timeString.split(/[:.]/).slice(0, 2);
+    
+    // Convert to integers
+    const hourInt = parseInt(hour, 10);
+    const minuteInt = parseInt(minute, 10);
+    
+    // Calculate and return the result as a string
+    return new Time(hourInt.toString().padStart(2, '0') + minuteInt.toString().padStart(2, '0'));
 }

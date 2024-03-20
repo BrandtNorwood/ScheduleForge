@@ -19,6 +19,7 @@
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
             <li id="weekDisplay"><li>
+            <li style="float:right;" id="saveButton"><button onclick=""> Save </button></li>
             <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
             <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> Generate </button></li>    
         </ul>
@@ -36,6 +37,28 @@
             </ul>
 
             <div id="previewPane"></div>
+
+            <!--Ugly stack for selecting which days and at what times someone should work-->
+            <form id="shiftEditor" onchange="updateShiftHighlights()">
+                <h2>Employee Schedule</h2>
+                
+                <div class="dayDiv"><input id="SunOn" type="checkbox"><label for="SunOn">Sunday</label>
+                    <div id="SunTimes" class="shiftDis"><input id="startSun" type="time"><input id="endSun" type="time"></div></div>
+                <div class="dayDiv"><input id="MonOn" type="checkbox"><label for="MonOn">Monday</label>
+                    <div id="MonTimes" class="shiftDis"><input id="startMon" type="time"><input id="endMon" type="time"></div></div>
+                <div class="dayDiv"><input id="TueOn" type="checkbox"><label for="TueOn">Tuesday</label>
+                    <div id="TueTimes" class="shiftDis"><input id="startTue" type="time"><input id="endTue" type="time"></div></div>
+                <div class="dayDiv"><input id="WedOn" type="checkbox"><label for="WedOn">Wednesday</label>
+                    <div id="WedTimes" class="shiftDis"><input id="startWed" type="time"><input id="endWed" type="time"></div></div>
+                <div class="dayDiv"><input id="ThuOn" type="checkbox"><label for="ThuOn">Thursday</label>
+                    <div id="ThuTimes" class="shiftDis"><input id="startThu" type="time"><input id="endThu" type="time"></div></div>
+                <div class="dayDiv"><input id="FriOn" type="checkbox"><label for="FriOn">Friday</label>
+                    <div id="FriTimes" class="shiftDis"><input id="startFri" type="time"><input id="endFri" type="time"></div></div>   
+                <div class="dayDiv"><input id="SatOn" type="checkbox"><label for="SatOn">Saturday</label>
+                    <div id="SatTimes" class="shiftDis"><input id="startSat" type="time"><input id="endSat" type="time"></div></div>
+                
+                <input type="button" id="saveChanges" value="Save Changes" onclick="saveShiftChanges()">
+            </form>
         </div>
 
         <div id = "outputPane" style="display: none;"></div> <!--This is where the output will be displayed when generated-->
