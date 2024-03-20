@@ -3,6 +3,7 @@
     --secondary: #d67933;
     --text: #121212;
     --background :#fff;
+    --grayedOut : #7f7f7f;
 }
 
 body{
@@ -24,13 +25,13 @@ li {
     float: left;
 }
 
-button {
+/*button {
     border-radius:10%;
     color:var(--text);
     background-color: var(--primary);
     display: block;
     padding: 8px;
-}
+}*/
 
 li a:hover {
     background-color: #111;
@@ -56,6 +57,30 @@ th, td {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
+#shiftEditor .inactive input{
+    background-color: var(--grayedOut);
+}
+
+
+
+.dayDiv {
+    margin-bottom: 1%;
+    display: grid;
+    grid-template-columns: auto 8% 1fr; /* Adjust the width of columns as needed */
+    align-items: center;
+}
+
+.shiftDis {
+    display: flex;
+}
+
+.shiftDis input[type="time"] {
+    margin-right: 10px; /* Adjust as needed */
+}
+
+
+
 
 @media print {
     * {

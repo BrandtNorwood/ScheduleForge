@@ -34,11 +34,12 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 
 * Input Sheet
-  - Allow editing current schedule
   - add new PTO Requests
     - Remove ones older then one week of current date when outputing
   - Add new User
   - Remove Current User
+  - Parse and Save File
+  - Shift editor resets times when you untick a day
   - MASSIVE UI Overhaul
 
 
