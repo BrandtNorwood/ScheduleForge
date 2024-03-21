@@ -58,8 +58,22 @@ th, td {
     border-collapse: collapse;
 }
 
+#shiftEditor{
+    padding: 1%;
+    border: 1px solid black;
+}
+
 #shiftEditor .inactive input{
     background-color: var(--grayedOut);
+}
+
+#PTOEditor{
+    padding: 1%;
+    border: 1px solid black;
+}
+
+#PTOSelect{
+    width: 40%;
 }
 
 

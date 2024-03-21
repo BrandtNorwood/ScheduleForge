@@ -107,8 +107,8 @@ function loadTimeEditor(){
         if (selectedEmployee[day]){
             //Check the box for the day and fill in the time feilds
             document.getElementById((day + "On")).checked = true;
-            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString();
-            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString();
+            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString().slice(0, -3);
+            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString().slice(0, -3);
             
             //makes sure the time selectors are not grayed out
             document.getElementById((day+"Times")).classList.remove("inactive");
@@ -126,7 +126,7 @@ function loadTimeEditor(){
 
 
 
-//Updates highlighting on the weekly shift editor (called )
+//Updates highlighting on the weekly shift editor (called any time a change is made in shiftEdit)
 function updateShiftHighlights(){
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -146,12 +146,10 @@ function saveShiftChanges(){
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     days.forEach(day =>{
-        console.log(day);
         if(document.getElementById((day+"On")).checked){
             let startTimeSelected = convertInputToTime(document.getElementById(("start" + day)).value);
             let endTimeSelected = convertInputToTime(document.getElementById(("end" + day)).value);
 
-            console.log(selectedEmployee)
             selectedEmployee[day] = {startTime:startTimeSelected, endTime:endTimeSelected}
         } else {
             selectedEmployee[day] = null;
@@ -180,18 +178,45 @@ function convertInputToTime(timeString) {
 
 //fills in the PTO Selector dropdown
 function populatePTOSelect(){
-    let selector = document.getElementById("PTOSelect")
+    let selector = document.getElementById("PTOSelect");
 
-    console.log(selectedEmployee);
+    selector.options.length = 0; //clear pto list
 
     if(selectedEmployee.PTO){
-        let requests = selectedEmployee.PTO;
-
-        //clear pto list
-        selector.options.length = 0;
-
-        requests.forEach(request =>{
-            selector.options[selector.options.length] = new Option(request.start + "-" + request.end);
+        //fill with requests from current user
+        selectedEmployee.PTO.forEach(request =>{
+            selector.options[selector.options.length] = new Option(request.start.toLocaleString('en-US') + " - " + request.end.toLocaleString('en-US'));
         })
+    }
+}
+
+
+
+//Fills in the date and time feilds from the selected PTO element
+function populatePTOEdit(){
+    let selectedPTO = selectedEmployee.PTO[document.getElementById("PTOSelect").selectedIndex];
+
+    //messy but the selectors are very perticular about input
+    document.getElementById("ptoStartDate").value = 
+            selectedPTO.start.getFullYear() + "-" + selectedPTO.start.getMonth().toString().padStart(2, '0') + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
+    document.getElementById("ptoStartTime").value = 
+            selectedPTO.start.getHours().toString().padStart(2, '0') + ":" + selectedPTO.start.getMinutes().toString().padStart(2, '0');
+    document.getElementById("ptoEndDate").value = 
+            selectedPTO.end.getFullYear() + "-" + selectedPTO.end.getMonth().toString().padStart(2, '0') + "-" + selectedPTO.end.getDate().toString().padStart(2, '0');
+    document.getElementById("ptoEndTime").value = 
+            selectedPTO.end.getHours().toString().padStart(2, '0') + ":" + selectedPTO.end.getMinutes().toString().padStart(2, '0');
+}
+
+
+
+function deletePTO(){
+    let selectedPTO = document.getElementById("PTOSelect").selectedIndex;
+
+    if(selectedPTO >= 0){
+        if(confirm("Delete Selected PTO Request?")){
+            selectedEmployee.PTO.splice(selectedPTO,1);
+
+            loadEditor();
+        }
     }
 }
