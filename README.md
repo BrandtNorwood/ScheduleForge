@@ -34,17 +34,13 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 
 * Input Sheet
-  - add new PTO Requests
+  - PTO Requests
+    - Format times correctly in selector
+    - start and end selectors that can be bypassed with an "one day" option
+    - time selectors can be bypassed with "all day" option
     - Remove ones older then one week of current date when outputing
   - Add new User
   - Remove Current User
   - Parse and Save File
   - Shift editor resets times when you untick a day
   - MASSIVE UI Overhaul
-
-
-The "Dev" Enviroments (where I've writen this at)
-* Starbucks
-* Atomic Coffee
-* Bedroom
-* Work (shhhh)

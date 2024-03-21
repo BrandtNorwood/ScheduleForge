@@ -81,7 +81,6 @@ function parseFile(fileName){
                     }
                     rawObjects.push(thisUser);
                 });
-            
                 resolve(rawObjects);
             }
         };
@@ -180,9 +179,9 @@ function parsePTO(rawPTO){
 
         //if there is only one date present we pass it to both start and end and let the parseDate stretch the time
         if(startEnd.length > 1){
-            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[1],false).setSeconds(30)});
+            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[1],false) });
         }else{
-            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[0],false).setSeconds(30)});
+            outputs.push({start: parseDate(startEnd[0],true),end: parseDate(startEnd[0],false) });
         }
     });
 
@@ -214,7 +213,7 @@ function loadPage(fileName){
         var empSelect = document.getElementById("empSelect");
 
         document.getElementById("downloadDiv").style.display="none";
-        //document.getElementById("edit").style.display=""; Re-enable this pannel when its actualy built
+        document.getElementById("edit").style.display="none";
         document.getElementById("outputPane").style.display="";
         generateTable();
 

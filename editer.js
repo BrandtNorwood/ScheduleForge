@@ -84,7 +84,9 @@ function loadPreview(){
             });
             table.appendChild(empElement);
 
+            //Reloads Page Elements
             loadTimeEditor();
+            populatePTOSelect();
         }
     });
 
@@ -161,7 +163,6 @@ function saveShiftChanges(){
 
 
 
-
 //Chat GPT solution to turning the HTML time strings into ones I can pass to the Time constructer
 function convertInputToTime(timeString) {
     // Extract hour and minute components
@@ -173,4 +174,24 @@ function convertInputToTime(timeString) {
     
     // Calculate and return the result as a string
     return new Time(hourInt.toString().padStart(2, '0') + minuteInt.toString().padStart(2, '0'));
+}
+
+
+
+//fills in the PTO Selector dropdown
+function populatePTOSelect(){
+    let selector = document.getElementById("PTOSelect")
+
+    console.log(selectedEmployee);
+
+    if(selectedEmployee.PTO){
+        let requests = selectedEmployee.PTO;
+
+        //clear pto list
+        selector.options.length = 0;
+
+        requests.forEach(request =>{
+            selector.options[selector.options.length] = new Option(request.start + "-" + request.end);
+        })
+    }
 }
