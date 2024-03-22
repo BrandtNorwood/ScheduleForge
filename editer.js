@@ -13,6 +13,7 @@ function loadEditor() {
     document.getElementById("genButton").style.display="";
     document.getElementById("edit").style.display="";
     document.getElementById("outputPane").style.display="none";
+    clearPTOEdit();
     loadPreview();
 }
 
@@ -147,8 +148,8 @@ function saveShiftChanges(){
 
     days.forEach(day =>{
         if(document.getElementById((day+"On")).checked){
-            let startTimeSelected = convertInputToTime(document.getElementById(("start" + day)).value);
-            let endTimeSelected = convertInputToTime(document.getElementById(("end" + day)).value);
+            let startTimeSelected = convertFeildToTime(document.getElementById(("start" + day)).value);
+            let endTimeSelected = convertFeildToTime(document.getElementById(("end" + day)).value);
 
             selectedEmployee[day] = {startTime:startTimeSelected, endTime:endTimeSelected}
         } else {
@@ -162,7 +163,7 @@ function saveShiftChanges(){
 
 
 //Chat GPT solution to turning the HTML time strings into ones I can pass to the Time constructer
-function convertInputToTime(timeString) {
+function convertFeildToTime(timeString) {
     // Extract hour and minute components
     const [hour, minute] = timeString.split(/[:.]/).slice(0, 2);
     
@@ -173,6 +174,14 @@ function convertInputToTime(timeString) {
     // Calculate and return the result as a string
     return new Time(hourInt.toString().padStart(2, '0') + minuteInt.toString().padStart(2, '0'));
 }
+
+
+
+//takes the raw data from PTO edit inputs and returns a Date object
+function convertFeildsToDate(dateString, timeString){
+    return new Date (dateString + "T" + convertFeildToTime(timeString).toString());
+}
+
 
 
 
@@ -198,17 +207,18 @@ function populatePTOEdit(){
 
     //messy but the selectors are very perticular about input
     document.getElementById("ptoStartDate").value = 
-            selectedPTO.start.getFullYear() + "-" + selectedPTO.start.getMonth().toString().padStart(2, '0') + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
+            selectedPTO.start.getFullYear() + "-" + (selectedPTO.start.getMonth() + 1).toString().padStart(2, '0') + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
     document.getElementById("ptoStartTime").value = 
             selectedPTO.start.getHours().toString().padStart(2, '0') + ":" + selectedPTO.start.getMinutes().toString().padStart(2, '0');
     document.getElementById("ptoEndDate").value = 
-            selectedPTO.end.getFullYear() + "-" + selectedPTO.end.getMonth().toString().padStart(2, '0') + "-" + selectedPTO.end.getDate().toString().padStart(2, '0');
+            selectedPTO.end.getFullYear() + "-" + (selectedPTO.end.getMonth() + 1).toString().padStart(2, '0') + "-" + selectedPTO.end.getDate().toString().padStart(2, '0');
     document.getElementById("ptoEndTime").value = 
             selectedPTO.end.getHours().toString().padStart(2, '0') + ":" + selectedPTO.end.getMinutes().toString().padStart(2, '0');
 }
 
 
 
+//Prompts user and removes the PTO element thats selected
 function deletePTO(){
     let selectedPTO = document.getElementById("PTOSelect").selectedIndex;
 
@@ -219,4 +229,34 @@ function deletePTO(){
             loadEditor();
         }
     }
+}
+
+
+
+//Takes in inputs and pushes them to the selected PTO element
+function savePTOChange(){
+    //get all the input feilds
+    let selectedPTO = document.getElementById("PTOSelect").selectedIndex;
+    let newStartTime = document.getElementById("ptoStartTime").value;
+    let newStartDate = document.getElementById("ptoStartDate").value
+    let newEndTime = document.getElementById("ptoEndTime").value;
+    let newEndDate = document.getElementById("ptoEndDate").value;
+
+    //parse them into Date Objects
+    let newStart = convertFeildsToDate(newStartDate,newStartTime);
+    let newEnd = convertFeildsToDate(newEndDate, newEndTime);
+
+    //assign the Date objects to selected PTO
+    selectedEmployee.PTO[selectedPTO].start = newStart;
+    selectedEmployee.PTO[selectedPTO].end = newEnd;
+
+    loadEditor();//reload to show result
+}
+
+function clearPTOEdit(){
+    document.getElementById("PTOSelect").selectedIndex = -1;
+    document.getElementById("ptoStartTime").value = "";
+    document.getElementById("ptoStartDate").value = "";
+    document.getElementById("ptoEndTime").value = "";
+    document.getElementById("ptoEndDate").value = "";
 }

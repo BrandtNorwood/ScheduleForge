@@ -37,10 +37,9 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 * Input Sheet
   - PTO Requests
-    - Implement date and time editing
-    - Implement "All Day" bypass
-    - Remove ones older then one week of current date when outputing
-    - Add new Requests
+    * Implement "All Day" bypass
+    * Remove ones older then one week of current date when outputing
+    * Add new Requests
   - Add new User
   - Remove Current User
   - Parse and Save File
