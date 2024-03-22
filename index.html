@@ -31,7 +31,7 @@
 
         <div id="edit" style="display: none;">
             <ul style="background-color: var(--secondary);">
-                <li><select id="empSelect" style="margin: 5%;"></select></li>
+                <li><select id="empSelect"></select></li>
                 <li><button>Add Employee</button></li>
                 <li><button>Remove Employee</button></li>
             </ul>
@@ -40,8 +40,10 @@
 
             <!--Ugly stack for selecting which days and at what times someone should work-->
             <form id="shiftEditor" onchange="updateShiftHighlights()">
-                <h2>Employee Schedule</h2>
-                
+                <h2>Employee</h2>
+
+                <input type="text" id="nameFeild">
+
                 <div class="dayDiv"><input id="SunOn" type="checkbox"><label for="SunOn">Sunday</label>
                     <div id="SunTimes" class="shiftDis"><input id="startSun" type="time"><a>-</a><input id="endSun" type="time"></div></div>
                 <div class="dayDiv"><input id="MonOn" type="checkbox"><label for="MonOn">Monday</label>
@@ -63,8 +65,8 @@
             <form id="PTOEditor">
                 <h2>PTO Requests</h2>
                 <div>
+                    <input type="button" value="New Request" onclick="newPTORequest()">
                     <input type="button" value="Delete Request" onclick="deletePTO()">
-                    <input type="button" value="New Request" onclick="">
                 </div>
                 <select id = "PTOSelect"  multiple size="4"></select>
                 <div>
@@ -107,7 +109,7 @@
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 x2
+             * Starbucks in MHD by 94 x3
              * Starbucks in MHD by 10
              * Atomic Coffee
              * Bedroom (uncountable)

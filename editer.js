@@ -2,21 +2,12 @@
 
     Niko Norwood - March 19 2024
 */
-//
-var selectedEmployee = new Object();
+//used to store ref to employee from fileData Array
+var selectedEmployee = {};
 
 
 
 //These two functions handle the tab switcher button at the top of the page
-function loadEditor() {
-    document.getElementById("editButton").style.display="none";
-    document.getElementById("genButton").style.display="";
-    document.getElementById("edit").style.display="";
-    document.getElementById("outputPane").style.display="none";
-    clearPTOEdit();
-    loadPreview();
-}
-
 function loadGenerator(){
     document.getElementById("editButton").style.display="";
     document.getElementById("genButton").style.display="none";
@@ -27,9 +18,24 @@ function loadGenerator(){
 
 
 
+//called whenever a change is saved as well as when the tab is opened
+function loadEditor() {
+    document.getElementById("editButton").style.display="none";
+    document.getElementById("genButton").style.display="";
+    document.getElementById("edit").style.display="";
+    document.getElementById("outputPane").style.display="none";
+    clearPTOEdit();
+    loadPreview();
+    loadEMPSelect();
+}
+
+
+
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(){
-    var employeeSelected = document.getElementById("empSelect").value
+    var employeeSelected = document.getElementById("empSelect").selectedIndex
+    if(employeeSelected < 0) {employeeSelected = 0;}
+
     var unfilteredGenData = parseWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
 
@@ -57,39 +63,34 @@ function loadPreview(){
     }
     table.appendChild(topLabels);
 
-    fileData.forEach(employee =>{
-        if(employee.Name == employeeSelected){selectedEmployee = employee;}
-    });
+    selectedEmployee = fileData[employeeSelected];
 
-    filteredGenData.forEach(employee =>{
-        if(employee.Name == employeeSelected){
+    let employee = filteredGenData[employeeSelected];
 
-            let empElement = document.createElement('tr');
+    let empElement = document.createElement('tr');
 
-            feilds.forEach(feild =>{
-                feildElement = document.createElement('th');
+    feilds.forEach(feild =>{
+        feildElement = document.createElement('th');
 
-                if (employee[feild]) {
-                    if(employee[feild].filtered){}
-                    else {feildElement.style.background = pickColor(employee.Index);}
+        if (employee[feild]) {
+            if(employee[feild].filtered){}
+            else {feildElement.style.background = pickColor(employee.Index);}
 
-                    if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
+            if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
 
-                    if (feild == "Name"){
-                        feildElement.appendChild(document.createTextNode(employee[feild]));
-                    }else{
-                        feildElement.appendChild(document.createTextNode(outputDay(employee[feild])));
-                    }
-                }
-                empElement.appendChild(feildElement);
-            });
-            table.appendChild(empElement);
-
-            //Reloads Page Elements
-            loadTimeEditor();
-            populatePTOSelect();
+            if (feild == "Name"){
+                feildElement.appendChild(document.createTextNode(employee[feild]));
+            }else{
+                feildElement.appendChild(document.createTextNode(outputDay(employee[feild])));
+            }
         }
+        empElement.appendChild(feildElement);
     });
+    table.appendChild(empElement);
+
+    //Reloads Page Elements
+    loadTimeEditor();
+    populatePTOSelect();
 
     //clear outputPane, attach table
     document.getElementById("previewPane").replaceChildren();
@@ -100,9 +101,12 @@ function loadPreview(){
 
 //to load times and checkboxes
 function loadTimeEditor(){  
-    let shiftEditor = document.getElementById("shiftEditor");
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
+    //Populates name feild
+    document.getElementById("nameFeild").value = selectedEmployee.Name;
+
+    //populates time editors
     days.forEach(day => {
         //if this day is currently scheduled
         if (selectedEmployee[day]){
@@ -116,8 +120,8 @@ function loadTimeEditor(){
         } else {
             //Uncheck box and set time feilds to their defaults
             document.getElementById((day + "On")).checked = false;
-            document.getElementById(("start" + day)).value = "12:00";
-            document.getElementById(("end" + day)).value = "14:00";
+            document.getElementById(("start" + day)).value = "";
+            document.getElementById(("end" + day)).value = "";
 
             //Grays out the time selectors
             document.getElementById((day+"Times")).classList.add("inactive");
@@ -145,6 +149,14 @@ function updateShiftHighlights(){
 //Takes times from the edit panel and populates the fileData Array
 function saveShiftChanges(){
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    let nameFeild = document.getElementById("nameFeild").value;
+
+    //Handles renaming employees 
+    if (nameFeild != selectedEmployee.Name){
+        if(confirm(`Change name from ${selectedEmployee.Name} to ${nameFeild}?`)){
+            selectedEmployee.Name = nameFeild;
+        }
+    }
 
     days.forEach(day =>{
         if(document.getElementById((day+"On")).checked){
@@ -157,7 +169,9 @@ function saveShiftChanges(){
         }
     });
 
+    //Maybe swap this for loading the whole page?
     loadPreview();
+    loadEMPSelect();
 }
 
 
@@ -246,17 +260,63 @@ function savePTOChange(){
     let newStart = convertFeildsToDate(newStartDate,newStartTime);
     let newEnd = convertFeildsToDate(newEndDate, newEndTime);
 
-    //assign the Date objects to selected PTO
-    selectedEmployee.PTO[selectedPTO].start = newStart;
-    selectedEmployee.PTO[selectedPTO].end = newEnd;
+    if (newStart <= newEnd){
+        //assign the Date objects to selected PTO
+        selectedEmployee.PTO[selectedPTO].start = newStart;
+        selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-    loadEditor();//reload to show result
+        loadEditor();//reload to show result
+    } else {
+        alert("Start must be after End!")
+    }
 }
 
+
+
+//Clears out the PTO request editor feilds
 function clearPTOEdit(){
     document.getElementById("PTOSelect").selectedIndex = -1;
     document.getElementById("ptoStartTime").value = "";
     document.getElementById("ptoStartDate").value = "";
     document.getElementById("ptoEndTime").value = "";
     document.getElementById("ptoEndDate").value = "";
+}
+
+
+
+//Creates new PTO request
+function newPTORequest(){
+    let now = new Date(Date.now());
+    let selector = document.getElementById("PTOSelect");
+    selector.options[selector.options.length] = new Option("New Request");
+
+    document.getElementById("PTOSelect").selectedIndex = (selector.options - 1);
+
+    document.getElementById("ptoStartTime").value = "12:00";
+    document.getElementById("ptoEndTime").value = "12:00";
+    document.getElementById("ptoStartDate").value = 
+            now.getFullYear() + "-" + (now.getMonth() + 1).toString().padStart(2, '0') + "-" + now.getDate().toString().padStart(2, '0');
+    document.getElementById("ptoEndDate").value = 
+            now.getFullYear() + "-" + (now.getMonth() + 1).toString().padStart(2, '0') + "-" + now.getDate().toString().padStart(2, '0');
+    
+    if(!selectedEmployee.PTO){selectedEmployee.PTO = new Array();}
+
+    selectedEmployee.PTO.push({start: "", end: ""});
+}
+
+
+
+//loads the employee selection menu
+function loadEMPSelect(){
+    var empSelect = document.getElementById("empSelect");
+
+    //Clears list
+    for(i = (empSelect.options.length - 1); i >= 0; i--) {
+        empSelect.remove(i);
+    }
+
+    //Populates list
+    for (var i=0; i < fileData.length; i++){
+        empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
+    }
 }
