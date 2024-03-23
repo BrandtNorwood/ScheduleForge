@@ -83,7 +83,9 @@ function filterPTO(data){
 
                         //If the request encompases the entirity of the shift we unhighlight it
                         if(startB4start && endAfterEnd){employee[day].filtered = true;}
-                        else if (startAfterStart && startB4End && endAfterEnd){employee[day].startTime = request.end; employee[day].changed = true;}
+                        //If the start of the request is after the start of the shift
+                        else if (startAfterStart && startB4End){employee[day].startTime = request.end; employee[day].changed = true;}
+                        //if the end of the request is before the end and after the start of the shift
                         else if (endAfterStart && endB4End){employee[day].endTime = request.start; employee[day].changed = true;}
 
                     }
@@ -135,6 +137,7 @@ function generateDay(dayOfWeek, time){
     newDay.setHours(time.hour);
     newDay.setMinutes(time.minute);
     newDay.setSeconds(0);
+    newDay.setMilliseconds(0);
 
     return newDay;
 }

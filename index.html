@@ -31,7 +31,7 @@
 
         <div id="edit" style="display: none;">
             <ul style="background-color: var(--secondary);">
-                <li><select id="empSelect" style="margin: 5%;"></select></li>
+                <li><select id="empSelect"></select></li>
                 <li><button>Add Employee</button></li>
                 <li><button>Remove Employee</button></li>
             </ul>
@@ -40,32 +40,44 @@
 
             <!--Ugly stack for selecting which days and at what times someone should work-->
             <form id="shiftEditor" onchange="updateShiftHighlights()">
-                <h2>Employee Schedule</h2>
-                
+                <h2>Employee</h2>
+
+                <input type="text" id="nameFeild">
+
                 <div class="dayDiv"><input id="SunOn" type="checkbox"><label for="SunOn">Sunday</label>
-                    <div id="SunTimes" class="shiftDis"><input id="startSun" type="time"><input id="endSun" type="time"></div></div>
+                    <div id="SunTimes" class="shiftDis"><input id="startSun" type="time"><a>-</a><input id="endSun" type="time"></div></div>
                 <div class="dayDiv"><input id="MonOn" type="checkbox"><label for="MonOn">Monday</label>
-                    <div id="MonTimes" class="shiftDis"><input id="startMon" type="time"><input id="endMon" type="time"></div></div>
+                    <div id="MonTimes" class="shiftDis"><input id="startMon" type="time"><a>-</a><input id="endMon" type="time"></div></div>
                 <div class="dayDiv"><input id="TueOn" type="checkbox"><label for="TueOn">Tuesday</label>
-                    <div id="TueTimes" class="shiftDis"><input id="startTue" type="time"><input id="endTue" type="time"></div></div>
+                    <div id="TueTimes" class="shiftDis"><input id="startTue" type="time"><a>-</a><input id="endTue" type="time"></div></div>
                 <div class="dayDiv"><input id="WedOn" type="checkbox"><label for="WedOn">Wednesday</label>
-                    <div id="WedTimes" class="shiftDis"><input id="startWed" type="time"><input id="endWed" type="time"></div></div>
+                    <div id="WedTimes" class="shiftDis"><input id="startWed" type="time"><a>-</a><input id="endWed" type="time"></div></div>
                 <div class="dayDiv"><input id="ThuOn" type="checkbox"><label for="ThuOn">Thursday</label>
-                    <div id="ThuTimes" class="shiftDis"><input id="startThu" type="time"><input id="endThu" type="time"></div></div>
+                    <div id="ThuTimes" class="shiftDis"><input id="startThu" type="time"><a>-</a><input id="endThu" type="time"></div></div>
                 <div class="dayDiv"><input id="FriOn" type="checkbox"><label for="FriOn">Friday</label>
-                    <div id="FriTimes" class="shiftDis"><input id="startFri" type="time"><input id="endFri" type="time"></div></div>   
+                    <div id="FriTimes" class="shiftDis"><input id="startFri" type="time"><a>-</a><input id="endFri" type="time"></div></div>   
                 <div class="dayDiv"><input id="SatOn" type="checkbox"><label for="SatOn">Saturday</label>
-                    <div id="SatTimes" class="shiftDis"><input id="startSat" type="time"><input id="endSat" type="time"></div></div>
+                    <div id="SatTimes" class="shiftDis"><input id="startSat" type="time"><a>-</a><input id="endSat" type="time"></div></div>
                 
                 <input type="button" value="Save Changes" onclick="saveShiftChanges()">
             </form>
 
             <form id="PTOEditor">
                 <h2>PTO Requests</h2>
-                <input type="button" value="Delete Request" onclick="">
-                <input type="button" value="New Request" onclick="">
-                <select id = "PTOSelect"></select>
-                
+                <div>
+                    <input type="button" value="New Request" onclick="newPTORequest()">
+                    <input type="button" value="Delete Request" onclick="deletePTO()">
+                </div>
+                <select id = "PTOSelect"  multiple size="4"></select>
+                <div>
+                    <input type="checkbox" id="allDayCheck"><label for="allDayCheck">All day</label>
+                    <div>
+                        <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
+                        <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
+                    </div>
+                </div>
+                <input type="button" value="Save Changes" onclick="savePTOChange()">
+                <input type="button" value="Clear Changes" onclick="clearPTOEdit()">
             </form>
         </div>
 
@@ -89,13 +101,18 @@
                 loadPreview();//this also calls the other functions nessesary
             });
 
+            //When PTO request is changed reload the editor
+            document.getElementById("PTOSelect").addEventListener("change", (event) => {
+                populatePTOEdit();
+            });
+
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94
+             * Starbucks in MHD by 94 x3
              * Starbucks in MHD by 10
              * Atomic Coffee
-             * Bedroom
+             * Bedroom (uncountable)
              * Work (shhhh)
             
              */

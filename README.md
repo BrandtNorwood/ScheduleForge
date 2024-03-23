@@ -27,6 +27,8 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 
 ## TODO
+* Be able to generate an empty file from scratch
+
 * Output Generation
   - Sort Shifts by start time
   - Properly parce shifts that roll into the next day
@@ -35,10 +37,9 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 * Input Sheet
   - PTO Requests
-    - Format times correctly in selector
-    - start and end selectors that can be bypassed with an "one day" option
-    - time selectors can be bypassed with "all day" option
-    - Remove ones older then one week of current date when outputing
+    * Implement "All Day" bypass
+    * Remove ones older then one week of current date when outputing
+    * Add new Requests
   - Add new User
   - Remove Current User
   - Parse and Save File

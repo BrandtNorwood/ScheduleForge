@@ -210,16 +210,9 @@ function loadPage(fileName){
     parseFile(fileName).then(result => {
         fileData = [...result];
 
-        var empSelect = document.getElementById("empSelect");
-
         document.getElementById("downloadDiv").style.display="none";
         document.getElementById("edit").style.display="none";
         document.getElementById("outputPane").style.display="";
         generateTable();
-
-        for (var i=0; i < fileData.length; i++){
-            empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
-        }
-
     });
 }
