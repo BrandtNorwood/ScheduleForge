@@ -26,7 +26,19 @@ Date without time assumes the user will be taking the whole day off.
 The Program should automaticly remove PTO requests that are older then a week from the current system time.
 
 
+### Server based file storage
+
+This project is being updated to use a server instead of only local files. The Server files can be found within schedeuleServer Folder and reqire nodeJS to funtion. This feature is currently a work in progress and I will update this document with configuration and usage details when they are avalible.
+
+
 ## TODO
+* Ability to save to JSON file
+
+* Swap primary file type to JSON while still retaining CSV compatibility.
+
+* Configure server based file retreival
+  - JSON file parsing
+
 * Be able to generate an empty file from scratch
 
 * Output Generation
@@ -42,6 +54,5 @@ The Program should automaticly remove PTO requests that are older then a week fr
     * Add new Requests
   - Add new User
   - Remove Current User
-  - Parse and Save File
   - Shift editor resets times when you untick a day
   - MASSIVE UI Overhaul
