@@ -89,9 +89,12 @@
             //Global Variables
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
+            var onlineMode = false; //if a server is found online this becomes the Auth type
+            const Url = "http://localhost:3010";//Server address
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
+            contactServer();
 
             //Listens for a file to be uploaded on pageload
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
@@ -111,7 +114,7 @@
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 x3
+             * Starbucks in MHD by 94 x4
              * Starbucks in MHD by 10
              * Atomic Coffee
              * Bedroom (uncountable)

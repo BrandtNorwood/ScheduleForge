@@ -170,23 +170,25 @@ function loadOffline(fileName){
 
 //Downloads JSON of fileData Element
 function downloadJSON(){
-    //create todays date for the filename
-    let exportDate = new Date(Date.now());
-    let formatExportDate = (exportDate.getMonth()+1) + "/" + exportDate.getDate() + "/" + exportDate.getFullYear();
+    if(!onlineMode){
+        //create todays date for the filename
+        let exportDate = new Date(Date.now());
+        let formatExportDate = (exportDate.getMonth()+1) + "/" + exportDate.getDate() + "/" + exportDate.getFullYear();
 
-    //define file
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fileData));
+        //define file
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fileData));
 
-    //use hidden HTML element to download the file
-    var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    dlAnchorElem.setAttribute("href",     dataStr     );
-    dlAnchorElem.setAttribute("download", `schedulerExport(${formatExportDate}).json`);
-    dlAnchorElem.click();
+        //use hidden HTML element to download the file
+        var dlAnchorElem = document.getElementById('downloadAnchorElem');
+        dlAnchorElem.setAttribute("href",     dataStr     );
+        dlAnchorElem.setAttribute("download", `schedulerExport(${formatExportDate}).json`);
+        dlAnchorElem.click();
+    }
 }
 
 
 
-
+//Reads file and passes it to apropriate parser
 function readAndParseFile(fileName) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -213,7 +215,7 @@ function readAndParseFile(fileName) {
 
 
 
-
+//turns CSV file into usable object
 function parseCSVFile(csvContent) {
     return new Promise((resolve, reject) => {
         //takes file output and sorts into rows
@@ -259,13 +261,11 @@ function parseCSVFile(csvContent) {
 
 
 
-
+//turns JSON file into usable object
 function parseJSON(jsonContent) {
     return new Promise((resolve, reject) => {
         //parse from JSON to array
         let jsonData = JSON.parse(jsonContent);
-
-        console.log("test")
 
         //reconstruct Date objects in the pto feilds
         jsonData.forEach(employee => {
@@ -280,4 +280,41 @@ function parseJSON(jsonContent) {
         //get outa here
         resolve(jsonData);
     });
+}
+
+
+
+//
+function getRemoteData(){
+    fetch(Url + "/file")
+    .then(response => response.text()) // Parse the response as text
+    .then(function(data) {
+        parseJSON(data).then(result=>{
+            document.getElementById("downloadDiv").style.display="none";
+            document.getElementById("edit").style.display="none";
+            document.getElementById("outputPane").style.display="";
+
+            console.log(result);
+            fileData = [...result];
+            generateTable();
+        })
+    })
+}
+
+
+
+//
+function contactServer(){
+    fetch(Url + "/status")
+    .then(response => response.text()) // Parse the response as text
+    .then(function(data) {
+        if (data == "authentication_required"){
+            onlineMode = "authOn";
+            getRemoteData();
+        }
+        else if (data == "no_authentication") {
+            onlineMode = "authOff";
+            getRemoteData();
+        }
+    })
 }

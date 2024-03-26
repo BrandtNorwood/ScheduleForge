@@ -17,8 +17,8 @@ console.log("INITIALIZING...");
 //Cross origin setup since frontend is hosted seperatly                                 (This will need to be changed for Prod)
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
     next();
 });
 
@@ -47,7 +47,38 @@ loadSuperUsers();
 
 
 //Used to send state of server and prep client
-app.get("/status", (req,res) => {res.send((authEnabled)? "authentication_required" : "no_authentication")});
+app.get("/status", (req,res) => {
+    res.send((authEnabled)? "authentication_required" : "no_authentication");
+    console.log(`Status Handed as authentication:${authEnabled}`);
+});
+
+
+
+// Sends the database.json file
+app.get("/file", (req, res) => {
+    // Read the contents of the database.json file
+    fs.readFile("database.json", (err, data) => {
+        if (err) {
+            // If there's an error reading the file, send an error response
+            console.error("Error reading file:", err);
+            res.status(500).send("Error reading file");
+        } else {
+            try {
+                // Parse the data as JSON
+                const jsonData = JSON.parse(data);
+
+                // Send the parsed JSON data as the response
+                res.setHeader('Content-Type', 'application/json');
+                res.send(jsonData);
+
+            } catch (parseError) {
+                // If there's an error parsing the JSON, send an error response
+                console.error("Error parsing JSON:", parseError);
+                res.status(500).send("Error parsing JSON");
+            }
+        }
+    });
+});
 
 
 
