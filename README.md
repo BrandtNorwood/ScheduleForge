@@ -32,12 +32,9 @@ This project is being updated to use a server instead of only local files. The S
 
 
 ## TODO
-* Ability to save to JSON file
-
-* Swap primary file type to JSON while still retaining CSV compatibility.
 
 * Configure server based file retreival
-  - JSON file parsing
+  - Check for server and fallback to offline
 
 * Be able to generate an empty file from scratch
 
