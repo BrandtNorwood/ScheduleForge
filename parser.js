@@ -38,58 +38,6 @@ function AutoTimeSkip(thisDate){
 
 
 
-//this function takes the given csv file and splits it into an array of objects
-function parseFile(fileName){
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function fileReadCompleted() {
-            if(reader.result == null) {return;};
-
-            //takes file output and sorts into rows
-            var rows = reader.result.split('\n');
-
-            //splits the rows into columns
-            var rawValues = new Array();
-            rows.forEach(element => {
-                element = element.split(',');
-
-                //only add if theres content in the rows and kill function if data is malformed
-                if(element.length == 10){
-                    rawValues.push(element);
-                } else if(element.length > 1){return;}
-            });
-
-            //quick check to make sure the CSV file contains more then the headers
-            if (rawValues.length > 1){
-
-                //pop the headers off the top of the csv
-                var headers = rawValues[0];
-                rawValues.splice(0,1);
-
-                var rawObjects = new Array();
-
-                //loops down the rows
-                rawValues.forEach(element =>{
-                    var thisUser = {};
-
-                    //creates objects from the rows defined by headers
-                    //parses time or PTO where appropriate
-                    for (let i=0;i<headers.length;i++){
-                        if (i>1&&i<9){thisUser[headers[i].trim()] = parseTime(element[i]);}
-                        else if (i==9){thisUser[headers[i].trim()] = parsePTO(element[i]);}
-                        else {thisUser[headers[i]] = element[i];}
-                    }
-                    rawObjects.push(thisUser);
-                });
-                resolve(rawObjects);
-            }
-        };
-        reader.readAsText(fileName);
-    });  
-}
-
-
-
 //DIY Time class since you cant create just a time value in JS
 class Time {
     //for when we want to pass a raw 4 char string as time
@@ -206,13 +154,130 @@ function outputDay(shiftObject){
 
 
 //function is called when user first selects file. Loads info and opens the editor
-function loadPage(fileName){
-    parseFile(fileName).then(result => {
-        fileData = [...result];
+function loadOffline(fileName){
+    document.getElementById("downloadDiv").style.display="none";
+    document.getElementById("edit").style.display="none";
+    document.getElementById("outputPane").style.display="";
 
-        document.getElementById("downloadDiv").style.display="none";
-        document.getElementById("edit").style.display="none";
-        document.getElementById("outputPane").style.display="";
+    readAndParseFile(fileName).then(result => {
+        fileData = [...result];
+        console.log(fileData)
         generateTable();
+    });
+}
+
+
+
+//Downloads JSON of fileData Element
+function downloadJSON(){
+    //create todays date for the filename
+    let exportDate = new Date(Date.now());
+    let formatExportDate = (exportDate.getMonth()+1) + "/" + exportDate.getDate() + "/" + exportDate.getFullYear();
+
+    //define file
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fileData));
+
+    //use hidden HTML element to download the file
+    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", `schedulerExport(${formatExportDate}).json`);
+    dlAnchorElem.click();
+}
+
+
+
+
+function readAndParseFile(fileName) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function fileReadCompleted() {
+            if (reader.result == null) {
+                reject(new Error("File is empty"));
+                return;
+            }
+
+            // Check if it's CSV or JSON and call the apropriate parser
+            if(fileName.type == "text/csv"){
+                parseCSVFile(reader.result)
+                    .then(resolve)
+                    .catch(reject);
+            } else if (fileName.type == "application/json"){
+                parseJSON(reader.result)
+                    .then(resolve)
+                    .catch(reject);
+            } else {console.error("Improper File Selection!");}
+        };
+        reader.readAsText(fileName);
+    });
+}
+
+
+
+
+function parseCSVFile(csvContent) {
+    return new Promise((resolve, reject) => {
+        //takes file output and sorts into rows
+        var rows = csvContent.split('\n');
+
+        //splits the rows into columns
+        var rawValues = new Array();
+        rows.forEach(element => {
+            element = element.split(',');
+
+            //only add if theres content in the rows and kill function if data is malformed
+            if(element.length == 10){
+                rawValues.push(element);
+            } else if(element.length > 1){return;}
+        });
+
+        //quick check to make sure the CSV file contains more then the headers
+        if (rawValues.length > 1){
+
+            //pop the headers off the top of the csv
+            var headers = rawValues[0];
+            rawValues.splice(0,1);
+
+            var rawObjects = new Array();
+
+            //loops down the rows
+            rawValues.forEach(element =>{
+                var thisUser = {};
+
+                //creates objects from the rows defined by headers
+                //parses time or PTO where appropriate
+                for (let i=0;i<headers.length;i++){
+                    if (i>1&&i<9){thisUser[headers[i].trim()] = parseTime(element[i]);}
+                    else if (i==9){thisUser[headers[i].trim()] = parsePTO(element[i]);}
+                    else {thisUser[headers[i]] = element[i];}
+                }
+                rawObjects.push(thisUser);
+            });
+        }
+        resolve(rawObjects);
+    });
+}
+
+
+
+
+function parseJSON(jsonContent) {
+    return new Promise((resolve, reject) => {
+        //parse from JSON to array
+        let jsonData = JSON.parse(jsonContent);
+
+        console.log("test")
+
+        //reconstruct Date objects in the pto feilds
+        jsonData.forEach(employee => {
+            if(employee.PTO){
+                employee.PTO.forEach(request =>{
+                    request.start = new Date(request.start);
+                    request.end = new Date(request.end);
+                })
+            }
+        })
+
+        //get outa here
+        resolve(jsonData);
     });
 }

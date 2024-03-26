@@ -1,1 +1,2 @@
-Niko=>badPassword
+NikoNorwood=>badPassword
+BrandtNorwood=>worsePassword

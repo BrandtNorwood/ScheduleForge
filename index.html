@@ -15,11 +15,13 @@
     </head>
     <body>
 
+        <a id="downloadAnchorElem" style="display:none"></a> <!--this is used for the download function-->
+
         <ul>
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
             <li id="weekDisplay"><li>
-            <li style="float:right;" id="saveButton"><button onclick=""> Save </button></li>
+            <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save </button></li>
             <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
             <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> Generate </button></li>    
         </ul>
@@ -93,7 +95,7 @@
 
             //Listens for a file to be uploaded on pageload
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
-                loadPage(this.files[0]);
+                loadOffline(this.files[0]);
             });
 
             //Reloads the page when a new Employee is selected 
