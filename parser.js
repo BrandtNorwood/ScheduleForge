@@ -6,11 +6,13 @@
 //Populates the week display feild
 function loadWeekDisplay(){
     var weekDisplay = document.getElementById("weekDisplay");
+    let endDate = new Date(genDate);
+    endDate.setDate(endDate.getDate() + 7);
 
     weekDisplay.replaceChildren();
     weekDisplay.appendChild(document.createTextNode(
         (genDate.getMonth()+1) + "/" + genDate.getDate() + "/" + genDate.getFullYear() + " - " +
-        (genDate.getMonth()+1) + "/" + (genDate.getDate()+7) + "/" + genDate.getFullYear()
+        (endDate.getMonth()+1) + "/" + (endDate.getDate()) + "/" + endDate.getFullYear()
     ));
 }
 
