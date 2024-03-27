@@ -1,7 +1,7 @@
 # CSV Based Schedule generator #
 *By Niko Norwood*
 
-A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site is built around the user uploading and downloading a CSV file instead of storing data in a server so there is no transfer of sensitive data over the internet. 
+A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script.
 
 
 This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/CSV_Scheduler/](url)
@@ -33,8 +33,9 @@ This project is being updated to use a server instead of only local files. The S
 
 ## TODO
 
-* Configure server based file retreival
-  - Check for server and fallback to offline
+* Server file editing
+
+* CORS config
 
 * Be able to generate an empty file from scratch
 
@@ -51,5 +52,5 @@ This project is being updated to use a server instead of only local files. The S
     * Add new Requests
   - Add new User
   - Remove Current User
-  - Shift editor resets times when you untick a day
-  - MASSIVE UI Overhaul
+
+* MASSIVE UI Overhaul
