@@ -15,11 +15,13 @@
     </head>
     <body>
 
+        <a id="downloadAnchorElem" style="display:none"></a> <!--this is used for the download function-->
+
         <ul>
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
             <li id="weekDisplay"><li>
-            <li style="float:right;" id="saveButton"><button onclick=""> Save </button></li>
+            <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save </button></li>
             <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
             <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> Generate </button></li>    
         </ul>
@@ -87,13 +89,16 @@
             //Global Variables
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
+            var onlineMode = false; //if a server is found online this becomes the Auth type
+            const Url = "http://localhost:3010";//Server address
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
+            contactServer();
 
             //Listens for a file to be uploaded on pageload
             document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
-                loadPage(this.files[0]);
+                loadOffline(this.files[0]);
             });
 
             //Reloads the page when a new Employee is selected 
@@ -109,7 +114,7 @@
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 x3
+             * Starbucks in MHD by 94 x4
              * Starbucks in MHD by 10
              * Atomic Coffee
              * Bedroom (uncountable)

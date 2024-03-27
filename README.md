@@ -1,7 +1,7 @@
 # CSV Based Schedule generator #
 *By Niko Norwood*
 
-A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site is built around the user uploading and downloading a CSV file instead of storing data in a server so there is no transfer of sensitive data over the internet. 
+A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script.
 
 
 This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/CSV_Scheduler/](url)
@@ -26,7 +26,17 @@ Date without time assumes the user will be taking the whole day off.
 The Program should automaticly remove PTO requests that are older then a week from the current system time.
 
 
+### Server based file storage
+
+This project is being updated to use a server instead of only local files. The Server files can be found within schedeuleServer Folder and reqire nodeJS to funtion. This feature is currently a work in progress and I will update this document with configuration and usage details when they are avalible.
+
+
 ## TODO
+
+* Server file editing
+
+* CORS config
+
 * Be able to generate an empty file from scratch
 
 * Output Generation
@@ -42,6 +52,5 @@ The Program should automaticly remove PTO requests that are older then a week fr
     * Add new Requests
   - Add new User
   - Remove Current User
-  - Parse and Save File
-  - Shift editor resets times when you untick a day
-  - MASSIVE UI Overhaul
+
+* MASSIVE UI Overhaul
