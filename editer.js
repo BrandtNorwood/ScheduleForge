@@ -284,6 +284,8 @@ function newPTORequest(){
 //loads the employee selection menu
 function loadEMPSelect(){
     var empSelect = document.getElementById("empSelect");
+    let currentlySelected = empSelect.selectedIndex;
+    let beforeLength = empSelect.options.length;
 
     //Clears list
     for(i = (empSelect.options.length - 1); i >= 0; i--) {
@@ -294,4 +296,6 @@ function loadEMPSelect(){
     for (var i=0; i < fileData.length; i++){
         empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
     }
+
+    if (beforeLength == empSelect.options.length){empSelect.selectedIndex = currentlySelected;}
 }
