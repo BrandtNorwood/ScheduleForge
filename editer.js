@@ -6,31 +6,6 @@
 var selectedEmployee = {};
 
 
-
-//These two functions handle the tab switcher button at the top of the page
-function loadGenerator(){
-    document.getElementById("editButton").style.display="";
-    document.getElementById("genButton").style.display="none";
-    document.getElementById("edit").style.display="none";
-    document.getElementById("outputPane").style.display="";
-    generateTable()
-}
-
-
-
-//called whenever a change is saved as well as when the tab is opened
-function loadEditor() {
-    document.getElementById("editButton").style.display="none";
-    document.getElementById("genButton").style.display="";
-    document.getElementById("edit").style.display="";
-    document.getElementById("outputPane").style.display="none";
-    clearPTOEdit();
-    loadPreview();
-    loadEMPSelect();
-}
-
-
-
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(){
     var employeeSelected = document.getElementById("empSelect").selectedIndex

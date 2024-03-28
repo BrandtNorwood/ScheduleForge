@@ -3,6 +3,34 @@
     Niko Norwood - 2/29/2024
 */
 
+//These two functions handle the tab switcher button at the top of the page
+function loadGenerator(){
+    document.getElementById("serverStatus").style.display="none";
+    document.getElementById("downloadDiv").style.display="none";
+    document.getElementById("editButton").style.display="";
+    document.getElementById("genButton").style.display="none";
+    document.getElementById("edit").style.display="none";
+    document.getElementById("outputPane").style.display="";
+    generateTable()
+}
+
+
+
+//called whenever a change is saved as well as when the tab is opened
+function loadEditor() {
+    document.getElementById("serverStatus").style.display="none";
+    document.getElementById("downloadDiv").style.display="none";
+    document.getElementById("editButton").style.display="none";
+    document.getElementById("genButton").style.display="";
+    document.getElementById("edit").style.display="";
+    document.getElementById("outputPane").style.display="none";
+    clearPTOEdit();
+    loadPreview();
+    loadEMPSelect();
+}
+
+
+
 //Populates the week display feild
 function loadWeekDisplay(){
     var weekDisplay = document.getElementById("weekDisplay");

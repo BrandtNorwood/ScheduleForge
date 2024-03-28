@@ -105,14 +105,13 @@ function parsePTO(rawPTO){
 
 //function is called when user first selects file. Loads info and opens the editor
 function loadOffline(fileName){
-    document.getElementById("downloadDiv").style.display="none";
-    document.getElementById("edit").style.display="none";
-    document.getElementById("outputPane").style.display="";
-
     readAndParseFile(fileName).then(result => {
-        fileData = [...result];
-        console.log(fileData)
-        generateTable();
+        loadGenerator();//switch tabs
+        fileData = [...result]; //copy of result
+        generateTable(); //generate the table
+    }).catch( err =>{
+        document.getElementById("fileErrorPanel").innerText = err;
+        console.log("Malformed file uploaded");
     });
 }
 
@@ -157,7 +156,10 @@ function readAndParseFile(fileName) {
                 parseJSON(reader.result)
                     .then(resolve)
                     .catch(reject);
-            } else {console.error("Improper File Selection!");}
+            } else {
+                console.error("Improper File Selection!");
+                document.getElementById("fileErrorPanel").innerText = "Improper File Type Selected!";
+            }
         };
         reader.readAsText(fileName);
     });
@@ -239,15 +241,13 @@ function getRemoteData(){
     fetch(Url + "/file")
     .then(response => response.text()) // Parse the response as text
     .then(function(data) {
-        parseJSON(data).then(result=>{
-            document.getElementById("downloadDiv").style.display="none";
-            document.getElementById("edit").style.display="none";
-            document.getElementById("outputPane").style.display="";
-
-            console.log(result);
+        parseJSON(data).then(result=>{  
+            //Once data has been received load it into fileData and parse
             fileData = [...result];
-            generateTable();
+            loadGenerator();
         })
+    }).catch(err=>{
+        console.err("Server was unable to return data! - " + err);
     })
 }
 
@@ -255,9 +255,18 @@ function getRemoteData(){
 
 //
 function contactServer(){
+    let statusFeild = document.getElementById("serverStatus");
+    statusFeild.innerText = "Connecting...";
+
+    //Attempt to get status of server
     fetch(Url + "/status")
     .then(response => response.text()) // Parse the response as text
     .then(function(data) {
+        //log that we connected
+        console.log(`Server found at ${Url} and responded with "${data}"`);
+        statusFeild.innerText = "Connected to server!"
+
+        //set authentcation status and call next function
         if (data == "authentication_required"){
             onlineMode = "authOn";
             getRemoteData();
@@ -266,5 +275,13 @@ function contactServer(){
             onlineMode = "authOff";
             getRemoteData();
         }
+        else{
+            throw "Server found but returned bad responce"
+        }
+
+
+    }).catch(err => {
+        statusFeild.innerText = "Offline mode (no server found)"
+        console.log("Page in Offline mode! " + err);
     })
 }

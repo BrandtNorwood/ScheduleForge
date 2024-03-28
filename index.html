@@ -27,9 +27,12 @@
             <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> Generate </button></li>    
         </ul>
 
+        <a id="serverStatus"></a>
+
         <div id="downloadDiv" style="padding-left: 44%; padding-top:15%;"> 
             <a>Please Select Valid .CSV file</a><br>
             <input type="file" id="fileInput" name="filename">
+            <a id="fileErrorPanel"style="display:block; margin-top:5%; color:red;"></a>
         </div>
 
         <div id="edit" style="display: none;">
