@@ -38,7 +38,7 @@ function generateTable(){
         feilds.forEach(feild =>{
             feildElement = document.createElement('th');
 
-            if (employee[feild]) {
+            if (employee[feild] && !employee[feild].inactive) {
                 if(employee[feild].filtered){}
                 else {feildElement.style.background = pickColor(employee.Index);}
 

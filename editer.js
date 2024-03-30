@@ -47,7 +47,7 @@ function loadPreview(){
     feilds.forEach(feild =>{
         feildElement = document.createElement('th');
 
-        if (employee[feild]) {
+        if (employee[feild] && !employee[feild].inactive) {
             if(employee[feild].filtered){}
             else {feildElement.style.background = pickColor(employee.Index);}
 
@@ -86,12 +86,21 @@ function loadTimeEditor(){
         //if this day is currently scheduled
         if (selectedEmployee[day]){
             //Check the box for the day and fill in the time feilds
-            document.getElementById((day + "On")).checked = true;
-            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString().slice(0, -3);
-            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString().slice(0, -3);
             
-            //makes sure the time selectors are not grayed out
-            document.getElementById((day+"Times")).classList.remove("inactive");
+            if (!selectedEmployee[day].inactive) {
+                //if the shift should be selected then check box and make sure its not grayed out
+                document.getElementById((day + "On")).checked = true;
+                document.getElementById((day+"Times")).classList.remove("inactive");
+            } else {
+                //if the shift is an old inactive one gray it out and uncheck
+                document.getElementById((day + "On")).checked = false;
+                document.getElementById((day+"Times")).classList.add("inactive");
+            }
+
+            document.getElementById(("start" + day)).value = (
+                selectedEmployee[day].startTime.hour.padStart(2, '0') + ":" + selectedEmployee[day].startTime.minute.padStart(2, '0'));
+            document.getElementById(("end" + day)).value = (
+                selectedEmployee[day].endTime.hour.padStart(2, '0') + ":" + selectedEmployee[day].endTime.minute.padStart(2, '0'));
         } else {
             //Uncheck box and set time feilds to their defaults
             document.getElementById((day + "On")).checked = false;
@@ -140,13 +149,13 @@ function saveShiftChanges(){
 
             selectedEmployee[day] = {startTime:startTimeSelected, endTime:endTimeSelected}
         } else {
-            selectedEmployee[day] = null;
+            if (selectedEmployee[day]){
+                selectedEmployee[day].inactive = true;
+            }
         }
     });
 
-    //Maybe swap this for loading the whole page?
-    loadPreview();
-    loadEMPSelect();
+    loadEditor();
 }
 
 
