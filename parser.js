@@ -132,6 +132,8 @@ function downloadJSON(){
         dlAnchorElem.setAttribute("href",     dataStr     );
         dlAnchorElem.setAttribute("download", `schedulerExport(${formatExportDate}).json`);
         dlAnchorElem.click();
+    } else {
+        console.log("Downloads are disabled on this server")
     }
 }
 
@@ -240,7 +242,7 @@ function parseJSON(jsonContent) {
 function getRemoteData() {
     return new Promise((resolve, reject) => {
         fetch(Url + "/file")
-            .then(response => response.text()) // Parse the response as text
+            .then(response => response.text()) // Parse the response as text then use coustom parser instead
             .then(function(data) {
                 parseJSON(data)
                     .then(result => {

@@ -4,6 +4,7 @@
 */
 //used to store ref to employee from fileData Array
 var selectedEmployee = {};
+var userCred = {username:"",password:""};
 
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
@@ -153,9 +154,14 @@ function saveShiftChanges(){
                 selectedEmployee[day].inactive = true;
             }
         }
-    });
+    })
 
-    getRemoteData().then(function(){loadEditor();});
+    if(onlineMode){
+        saveRemoteEmployee();
+    }
+    else{
+        loadEditor();//reload to show result
+    }
 }
 
 
@@ -249,7 +255,9 @@ function savePTOChange(){
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-        getRemoteData().then(function(){loadEditor();});//reload to show result
+        if(onlineMode){saveRemoteEmployee();}else{
+            loadEditor();//reload to show result
+        }
     } else {
         alert("Start must be after End!")
     }
@@ -313,11 +321,24 @@ function loadEMPSelect(){
 
 //Save employee to server
 function saveRemoteEmployee() {
-    if (!onlineMode){
-        if (onlneMode == "authentication_required"){
-            //check for authenticaton
-        }
-
-        //save employee to server
+    if (onlineMode == "authOn" && userCred.username.length == 0){
+        userCred.username = prompt("Enter your username:");
+        userCred.password = prompt("Enter your password:");
     }
+
+    fetch(Url + "/saveEMP",{
+        method:"POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({userCred, selectedEmployee})
+    })
+    .then(response => response.json())
+    .then(response => {
+        if(!response.authenticated){
+            alert("Username or Password was incorrect!");
+            userCred.username = "";
+            saveRemoteEmployee();
+        } else {
+            getRemoteData().then(function(){loadEditor();});
+        }
+    });
 }
