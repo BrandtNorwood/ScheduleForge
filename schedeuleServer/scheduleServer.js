@@ -12,6 +12,8 @@ const port = 3010;
 var authEnabled = false;
 var superUsers = new Array();
 
+var fileCache = new Array();
+
 console.log("INITIALIZING...");
 
 //Cross origin setup since frontend is hosted seperatly                                 (This will need to be changed for Prod)
@@ -67,6 +69,8 @@ app.get("/file", (req, res) => {
                 // Parse the data as JSON
                 const jsonData = JSON.parse(data);
 
+                console.log(jsonData.length);
+
                 // Send the parsed JSON data as the response
                 res.setHeader('Content-Type', 'application/json');
                 res.send(jsonData);
@@ -78,6 +82,10 @@ app.get("/file", (req, res) => {
             }
         }
     });
+});
+
+app.put("/saveEMP", (req,res) => {
+    //receive employee and match by index. If its not found then append it to the end of the list.
 });
 
 

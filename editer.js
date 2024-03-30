@@ -155,7 +155,7 @@ function saveShiftChanges(){
         }
     });
 
-    loadEditor();
+    getRemoteData().then(function(){loadEditor();});
 }
 
 
@@ -224,7 +224,7 @@ function deletePTO(){
         if(confirm("Delete Selected PTO Request?")){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
-            loadEditor();
+            getRemoteData().then(function(){loadEditor();});
         }
     }
 }
@@ -249,7 +249,7 @@ function savePTOChange(){
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-        loadEditor();//reload to show result
+        getRemoteData().then(function(){loadEditor();});//reload to show result
     } else {
         alert("Start must be after End!")
     }
@@ -307,4 +307,17 @@ function loadEMPSelect(){
     }
 
     if (beforeLength == empSelect.options.length){empSelect.selectedIndex = currentlySelected;}
+}
+
+
+
+//Save employee to server
+function saveRemoteEmployee() {
+    if (!onlineMode){
+        if (onlneMode == "authentication_required"){
+            //check for authenticaton
+        }
+
+        //save employee to server
+    }
 }

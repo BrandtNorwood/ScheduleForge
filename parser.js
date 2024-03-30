@@ -236,24 +236,32 @@ function parseJSON(jsonContent) {
 
 
 
-//
-function getRemoteData(){
-    fetch(Url + "/file")
-    .then(response => response.text()) // Parse the response as text
-    .then(function(data) {
-        parseJSON(data).then(result=>{  
-            //Once data has been received load it into fileData and parse
-            fileData = [...result];
-            loadGenerator();
-        })
-    }).catch(err=>{
-        console.err("Server was unable to return data! - " + err);
-    })
+//retreives and parses the data from a remote server
+function getRemoteData() {
+    return new Promise((resolve, reject) => {
+        fetch(Url + "/file")
+            .then(response => response.text()) // Parse the response as text
+            .then(function(data) {
+                parseJSON(data)
+                    .then(result => {
+                        // Once data has been received, load it into fileData and parse
+                        fileData = [...result];
+                        resolve(fileData); // Resolve the promise with fileData
+                    })
+                    .catch(err => {
+                        reject("Error parsing JSON: " + err); // Reject the promise if JSON parsing fails
+                    });
+            })
+            .catch(err => {
+                reject("Server was unable to return data! - " + err); // Reject the promise if fetch fails
+            });
+    });
 }
 
 
 
-//
+
+//looks for a valid server and attempts to get a responce
 function contactServer(){
     let statusFeild = document.getElementById("serverStatus");
     statusFeild.innerText = "Connecting...";
@@ -269,11 +277,11 @@ function contactServer(){
         //set authentcation status and call next function
         if (data == "authentication_required"){
             onlineMode = "authOn";
-            getRemoteData();
+            getRemoteData().then(function(){loadGenerator();});
         }
         else if (data == "no_authentication") {
             onlineMode = "authOff";
-            getRemoteData();
+            getRemoteData().then(function(){loadGenerator()});
         }
         else{
             throw "Server found but returned bad responce"

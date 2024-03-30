@@ -11,7 +11,8 @@ function loadGenerator(){
     document.getElementById("genButton").style.display="none";
     document.getElementById("edit").style.display="none";
     document.getElementById("outputPane").style.display="";
-    generateTable()
+    
+    generateTable();
 }
 
 
@@ -24,6 +25,7 @@ function loadEditor() {
     document.getElementById("genButton").style.display="";
     document.getElementById("edit").style.display="";
     document.getElementById("outputPane").style.display="none";
+
     clearPTOEdit();
     loadPreview();
     loadEMPSelect();
