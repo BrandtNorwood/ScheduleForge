@@ -105,14 +105,13 @@ function parsePTO(rawPTO){
 
 //function is called when user first selects file. Loads info and opens the editor
 function loadOffline(fileName){
-    document.getElementById("downloadDiv").style.display="none";
-    document.getElementById("edit").style.display="none";
-    document.getElementById("outputPane").style.display="";
-
     readAndParseFile(fileName).then(result => {
-        fileData = [...result];
-        console.log(fileData)
-        generateTable();
+        loadGenerator();//switch tabs
+        fileData = [...result]; //copy of result
+        generateTable(); //generate the table
+    }).catch( err =>{
+        document.getElementById("fileErrorPanel").innerText = err;
+        console.log("Malformed file uploaded");
     });
 }
 
@@ -133,6 +132,8 @@ function downloadJSON(){
         dlAnchorElem.setAttribute("href",     dataStr     );
         dlAnchorElem.setAttribute("download", `schedulerExport(${formatExportDate}).json`);
         dlAnchorElem.click();
+    } else {
+        console.log("Downloads are disabled on this server")
     }
 }
 
@@ -157,7 +158,10 @@ function readAndParseFile(fileName) {
                 parseJSON(reader.result)
                     .then(resolve)
                     .catch(reject);
-            } else {console.error("Improper File Selection!");}
+            } else {
+                console.error("Improper File Selection!");
+                document.getElementById("fileErrorPanel").innerText = "Improper File Type Selected!";
+            }
         };
         reader.readAsText(fileName);
     });
@@ -234,37 +238,60 @@ function parseJSON(jsonContent) {
 
 
 
-//
-function getRemoteData(){
-    fetch(Url + "/file")
-    .then(response => response.text()) // Parse the response as text
-    .then(function(data) {
-        parseJSON(data).then(result=>{
-            document.getElementById("downloadDiv").style.display="none";
-            document.getElementById("edit").style.display="none";
-            document.getElementById("outputPane").style.display="";
-
-            console.log(result);
-            fileData = [...result];
-            generateTable();
-        })
-    })
+//retreives and parses the data from a remote server
+function getRemoteData() {
+    return new Promise((resolve, reject) => {
+        fetch(Url + "/file")
+            .then(response => response.text()) // Parse the response as text then use coustom parser instead
+            .then(function(data) {
+                parseJSON(data)
+                    .then(result => {
+                        // Once data has been received, load it into fileData and parse
+                        fileData = [...result];
+                        resolve(fileData); // Resolve the promise with fileData
+                    })
+                    .catch(err => {
+                        reject("Error parsing JSON: " + err); // Reject the promise if JSON parsing fails
+                    });
+            })
+            .catch(err => {
+                reject("Server was unable to return data! - " + err); // Reject the promise if fetch fails
+            });
+    });
 }
 
 
 
-//
+
+//looks for a valid server and attempts to get a responce
 function contactServer(){
+    let statusFeild = document.getElementById("serverStatus");
+    statusFeild.innerText = "Connecting...";
+
+    //Attempt to get status of server
     fetch(Url + "/status")
     .then(response => response.text()) // Parse the response as text
     .then(function(data) {
+        //log that we connected
+        console.log(`Server found at ${Url} and responded with "${data}"`);
+        statusFeild.innerText = "Connected to server!"
+
+        //set authentcation status and call next function
         if (data == "authentication_required"){
             onlineMode = "authOn";
-            getRemoteData();
+            getRemoteData().then(function(){loadGenerator();});
         }
         else if (data == "no_authentication") {
             onlineMode = "authOff";
-            getRemoteData();
+            getRemoteData().then(function(){loadGenerator()});
         }
+        else{
+            throw "Server found but returned bad responce"
+        }
+
+
+    }).catch(err => {
+        statusFeild.innerText = "Offline mode (no server found)"
+        console.log("Page in Offline mode! " + err);
     })
 }

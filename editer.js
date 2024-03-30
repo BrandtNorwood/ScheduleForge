@@ -4,31 +4,7 @@
 */
 //used to store ref to employee from fileData Array
 var selectedEmployee = {};
-
-
-
-//These two functions handle the tab switcher button at the top of the page
-function loadGenerator(){
-    document.getElementById("editButton").style.display="";
-    document.getElementById("genButton").style.display="none";
-    document.getElementById("edit").style.display="none";
-    document.getElementById("outputPane").style.display="";
-    generateTable()
-}
-
-
-
-//called whenever a change is saved as well as when the tab is opened
-function loadEditor() {
-    document.getElementById("editButton").style.display="none";
-    document.getElementById("genButton").style.display="";
-    document.getElementById("edit").style.display="";
-    document.getElementById("outputPane").style.display="none";
-    clearPTOEdit();
-    loadPreview();
-    loadEMPSelect();
-}
-
+var userCred = {username:"",password:""};
 
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
@@ -72,7 +48,7 @@ function loadPreview(){
     feilds.forEach(feild =>{
         feildElement = document.createElement('th');
 
-        if (employee[feild]) {
+        if (employee[feild] && !employee[feild].inactive) {
             if(employee[feild].filtered){}
             else {feildElement.style.background = pickColor(employee.Index);}
 
@@ -111,12 +87,21 @@ function loadTimeEditor(){
         //if this day is currently scheduled
         if (selectedEmployee[day]){
             //Check the box for the day and fill in the time feilds
-            document.getElementById((day + "On")).checked = true;
-            document.getElementById(("start" + day)).value = selectedEmployee[day].startTime.toString().slice(0, -3);
-            document.getElementById(("end" + day)).value = selectedEmployee[day].endTime.toString().slice(0, -3);
             
-            //makes sure the time selectors are not grayed out
-            document.getElementById((day+"Times")).classList.remove("inactive");
+            if (!selectedEmployee[day].inactive) {
+                //if the shift should be selected then check box and make sure its not grayed out
+                document.getElementById((day + "On")).checked = true;
+                document.getElementById((day+"Times")).classList.remove("inactive");
+            } else {
+                //if the shift is an old inactive one gray it out and uncheck
+                document.getElementById((day + "On")).checked = false;
+                document.getElementById((day+"Times")).classList.add("inactive");
+            }
+
+            document.getElementById(("start" + day)).value = (
+                selectedEmployee[day].startTime.hour.padStart(2, '0') + ":" + selectedEmployee[day].startTime.minute.padStart(2, '0'));
+            document.getElementById(("end" + day)).value = (
+                selectedEmployee[day].endTime.hour.padStart(2, '0') + ":" + selectedEmployee[day].endTime.minute.padStart(2, '0'));
         } else {
             //Uncheck box and set time feilds to their defaults
             document.getElementById((day + "On")).checked = false;
@@ -165,13 +150,18 @@ function saveShiftChanges(){
 
             selectedEmployee[day] = {startTime:startTimeSelected, endTime:endTimeSelected}
         } else {
-            selectedEmployee[day] = null;
+            if (selectedEmployee[day]){
+                selectedEmployee[day].inactive = true;
+            }
         }
-    });
+    })
 
-    //Maybe swap this for loading the whole page?
-    loadPreview();
-    loadEMPSelect();
+    if(onlineMode){
+        saveRemoteEmployee();
+    }
+    else{
+        loadEditor();//reload to show result
+    }
 }
 
 
@@ -240,7 +230,7 @@ function deletePTO(){
         if(confirm("Delete Selected PTO Request?")){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
-            loadEditor();
+            getRemoteData().then(function(){loadEditor();});
         }
     }
 }
@@ -265,7 +255,9 @@ function savePTOChange(){
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-        loadEditor();//reload to show result
+        if(onlineMode){saveRemoteEmployee();}else{
+            loadEditor();//reload to show result
+        }
     } else {
         alert("Start must be after End!")
     }
@@ -309,6 +301,8 @@ function newPTORequest(){
 //loads the employee selection menu
 function loadEMPSelect(){
     var empSelect = document.getElementById("empSelect");
+    let currentlySelected = empSelect.selectedIndex;
+    let beforeLength = empSelect.options.length;
 
     //Clears list
     for(i = (empSelect.options.length - 1); i >= 0; i--) {
@@ -319,4 +313,32 @@ function loadEMPSelect(){
     for (var i=0; i < fileData.length; i++){
         empSelect.options[empSelect.options.length] = new Option(fileData[i].Name);
     }
+
+    if (beforeLength == empSelect.options.length){empSelect.selectedIndex = currentlySelected;}
+}
+
+
+
+//Save employee to server
+function saveRemoteEmployee() {
+    if (onlineMode == "authOn" && userCred.username.length == 0){
+        userCred.username = prompt("Enter your username:");
+        userCred.password = prompt("Enter your password:");
+    }
+
+    fetch(Url + "/saveEMP",{
+        method:"POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({userCred, selectedEmployee})
+    })
+    .then(response => response.json())
+    .then(response => {
+        if(!response.authenticated){
+            alert("Username or Password was incorrect!");
+            userCred.username = "";
+            saveRemoteEmployee();
+        } else {
+            getRemoteData().then(function(){loadEditor();});
+        }
+    });
 }
