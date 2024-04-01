@@ -74,6 +74,8 @@ serverOutput("\n\n-----Schedule Forge Server v0.1-----\n");
 serverOutput("INITIALIZING...");
 serverOutput(logMode? "Log loaded!" : "Log failed! No log will be created");
 
+
+
 //get formatted datetime (stole this from Hangerlog)
 function getTime(){
     const now = new Date(Date.now());
@@ -154,38 +156,54 @@ app.get("/file", (req, res) => {
 app.post("/saveEMP", (req,res) => {
     let user = req.body.userCred
     let selectedEmployee = req.body.selectedEmployee;
-    let authenticated = false
+    let authenticated = authenticateUser(user);
 
     updateFileCache();
 
-    if (authEnabled){
-        superUsers.forEach(thisUser => {
-            if (user.username == thisUser.username){
-                if (user.password == thisUser.password){
-                    authenticated = true;
-                }
-            }
-        })
-    } else { authenticated = true;}
-
     //receive employee and match by index. If its not found then append it to the end of the list.
+    if(authenticated){
+        let employeeExists = false;
+        fileCache.forEach((employee, index) => {
+            if (selectedEmployee.Index === employee.Index){
+                fileCache[index] = selectedEmployee; // Update the element in fileCache
+                employeeExists = true; //Mark that a change has been made and no new employee needs to be created
+            }
+        });    
 
-    let employeeExists = false;
-    fileCache.forEach((employee, index) => {
-        if (selectedEmployee.Index === employee.Index){
-            fileCache[index] = selectedEmployee; // Update the element in fileCache
-            employeeExists = true; //Mark that a change has been made and no new employee needs to be created
+        if(!employeeExists){
+            fileCache.push(selectedEmployee);
         }
-    });    
 
-    if(!employeeExists){
-        fileCache.push(selectedEmployee);
+        saveFileCache();
     }
 
-    saveFileCache();
-
-    res.send({authenticated,status:"received"});
+    res.send({authenticated,status:(authenticated)?"received":"rejected"});
 });
+
+
+
+//
+app.delete("/removeEMP", (req,res) => {
+    let user = req.body.userCred
+    let selectedEmployee = req.body.selectedEmployee;
+    let authenticated = authenticateUser(user);
+    let status = "rejected";
+
+    updateFileCache();
+
+    if(authenticated){
+        const index = fileCache.findIndex(employee => employee.Index === selectedEmployee.Index);
+        if (index > -1) {
+            debugOutput(`Removed employee ${selectedEmployee.Name}`);
+            fileCache.splice(index, 1);
+
+            saveFileCache();
+            status = "received"
+        }
+    }
+
+    res.send({authenticated,status});
+})
 
 
 
@@ -199,6 +217,25 @@ process.on('exit', () => {
     logger.close();
 });
 
+
+
+
+//
+function authenticateUser(user){
+    let authenticated = false;
+
+    if (authEnabled){
+        superUsers.forEach(thisUser => {
+            if (user.username == thisUser.username){
+                if (user.password == thisUser.password){
+                    authenticated = true;
+                }
+            }
+        })
+    } else { authenticated = true;}
+
+    return authenticated;
+}
 
 
 

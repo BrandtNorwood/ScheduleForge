@@ -205,6 +205,43 @@ function populatePTOSelect(){
 
 
 
+//
+function deleteEmployee(){
+    if (confirm(`Are you sure you want to remove ${selectedEmployee.Name}`)){
+        if (onlineMode){
+            if (onlineMode == "authOn" && userCred.username.length == 0){
+                userCred.username = prompt("Enter your username:");
+                userCred.password = prompt("Enter your password:");
+            }
+        
+            fetch(Url + "/removeEMP",{
+                method:"DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({userCred, selectedEmployee})
+            }) 
+            .then(response => response.json())
+            .then(response => {
+                if(response.authenticated){
+                    getRemoteData().then(function(){loadEditor();});
+                } else {
+                    alert("Username or Password was incorrect!");
+                    userCred.username = "";
+                    saveRemoteEmployee();
+                }
+            });
+
+        }else{
+            //If in offline mode simply remove the employee from the array
+            let index = fileData.indexOf(selectedEmployee);
+            fileData.splice(index, 1);
+
+            loadEditor();
+        }
+    }
+}
+
+
+
 //Fills in the date and time feilds from the selected PTO element
 function populatePTOEdit(){
     let selectedPTO = selectedEmployee.PTO[document.getElementById("PTOSelect").selectedIndex];
@@ -230,7 +267,11 @@ function deletePTO(){
         if(confirm("Delete Selected PTO Request?")){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
-            getRemoteData().then(function(){loadEditor();});
+            if(onlineMode){
+                saveRemoteEmployee();
+            }else{
+                loadEditor();
+            }
         }
     }
 }
@@ -333,12 +374,13 @@ function saveRemoteEmployee() {
     })
     .then(response => response.json())
     .then(response => {
-        if(!response.authenticated){
-            alert("Username or Password was incorrect!");
-            userCred.username = "";
-            saveRemoteEmployee();
-        } else {
+        if(response.authenticated){
             getRemoteData().then(function(){loadEditor();});
+        } else {
+            if(confirm("Username or Password was incorrect!\nTry again?")){
+                userCred.username = "";
+                saveRemoteEmployee();
+            }
         }
     });
 }

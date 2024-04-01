@@ -1,11 +1,8 @@
 ## TODO
 
-* Support removing users in online mode.
-  - Client will need to send out a seperate request due to the way the current save funtion works
+* Add new User
 
 * CORS config
-
-* Server output log to a txt on a regular basis. 
 
 * Shift 'Groups'
 
@@ -19,8 +16,6 @@
 * PTO Requests
   - Implement "All Day" bypass
   - Remove ones older then one week of current date when outputing
-
-* Add new User
 
 * Be able to generate an empty file from scratch
 
