@@ -1,6 +1,12 @@
-/*  NodeJs script to function as a server for web based scheduling application
+/*  Schedule Server V0.1
 
-    Niko Norwood - 03/24/2024
+    NodeJs script to function as a server for web based scheduling application
+
+    Dependancies
+        * NodeJS
+        * Express
+
+    Created by Niko Norwood on 03/24/2024
 */
 
 
