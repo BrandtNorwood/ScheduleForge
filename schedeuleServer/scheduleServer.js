@@ -89,7 +89,7 @@ function getTime(){
 //Checks if database.json exists and updates fileCache
 updateFileCache().then(output => {
     if(fileCache.length > 0) {  //anything other then empty should be good for now
-        serverOutput(`\nData file found\n--Loaded ${fileCache.length} lines\n`);
+        serverOutput(`Data file found\n--Loaded ${fileCache.length} lines\n`);
     }
     else {
         throw new Error("--Data file missing!--\nname should be database.json");
