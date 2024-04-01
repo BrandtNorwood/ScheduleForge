@@ -14,7 +14,8 @@ var superUsers = new Array();
 
 var fileCache = new Array();
 
-console.log("INITIALIZING...");
+const debugMode = true;
+var logMode = false;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -29,10 +30,58 @@ app.use((req, res, next) => {
 
 
 
+//This class and its functions are for logging output to the serverLog.txt
+class Logger {
+    constructor(filePath, flushInterval = 1000) {
+        this.filePath = filePath;
+        this.flushInterval = flushInterval;
+        this.logQueue = [];
+        this.timer = setInterval(() => this.flushQueue(), this.flushInterval);
+    }
+
+    log(message) {
+        this.logQueue.push(message);
+    }
+
+    flushQueue() {
+        if (this.logQueue.length === 0) return;
+
+        const messages = this.logQueue.join('\n') + '\n';
+        fs.appendFile(this.filePath, messages, (err) => {
+        if (err) {
+            logMode=false;
+            console.error('Error writing to log file:', err);
+        } else {
+            this.logQueue = [];
+        }
+        });
+    }
+
+    close() {
+        clearInterval(this.timer);
+        this.flushQueue();
+    }
+}
+const logger = new Logger('serverLog.txt' , 2000); //Filepath, flush interval
+
+serverOutput("\n\n-----Schedule Forge Server v0.1-----\n");
+serverOutput("INITIALIZING...");
+serverOutput(logMode? "Log loaded!" : "Log failed! No log will be created");
+
+//get formatted datetime (stole this from Hangerlog)
+function getTime(){
+    const now = new Date(Date.now());
+    const formattedDateTime = now.toISOString().slice(0, 19).replace('T', ' ');
+  
+    return formattedDateTime;
+}  
+
+
+
 //Checks if database.json exists and updates fileCache
 updateFileCache().then(output => {
     if(fileCache.length > 0) {  //anything other then empty should be good for now
-        console.log(`\nData file found\n--Loaded ${fileCache.length} lines\n`);
+        serverOutput(`\nData file found\n--Loaded ${fileCache.length} lines\n`);
     }
     else {
         throw new Error("--Data file missing!--\nname should be database.json");
@@ -41,11 +90,25 @@ updateFileCache().then(output => {
 
 
 
+//This pair of functions is an easy way to cleanup and standardize output
+function serverOutput(message) {
+    console.log(getTime() + "> " + message);
+    if (logMode){logger.log(getTime() + "> " + message);}
+}
+
+function debugOutput(message) {
+    if (debugMode){
+        serverOutput(message);
+    }
+}
+
+
+
 //Check for authentication file and load values if found
 function loadSuperUsers(){
     try {
         const data = fs.readFileSync('superUsers.txt', 'utf8');
-        console.log('\nUsing Athentication');
+        serverOutput('Using Athentication\n');
         authEnabled = true;
         let userArray = data.split('\n');
         userArray.forEach(user => {
@@ -54,9 +117,9 @@ function loadSuperUsers(){
             superUsers.push({username:username,password:password})
         });
 
-        console.log(`--Found ${superUsers.length} authorized users\n`);
+        serverOutput(`--Found ${superUsers.length} authorized users\n`);
     } catch (err) {
-        console.error('\nNo Authentication is enabled on this server!\n');
+        console.error('No Authentication is enabled on this server!\n');
     }
 }
 loadSuperUsers();
@@ -66,7 +129,7 @@ loadSuperUsers();
 //Used to send state of server and prep client
 app.get("/status", (req,res) => {
     res.send((authEnabled)? "authentication_required" : "no_authentication");
-    console.log(`Status Handed as authentication:${authEnabled}`);                                  //console.log debug
+    debugOutput(`-Status Handed as authentication:${authEnabled}`);
 });
 
 
@@ -75,7 +138,7 @@ app.get("/status", (req,res) => {
 app.get("/file", (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     updateFileCache();
-    console.log(`Data handed off`);                                                                 //console.log debug
+    debugOutput(`Data handed off`);
     res.send(JSON.stringify(fileCache));
 });
 
@@ -121,7 +184,15 @@ app.post("/saveEMP", (req,res) => {
 
 
 //start Server
-app.listen(port, () =>{console.log(`Server Online at port ${port}`)})
+app.listen(port, () =>{serverOutput(`Server Online at port ${port}`)})
+
+
+
+// Close the logger when application exits
+process.on('exit', () => {
+    logger.close();
+});
+
 
 
 
@@ -134,9 +205,9 @@ function saveFileCache(){
         // Write the JSON string to the database.json file
         fs.writeFileSync('database.json', data);
         
-        console.log('Database file updated successfully!');                                 //console.log debug
+        debugOutput('Database file updated successfully!');
     } catch (err) {
-        console.error('Error writing to database file:', err);
+        serverOutput('!Error Writing to database file : ' , err);
     }
 }
 
@@ -167,13 +238,3 @@ function updateFileCache(){
         })
     })
 }
-
-
-/*TODO
-
-Retrieve JSON file, send to client
-
-Receive updated data, overwrite file
-
-Authentication on and off modes.
-*/
