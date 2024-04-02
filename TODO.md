@@ -26,3 +26,5 @@
 * MASSIVE UI Overhaul
 
 * Server automatic setup
+
+* Multiple databases per server?
