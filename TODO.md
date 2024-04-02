@@ -8,6 +8,8 @@
 
 * PTO notes section
 
+* PTO requests displayed at bottom of schedule
+
 * PTO overview that shows all pending PTO requests.
   - Do not display ones older then current system time
 
