@@ -2,6 +2,8 @@
 
 * Add new User
 
+* changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
+
 * CORS config
 
 * Shift 'Groups'
