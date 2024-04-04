@@ -8,8 +8,6 @@
 
 * Shift 'Groups'
 
-* PTO notes section
-
 * PTO requests displayed at bottom of schedule
 
 * PTO overview that shows all pending PTO requests.

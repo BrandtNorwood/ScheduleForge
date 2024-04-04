@@ -205,7 +205,7 @@ function populatePTOSelect(){
 
 
 
-//
+//Handles deleting employees.
 function deleteEmployee(){
     if (confirm(`Are you sure you want to remove ${selectedEmployee.Name}`)){
         if (onlineMode){
@@ -222,7 +222,11 @@ function deleteEmployee(){
             .then(response => response.json())
             .then(response => {
                 if(response.authenticated){
-                    getRemoteData().then(function(){loadEditor();});
+                    getRemoteData().then(function(){
+                        document.getElementById("empSelect").selectedIndex = -1
+                        loadEMPSelect();
+                        loadEditor();
+                    });
                 } else {
                     alert("Username or Password was incorrect!");
                     userCred.username = "";
@@ -235,6 +239,8 @@ function deleteEmployee(){
             let index = fileData.indexOf(selectedEmployee);
             fileData.splice(index, 1);
 
+            document.getElementById("empSelect").selectedIndex = -1
+            loadEMPSelect();
             loadEditor();
         }
     }
@@ -383,4 +389,25 @@ function saveRemoteEmployee() {
             }
         }
     });
+}
+
+
+
+//creates new user
+function createNewEmployee(){
+    let lastIndex = parseInt(fileData[fileData.length - 1].Index);
+    let Index = lastIndex + 1;
+
+    //construct new emp object
+    selectedEmployee = {Index: Index, Name: "New Employee", PTO: null};
+
+    //save new emp
+    if(onlineMode){
+        saveRemoteEmployee()
+    }else{
+        loadEditor();
+    }
+
+    //TODO set emp selector to new employee
+    //  This is hard because in order to get the new employee into the list it must be refreshed first.
 }
