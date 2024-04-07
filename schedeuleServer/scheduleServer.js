@@ -12,6 +12,7 @@
 
 const express = require('express');
 const app = express();
+const path = require("path")
 var fs = require("fs");
 
 const port = 3010;
@@ -94,7 +95,7 @@ updateFileCache().then(output => {
     else {
         throw new Error("--Data file missing!--\nname should be database.json");
     }
-});
+}).catch(err => {throw new Error("Data file could not be loaded " + err);});
 
 
 
@@ -260,7 +261,7 @@ function saveFileCache(){
 function updateFileCache(){
     return new Promise ((resolve,reject) => {
         // Read the contents of the database.json file
-        fs.readFile("database.json", (err, data) => {
+        fs.readFile(path.join(__dirname, "database.json"), (err, data) => {
             if (err) {
                 // If there's an error reading the file, send an error response
                 reject("Error reading file:", err);

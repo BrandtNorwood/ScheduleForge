@@ -3,6 +3,7 @@
 * Make new user selected after creation
 
 * changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
+  - This could be done by moving to an array of start-end objects with start end dates. Allows to keep most of the same datatype and parser while adding substantial functionality
 
 * CORS config
 
