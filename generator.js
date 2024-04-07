@@ -117,11 +117,18 @@ function parseWeek(inputData){
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+    //loop thru employees
     dataIn.forEach(employee => {
-        daysOfWeek.forEach(day => {
+        daysOfWeek.forEach(day => {     //loop thru days
             if (employee[day]) {
+                //pass times to a date generator
                 employee[day].startTime = generateDay(daysOfWeek.indexOf(day), employee[day].startTime);
                 employee[day].endTime = generateDay(daysOfWeek.indexOf(day), employee[day].endTime);
+
+                //If the start time is after end time we assume its an overnight shift and roll end onto next day
+                if (employee[day].startTime > employee[day].endTime){
+                    employee[day].endTime.setDate(employee[day].endTime.getDate() + 1);
+                }
             }
         });
     });

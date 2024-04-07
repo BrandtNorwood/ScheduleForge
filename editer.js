@@ -205,6 +205,49 @@ function populatePTOSelect(){
 
 
 
+//Handles deleting employees.
+function deleteEmployee(){
+    if (confirm(`Are you sure you want to remove ${selectedEmployee.Name}`)){
+        if (onlineMode){
+            if (onlineMode == "authOn" && userCred.username.length == 0){
+                userCred.username = prompt("Enter your username:");
+                userCred.password = prompt("Enter your password:");
+            }
+        
+            fetch(Url + "/removeEMP",{
+                method:"DELETE",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({userCred, selectedEmployee})
+            }) 
+            .then(response => response.json())
+            .then(response => {
+                if(response.authenticated){
+                    getRemoteData().then(function(){
+                        document.getElementById("empSelect").selectedIndex = -1
+                        loadEMPSelect();
+                        loadEditor();
+                    });
+                } else {
+                    alert("Username or Password was incorrect!");
+                    userCred.username = "";
+                    saveRemoteEmployee();
+                }
+            });
+
+        }else{
+            //If in offline mode simply remove the employee from the array
+            let index = fileData.indexOf(selectedEmployee);
+            fileData.splice(index, 1);
+
+            document.getElementById("empSelect").selectedIndex = -1
+            loadEMPSelect();
+            loadEditor();
+        }
+    }
+}
+
+
+
 //Fills in the date and time feilds from the selected PTO element
 function populatePTOEdit(){
     let selectedPTO = selectedEmployee.PTO[document.getElementById("PTOSelect").selectedIndex];
@@ -230,7 +273,11 @@ function deletePTO(){
         if(confirm("Delete Selected PTO Request?")){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
-            getRemoteData().then(function(){loadEditor();});
+            if(onlineMode){
+                saveRemoteEmployee();
+            }else{
+                loadEditor();
+            }
         }
     }
 }
@@ -333,12 +380,34 @@ function saveRemoteEmployee() {
     })
     .then(response => response.json())
     .then(response => {
-        if(!response.authenticated){
-            alert("Username or Password was incorrect!");
-            userCred.username = "";
-            saveRemoteEmployee();
-        } else {
+        if(response.authenticated){
             getRemoteData().then(function(){loadEditor();});
+        } else {
+            if(confirm("Username or Password was incorrect!\nTry again?")){
+                userCred.username = "";
+                saveRemoteEmployee();
+            }
         }
     });
+}
+
+
+
+//creates new user
+function createNewEmployee(){
+    let lastIndex = parseInt(fileData[fileData.length - 1].Index);
+    let Index = lastIndex + 1;
+
+    //construct new emp object
+    selectedEmployee = {Index: Index, Name: "New Employee", PTO: null};
+
+    //save new emp
+    if(onlineMode){
+        saveRemoteEmployee()
+    }else{
+        loadEditor();
+    }
+
+    //TODO set emp selector to new employee
+    //  This is hard because in order to get the new employee into the list it must be refreshed first.
 }

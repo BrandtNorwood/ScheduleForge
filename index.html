@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Schedule Forge (beta)</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="parser.js"></script>
@@ -22,7 +22,8 @@
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
             <li id="weekDisplay"><li>
-            <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save </button></li>
+            <li style="float:right;"><button onclick="window.open('demoText.html')">READ ME</button></li>
+            <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save Copy</button></li>
             <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
             <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> View </button></li>    
         </ul>
@@ -38,8 +39,8 @@
         <div id="edit" style="display: none;">
             <ul style="background-color: var(--secondary);">
                 <li><select id="empSelect"></select></li>
-                <li><button>Add Employee</button></li>
-                <li><button>Remove Employee</button></li>
+                <li><input type="button" value="Create Employee" onclick="/*createNewEmployee() to be reworked*/"></li>
+                <li><input type="button" value="Remove Employee" onclick="deleteEmployee()"></li>
             </ul>
 
             <div id="previewPane"></div>
@@ -94,7 +95,7 @@
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
             var onlineMode = false; //if a server is found online this becomes the Auth type
-            const Url = "http://localhost:3010";//Server address
+            const Url = "http://scheduleServer:3010";//Server address
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
@@ -118,7 +119,7 @@
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 x4
+             * Starbucks in MHD by 94 x7 (unhealthy i know)
              * Starbucks in MHD by 10
              * Atomic Coffee
              * Bedroom (uncountable)

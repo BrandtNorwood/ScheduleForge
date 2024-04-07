@@ -1,7 +1,7 @@
 # CSV Based Schedule generator #
 *By Niko Norwood*
 
-A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script.
+A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script. The primary data type is a JSON file storing the state of an array however CSV files are also supported. Currently this project is not security focused and is intended to be used in a rather isolated enviroment. Security features will be implemented in the future.
 
 
 This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/CSV_Scheduler/](url)
@@ -26,31 +26,6 @@ Date without time assumes the user will be taking the whole day off.
 The Program should automaticly remove PTO requests that are older then a week from the current system time.
 
 
-### Server based file storage
+## Server based file storage
 
-This project is being updated to use a server instead of only local files. The Server files can be found within schedeuleServer Folder and reqire nodeJS to funtion. This feature is currently a work in progress and I will update this document with configuration and usage details when they are avalible.
-
-
-## TODO
-
-* Server file editing
-
-* CORS config
-
-* Be able to generate an empty file from scratch
-
-* Output Generation
-  - Sort Shifts by start time
-  - Properly parce shifts that roll into the next day
-  - Support multiple shifts per day?
-
-
-* Input Sheet
-  - PTO Requests
-    * Implement "All Day" bypass
-    * Remove ones older then one week of current date when outputing
-    * Add new Requests
-  - Add new User
-  - Remove Current User
-
-* MASSIVE UI Overhaul
+Servers function as a local way to store and access a schedule. When the program loads it does a lookup for `hostname TBD` and if it is found will access the data on the server. Servers can be configured to either reqire authentication or not depending on if a superUsers.txt *(more secure format will be used later)* file is present in the same folder. Servers use JSON files as their data structure and do not currently posses the ability to generate one from scratch.
