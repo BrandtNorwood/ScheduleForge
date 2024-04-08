@@ -8,9 +8,13 @@ var userCred = {username:"",password:""};
 
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
-function loadPreview(){
+function loadPreview(passedEmpData){
     var employeeSelected = document.getElementById("empSelect").selectedIndex
     if(employeeSelected < 0) {employeeSelected = 0;}
+    
+    if(!passedEmpData){
+        selectedEmployee = fileData[employeeSelected];
+    }
 
     var unfilteredGenData = parseWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
@@ -38,8 +42,6 @@ function loadPreview(){
         topLabels.appendChild(labelElement);
     }
     table.appendChild(topLabels);
-
-    selectedEmployee = fileData[employeeSelected];
 
     let employee = filteredGenData[employeeSelected];
 
@@ -157,7 +159,7 @@ function saveShiftChanges(){
     })
 
     if(onlineMode){
-        saveRemoteEmployee();
+        saveRemoteEmployee(selectedEmployee);
     }
     else{
         loadEditor();//reload to show result
@@ -230,7 +232,7 @@ function deleteEmployee(){
                 } else {
                     alert("Username or Password was incorrect!");
                     userCred.username = "";
-                    saveRemoteEmployee();
+                    saveRemoteEmployee(selectedEmployee);
                 }
             });
 
@@ -274,7 +276,7 @@ function deletePTO(){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
             if(onlineMode){
-                saveRemoteEmployee();
+                saveRemoteEmployee(selectedEmployee);
             }else{
                 loadEditor();
             }
@@ -302,7 +304,7 @@ function savePTOChange(){
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-        if(onlineMode){saveRemoteEmployee();}else{
+        if(onlineMode){saveRemoteEmployee(selectedEmployee);}else{
             loadEditor();//reload to show result
         }
     } else {
@@ -367,7 +369,8 @@ function loadEMPSelect(){
 
 
 //Save employee to server
-function saveRemoteEmployee() {
+function saveRemoteEmployee(saveEmployee) {
+    console.log(saveEmployee)
     if (onlineMode == "authOn" && userCred.username.length == 0){
         userCred.username = prompt("Enter your username:");
         userCred.password = prompt("Enter your password:");
@@ -376,7 +379,7 @@ function saveRemoteEmployee() {
     fetch(Url + "/saveEMP",{
         method:"POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({userCred, selectedEmployee})
+        body: JSON.stringify({userCred, employee:saveEmployee})
     })
     .then(response => response.json())
     .then(response => {
@@ -385,7 +388,7 @@ function saveRemoteEmployee() {
         } else {
             if(confirm("Username or Password was incorrect!\nTry again?")){
                 userCred.username = "";
-                saveRemoteEmployee();
+                saveRemoteEmployee(saveEmployee);
             }
         }
     });
@@ -401,13 +404,5 @@ function createNewEmployee(){
     //construct new emp object
     selectedEmployee = {Index: Index, Name: "New Employee", PTO: null};
 
-    //save new emp
-    if(onlineMode){
-        saveRemoteEmployee()
-    }else{
-        loadEditor();
-    }
-
-    //TODO set emp selector to new employee
-    //  This is hard because in order to get the new employee into the list it must be refreshed first.
+    loadPreview(selectedEmployee);
 }
