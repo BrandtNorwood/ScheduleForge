@@ -254,6 +254,9 @@ function deleteEmployee(){
 function populatePTOEdit(){
     let selectedPTO = selectedEmployee.PTO[document.getElementById("PTOSelect").selectedIndex];
 
+    if(selectedPTO.notes){document.getElementById("notesBox").value = selectedPTO.notes;}
+    else {document.getElementById("notesBox").value = "";}
+
     //messy but the selectors are very perticular about input
     document.getElementById("ptoStartDate").value = 
             selectedPTO.start.getFullYear() + "-" + (selectedPTO.start.getMonth() + 1).toString().padStart(2, '0') + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
@@ -289,11 +292,14 @@ function deletePTO(){
 //Takes in inputs and pushes them to the selected PTO element
 function savePTOChange(){
     //get all the input feilds
+    let notesBox = document.getElementById("notesBox").value;
     let selectedPTO = document.getElementById("PTOSelect").selectedIndex;
     let newStartTime = document.getElementById("ptoStartTime").value;
     let newStartDate = document.getElementById("ptoStartDate").value
     let newEndTime = document.getElementById("ptoEndTime").value;
     let newEndDate = document.getElementById("ptoEndDate").value;
+
+    if(selectedPTO < 0){return;}
 
     //parse them into Date Objects
     let newStart = convertFeildsToDate(newStartDate,newStartTime);
@@ -303,6 +309,11 @@ function savePTOChange(){
         //assign the Date objects to selected PTO
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
+
+        //for notes 
+        if (notesBox || selectedEmployee.PTO[selectedPTO].notes){
+            selectedEmployee.PTO[selectedPTO].notes = notesBox;
+        }
 
         if(onlineMode){saveRemoteEmployee(selectedEmployee);}else{
             loadEditor();//reload to show result
@@ -406,3 +417,4 @@ function createNewEmployee(){
 
     loadPreview(selectedEmployee);
 }
+ 
