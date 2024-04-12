@@ -67,6 +67,7 @@ function loadPreview(passedEmpData){
     table.appendChild(empElement);
 
     //Reloads Page Elements
+    clearPTOEdit();
     loadTimeEditor();
     populatePTOSelect();
 
@@ -327,6 +328,7 @@ function savePTOChange(){
 
 //Clears out the PTO request editor feilds
 function clearPTOEdit(){
+    document.getElementById("notesBox").value = "";
     document.getElementById("PTOSelect").selectedIndex = -1;
     document.getElementById("ptoStartTime").value = "";
     document.getElementById("ptoStartDate").value = "";
