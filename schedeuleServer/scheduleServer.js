@@ -156,7 +156,7 @@ app.get("/file", (req, res) => {
 //receives employee and overwrite the file with that user changed
 app.post("/saveEMP", (req,res) => {
     let user = req.body.userCred
-    let selectedEmployee = req.body.selectedEmployee;
+    let selectedEmployee = req.body.employee;
     let authenticated = authenticateUser(user);
 
     updateFileCache();
@@ -172,6 +172,7 @@ app.post("/saveEMP", (req,res) => {
         });    
 
         if(!employeeExists){
+            debugOutput("--Created new employee")
             fileCache.push(selectedEmployee);
         }
 
@@ -247,7 +248,7 @@ function saveFileCache(){
         const data = JSON.stringify(fileCache, null, 2);
         
         // Write the JSON string to the database.json file
-        fs.writeFileSync('database.json', data);
+        fs.writeFileSync(path.join(__dirname, "database.json"), data);
         
         debugOutput('Database file updated successfully!');
     } catch (err) {

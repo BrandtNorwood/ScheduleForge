@@ -20,8 +20,9 @@
 
         <ul>
             <li><button onclick="timeSkipButton(false);"> < </button></li>
+            <li><button id="weekDisplay"></button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
-            <li id="weekDisplay"><li>
+
             <li style="float:right;"><button onclick="window.open('demoText.html')">READ ME</button></li>
             <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save Copy</button></li>
             <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
@@ -39,7 +40,7 @@
         <div id="edit" style="display: none;">
             <ul style="background-color: var(--secondary);">
                 <li><select id="empSelect"></select></li>
-                <li><input type="button" value="Create Employee" onclick="/*createNewEmployee() to be reworked*/"></li>
+                <li><input type="button" value="Create Employee" onclick="createNewEmployee()"></li>
                 <li><input type="button" value="Remove Employee" onclick="deleteEmployee()"></li>
             </ul>
 
@@ -77,11 +78,13 @@
                 </div>
                 <select id = "PTOSelect"  multiple size="4"></select>
                 <div>
+                    <a>Notes</a><br>
+                    <input type="text" id = "notesBox">
+                </div>
+                <div id = "PTOtimes">
+                    <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
+                    <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
                     <input type="checkbox" id="allDayCheck"><label for="allDayCheck">All day</label>
-                    <div>
-                        <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
-                        <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
-                    </div>
                 </div>
                 <input type="button" value="Save Changes" onclick="savePTOChange()">
                 <input type="button" value="Clear Changes" onclick="clearPTOEdit()">
@@ -95,7 +98,7 @@
             var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
             var fileData = new Array(); //Used to store current state of the file
             var onlineMode = false; //if a server is found online this becomes the Auth type
-            const Url = "http://scheduleServer:3010";//Server address
+            const Url = 'http://'+ window.location.hostname + ':3010';//Server address 
 
             //Loads the selected week into the navbar on load
             loadWeekDisplay();
@@ -119,7 +122,7 @@
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 x7 (unhealthy i know)
+             * Starbucks in MHD by 94 x9 (unhealthy i know)
              * Starbucks in MHD by 10
              * Atomic Coffee
              * Bedroom (uncountable)

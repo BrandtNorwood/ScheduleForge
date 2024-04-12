@@ -8,9 +8,13 @@ var userCred = {username:"",password:""};
 
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
-function loadPreview(){
+function loadPreview(passedEmpData){
     var employeeSelected = document.getElementById("empSelect").selectedIndex
     if(employeeSelected < 0) {employeeSelected = 0;}
+    
+    if(!passedEmpData){
+        selectedEmployee = fileData[employeeSelected];
+    }
 
     var unfilteredGenData = parseWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
@@ -39,8 +43,6 @@ function loadPreview(){
     }
     table.appendChild(topLabels);
 
-    selectedEmployee = fileData[employeeSelected];
-
     let employee = filteredGenData[employeeSelected];
 
     let empElement = document.createElement('tr');
@@ -65,6 +67,7 @@ function loadPreview(){
     table.appendChild(empElement);
 
     //Reloads Page Elements
+    clearPTOEdit();
     loadTimeEditor();
     populatePTOSelect();
 
@@ -157,7 +160,7 @@ function saveShiftChanges(){
     })
 
     if(onlineMode){
-        saveRemoteEmployee();
+        saveRemoteEmployee(selectedEmployee);
     }
     else{
         loadEditor();//reload to show result
@@ -230,7 +233,7 @@ function deleteEmployee(){
                 } else {
                     alert("Username or Password was incorrect!");
                     userCred.username = "";
-                    saveRemoteEmployee();
+                    saveRemoteEmployee(selectedEmployee);
                 }
             });
 
@@ -251,6 +254,9 @@ function deleteEmployee(){
 //Fills in the date and time feilds from the selected PTO element
 function populatePTOEdit(){
     let selectedPTO = selectedEmployee.PTO[document.getElementById("PTOSelect").selectedIndex];
+
+    if(selectedPTO.notes){document.getElementById("notesBox").value = selectedPTO.notes;}
+    else {document.getElementById("notesBox").value = "";}
 
     //messy but the selectors are very perticular about input
     document.getElementById("ptoStartDate").value = 
@@ -274,7 +280,7 @@ function deletePTO(){
             selectedEmployee.PTO.splice(selectedPTO,1);
 
             if(onlineMode){
-                saveRemoteEmployee();
+                saveRemoteEmployee(selectedEmployee);
             }else{
                 loadEditor();
             }
@@ -287,11 +293,14 @@ function deletePTO(){
 //Takes in inputs and pushes them to the selected PTO element
 function savePTOChange(){
     //get all the input feilds
+    let notesBox = document.getElementById("notesBox").value;
     let selectedPTO = document.getElementById("PTOSelect").selectedIndex;
     let newStartTime = document.getElementById("ptoStartTime").value;
     let newStartDate = document.getElementById("ptoStartDate").value
     let newEndTime = document.getElementById("ptoEndTime").value;
     let newEndDate = document.getElementById("ptoEndDate").value;
+
+    if(selectedPTO < 0){return;}
 
     //parse them into Date Objects
     let newStart = convertFeildsToDate(newStartDate,newStartTime);
@@ -302,7 +311,12 @@ function savePTOChange(){
         selectedEmployee.PTO[selectedPTO].start = newStart;
         selectedEmployee.PTO[selectedPTO].end = newEnd;
 
-        if(onlineMode){saveRemoteEmployee();}else{
+        //for notes 
+        if (notesBox || selectedEmployee.PTO[selectedPTO].notes){
+            selectedEmployee.PTO[selectedPTO].notes = notesBox;
+        }
+
+        if(onlineMode){saveRemoteEmployee(selectedEmployee);}else{
             loadEditor();//reload to show result
         }
     } else {
@@ -314,6 +328,7 @@ function savePTOChange(){
 
 //Clears out the PTO request editor feilds
 function clearPTOEdit(){
+    document.getElementById("notesBox").value = "";
     document.getElementById("PTOSelect").selectedIndex = -1;
     document.getElementById("ptoStartTime").value = "";
     document.getElementById("ptoStartDate").value = "";
@@ -340,7 +355,7 @@ function newPTORequest(){
     
     if(!selectedEmployee.PTO){selectedEmployee.PTO = new Array();}
 
-    selectedEmployee.PTO.push({start: "", end: ""});
+    selectedEmployee.PTO.push({start: new Date(genDate), end: new Date(genDate)});
 }
 
 
@@ -367,7 +382,7 @@ function loadEMPSelect(){
 
 
 //Save employee to server
-function saveRemoteEmployee() {
+function saveRemoteEmployee(saveEmployee) {
     if (onlineMode == "authOn" && userCred.username.length == 0){
         userCred.username = prompt("Enter your username:");
         userCred.password = prompt("Enter your password:");
@@ -376,7 +391,7 @@ function saveRemoteEmployee() {
     fetch(Url + "/saveEMP",{
         method:"POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({userCred, selectedEmployee})
+        body: JSON.stringify({userCred, employee:saveEmployee})
     })
     .then(response => response.json())
     .then(response => {
@@ -385,7 +400,7 @@ function saveRemoteEmployee() {
         } else {
             if(confirm("Username or Password was incorrect!\nTry again?")){
                 userCred.username = "";
-                saveRemoteEmployee();
+                saveRemoteEmployee(saveEmployee);
             }
         }
     });
@@ -401,13 +416,6 @@ function createNewEmployee(){
     //construct new emp object
     selectedEmployee = {Index: Index, Name: "New Employee", PTO: null};
 
-    //save new emp
-    if(onlineMode){
-        saveRemoteEmployee()
-    }else{
-        loadEditor();
-    }
-
-    //TODO set emp selector to new employee
-    //  This is hard because in order to get the new employee into the list it must be refreshed first.
+    loadPreview(selectedEmployee);
 }
+ 

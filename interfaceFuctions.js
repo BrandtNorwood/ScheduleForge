@@ -52,8 +52,8 @@ function loadWeekDisplay(){
 function timeSkipButton(forward){
     genDate.setDate(genDate.getDate() + (forward ? 7:-7));
     loadWeekDisplay();
-    generateTable();
-    loadPreview();
+    if (document.getElementById("editButton").style.display=="none"){loadPreview();}
+    else{generateTable();}
 }
 
 
