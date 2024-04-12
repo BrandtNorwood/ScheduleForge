@@ -381,7 +381,6 @@ function loadEMPSelect(){
 
 //Save employee to server
 function saveRemoteEmployee(saveEmployee) {
-    console.log(saveEmployee)
     if (onlineMode == "authOn" && userCred.username.length == 0){
         userCred.username = prompt("Enter your username:");
         userCred.password = prompt("Enter your password:");

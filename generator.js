@@ -84,8 +84,6 @@ function generateTable(){
     })
     table.appendChild(ptoDisplay);
 
-    console.log(activePTORequests);
-
     //clear outputPane, attach table
     document.getElementById("outputPane").replaceChildren();
     document.getElementById("outputPane").appendChild(table);
@@ -102,7 +100,6 @@ function filterPTO(data){
                 const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
                 days.forEach(day => {
                     if (employee[day]){
-                        //console.log(employee.Name , employee[day] , request);
 
                         //Stack of logic for readability
                         var startB4start = employee[day].startTime >= request.start;
