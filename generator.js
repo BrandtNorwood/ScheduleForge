@@ -5,7 +5,8 @@
 
 function generateTable(){
     unfilteredGenData = parseWeek(fileData);
-    filteredGenData = filterPTO(unfilteredGenData);
+    var filteredGenData = filterPTO(unfilteredGenData);
+    var activePTORequests = getActivePTORequests(unfilteredGenData);
 
     //Create table HTML object
     var table = document.createElement('table');
@@ -55,6 +56,36 @@ function generateTable(){
         table.appendChild(empElement);
     });
 
+    table.appendChild(document.createElement("br"))
+
+    //dates
+    ptoDisplay = document.createElement("tr");
+    activePTORequests.forEach((request,index) => {
+        if (index%8 == 0){
+            table.appendChild(ptoDisplay);
+            ptoDisplay = document.createElement("tr");
+        }
+
+        requestElement = document.createElement("th");
+        requestElement.style.background = pickColor(request.index);
+        
+        let start = request.request.start;
+        let end = request.request.end;
+
+        requestElement.appendChild(document.createTextNode(request.name));
+
+        requestElement.appendChild(document.createElement("br"));
+
+        requestElement.appendChild(document.createTextNode((start.getMonth()+1)+"/"+start.getDate()+" - "+(end.getMonth()+1)+"/"+end.getDate()));
+
+        requestElement.style.fontSize = "small";
+
+        ptoDisplay.appendChild(requestElement);
+    })
+    table.appendChild(ptoDisplay);
+
+    console.log(activePTORequests);
+
     //clear outputPane, attach table
     document.getElementById("outputPane").replaceChildren();
     document.getElementById("outputPane").appendChild(table);
@@ -62,9 +93,9 @@ function generateTable(){
 }
 
 
-
 //Function filters out PTO requests
 function filterPTO(data){
+    let usedRequests = new Array();
     data.forEach(employee =>{
         if (employee.PTO){
             employee.PTO.forEach(request =>{
@@ -82,11 +113,19 @@ function filterPTO(data){
                         var endAfterStart = employee[day].endTime >= request.start;
 
                         //If the request encompases the entirity of the shift we unhighlight it
-                        if(startB4start && endAfterEnd){employee[day].filtered = true;}
+                        if(startB4start && endAfterEnd){
+                            employee[day].filtered = true; 
+                        }
                         //If the start of the request is after the start of the shift
-                        else if (startAfterStart && startB4End){employee[day].startTime = request.end; employee[day].changed = true;}
+                        else if (startAfterStart && startB4End){
+                            employee[day].startTime = request.end;
+                            employee[day].changed = true;
+                        }
                         //if the end of the request is before the end and after the start of the shift
-                        else if (endAfterStart && endB4End){employee[day].endTime = request.start; employee[day].changed = true;}
+                        else if (endAfterStart && endB4End){
+                            employee[day].endTime = request.start;
+                            employee[day].changed = true;
+                        }
 
                     }
                 })
@@ -94,6 +133,30 @@ function filterPTO(data){
         }
     });
     return data;
+}
+
+
+
+//
+function getActivePTORequests(fullTable){
+    var activeRequests = new Array();
+
+    fullTable.forEach(employee =>{
+        if (employee.PTO){
+            employee.PTO.forEach(ptoRequest => {
+                if (ptoRequest.start > genDate){
+                    let weekEnd = new Date(genDate);
+                    weekEnd.setDate(weekEnd.getDate() + 7);
+
+                    if(ptoRequest.end < weekEnd){
+                        activeRequests.push({request:ptoRequest, name:employee.Name, index:employee.Index});
+                    }
+                }
+            })
+        }
+    })
+
+    return activeRequests;
 }
 
 
