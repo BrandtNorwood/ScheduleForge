@@ -353,7 +353,7 @@ function newPTORequest(){
     
     if(!selectedEmployee.PTO){selectedEmployee.PTO = new Array();}
 
-    selectedEmployee.PTO.push({start: "", end: ""});
+    selectedEmployee.PTO.push({start: new Date(genDate), end: new Date(genDate)});
 }
 
 
