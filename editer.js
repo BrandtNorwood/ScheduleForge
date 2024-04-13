@@ -148,6 +148,7 @@ function saveShiftChanges(){
 
     days.forEach(day =>{
         if(document.getElementById((day+"On")).checked){
+
             let startTimeSelected = convertFeildToTime(document.getElementById(("start" + day)).value);
             let endTimeSelected = convertFeildToTime(document.getElementById(("end" + day)).value);
 
@@ -303,8 +304,14 @@ function savePTOChange(){
     if(selectedPTO < 0){return;}
 
     //parse them into Date Objects
-    let newStart = convertFeildsToDate(newStartDate,newStartTime);
-    let newEnd = convertFeildsToDate(newEndDate, newEndTime);
+    console.log(document.getElementById("allDayCheck").checked,"test");
+    if (document.getElementById("allDayCheck").checked){
+        let newStart = convertFeildsToDate(newStartDate,"00:00:00");
+        let newEnd = convertFeildsToDate(newEndDate, "23:59:59");
+    }else {
+        let newStart = convertFeildsToDate(newStartDate,newStartTime);
+        let newEnd = convertFeildsToDate(newEndDate, newEndTime);
+    }
 
     if (newStart <= newEnd){
         //assign the Date objects to selected PTO
