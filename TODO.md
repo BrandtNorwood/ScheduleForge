@@ -14,9 +14,6 @@
 
 * Temporary shift (reverse pto)
 
-* PTO Requests
-  - Remove ones older then one week of current date when outputing
-
 * Be able to generate an empty file from scratch
 
 * More secure super user storage method

@@ -203,7 +203,9 @@ function populatePTOSelect(){
     if(selectedEmployee.PTO){
         //fill with requests from current user
         selectedEmployee.PTO.forEach(request =>{
-            selector.options[selector.options.length] = new Option(request.start.toLocaleString('en-US',timeOptions) + " - " + request.end.toLocaleString('en-US'));
+            if (request.end > genDate){
+                selector.options[selector.options.length] = new Option(request.start.toLocaleString('en-US',timeOptions) + " - " + request.end.toLocaleString('en-US'));
+            }
         })
     }
 }
