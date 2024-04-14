@@ -28,4 +28,4 @@ The Program should automaticly remove PTO requests that are older then a week fr
 
 ## Server based file storage
 
-Servers function as a local way to store and access a schedule. When the program loads it does a lookup for `hostname TBD` and if it is found will access the data on the server. Servers can be configured to either reqire authentication or not depending on if a superUsers.txt *(more secure format will be used later)* file is present in the same folder. Servers use JSON files as their data structure and do not currently posses the ability to generate one from scratch.
+Servers function as a local way to store and access a schedule. When the program loads it does a lookup for port 3010 on the sites source location, and if it is found, it will attempt access the data on the server. Servers can be configured to either reqire authentication or not depending on if a superUsers.txt *(more secure format will be used later)* file is present in the same folder. Servers use JSON files as their data structure and do not currently posses the ability to generate one from scratch.
