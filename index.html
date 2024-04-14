@@ -120,6 +120,11 @@
                 populatePTOEdit();
             });
 
+            //updates All Day checkmark
+            document.getElementById("allDayCheck").addEventListener("change", (event) => {
+                ptoAllDay();
+            });
+
             /*little Easter egg for ya :3
 
             The "Dev" Enviroments (where I've worked on this at)

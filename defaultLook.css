@@ -68,8 +68,13 @@ th, td {
     border: 1px solid black;
 }
 
-#shiftEditor .inactive input{
+#edit .inactive input{
     background-color: var(--grayedOut);
+}
+
+#edit #PTOtimes .inactive{
+    background-color: var(--grayedOut);
+    display: none;
 }
 
 #PTOEditor{

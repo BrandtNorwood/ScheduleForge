@@ -6,6 +6,7 @@
 var selectedEmployee = {};
 var userCred = {username:"",password:""};
 
+var timeOptions = { hour12: false };
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(passedEmpData){
@@ -202,7 +203,7 @@ function populatePTOSelect(){
     if(selectedEmployee.PTO){
         //fill with requests from current user
         selectedEmployee.PTO.forEach(request =>{
-            selector.options[selector.options.length] = new Option(request.start.toLocaleString('en-US') + " - " + request.end.toLocaleString('en-US'));
+            selector.options[selector.options.length] = new Option(request.start.toLocaleString('en-US',timeOptions) + " - " + request.end.toLocaleString('en-US'));
         })
     }
 }
@@ -259,15 +260,32 @@ function populatePTOEdit(){
     if(selectedPTO.notes){document.getElementById("notesBox").value = selectedPTO.notes;}
     else {document.getElementById("notesBox").value = "";}
 
+    console.log(selectedPTO.start.getHours() == 0 , selectedPTO.start.getMinutes() == 0 ,
+        selectedPTO.end.getHours() == 23 , selectedPTO.end.getMinutes() == 59); 
+
+    if(selectedPTO.start.getHours() == 0 && selectedPTO.start.getMinutes() == 0 &&
+            selectedPTO.end.getHours() == 23 && selectedPTO.end.getMinutes() == 59){
+        document.getElementById("allDayCheck").checked = true;
+        ptoAllDay();
+    } else {
+        document.getElementById('allDayCheck').checked = false;
+        ptoAllDay();
+
+        document.getElementById("ptoStartTime").value = 
+            selectedPTO.start.getHours().toString().padStart(2, '0') 
+            + ":" + selectedPTO.start.getMinutes().toString().padStart(2, '0');
+        document.getElementById("ptoEndTime").value = 
+            selectedPTO.end.getHours().toString().padStart(2, '0') 
+            + ":" + selectedPTO.end.getMinutes().toString().padStart(2, '0');
+    }
+
     //messy but the selectors are very perticular about input
     document.getElementById("ptoStartDate").value = 
-            selectedPTO.start.getFullYear() + "-" + (selectedPTO.start.getMonth() + 1).toString().padStart(2, '0') + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
-    document.getElementById("ptoStartTime").value = 
-            selectedPTO.start.getHours().toString().padStart(2, '0') + ":" + selectedPTO.start.getMinutes().toString().padStart(2, '0');
+            selectedPTO.start.getFullYear() + "-" + (selectedPTO.start.getMonth() + 1).toString().padStart(2, '0') 
+            + "-" + selectedPTO.start.getDate().toString().padStart(2, '0');
     document.getElementById("ptoEndDate").value = 
-            selectedPTO.end.getFullYear() + "-" + (selectedPTO.end.getMonth() + 1).toString().padStart(2, '0') + "-" + selectedPTO.end.getDate().toString().padStart(2, '0');
-    document.getElementById("ptoEndTime").value = 
-            selectedPTO.end.getHours().toString().padStart(2, '0') + ":" + selectedPTO.end.getMinutes().toString().padStart(2, '0');
+            selectedPTO.end.getFullYear() + "-" + (selectedPTO.end.getMonth() + 1).toString().padStart(2, '0') 
+            + "-" + selectedPTO.end.getDate().toString().padStart(2, '0');
 }
 
 
@@ -304,14 +322,8 @@ function savePTOChange(){
     if(selectedPTO < 0){return;}
 
     //parse them into Date Objects
-    console.log(document.getElementById("allDayCheck").checked,"test");
-    if (document.getElementById("allDayCheck").checked){
-        let newStart = convertFeildsToDate(newStartDate,"00:00:00");
-        let newEnd = convertFeildsToDate(newEndDate, "23:59:59");
-    }else {
-        let newStart = convertFeildsToDate(newStartDate,newStartTime);
-        let newEnd = convertFeildsToDate(newEndDate, newEndTime);
-    }
+    var newStart = convertFeildsToDate(newStartDate,newStartTime);
+    var newEnd = convertFeildsToDate(newEndDate, newEndTime);
 
     if (newStart <= newEnd){
         //assign the Date objects to selected PTO
@@ -426,3 +438,19 @@ function createNewEmployee(){
     loadPreview(selectedEmployee);
 }
  
+
+function ptoAllDay(){
+    if (document.getElementById("allDayCheck").checked){
+        document.getElementById("ptoStartTime").value = "00:00:00";
+        document.getElementById("ptoEndTime").value = "23:59:59";
+
+        document.getElementById("ptoStartTime").classList.add("inactive");
+        document.getElementById("ptoEndTime").classList.add("inactive");
+    } else {
+        document.getElementById("ptoStartTime").value = "12:00:00";
+        document.getElementById("ptoEndTime").value = "12:00:00";
+
+        document.getElementById("ptoStartTime").classList.remove("inactive");
+        document.getElementById("ptoEndTime").classList.remove("inactive");
+    }
+}
