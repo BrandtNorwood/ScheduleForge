@@ -69,7 +69,7 @@ class Logger {
         this.flushQueue();
     }
 }
-const logger = new Logger('serverLog.txt' , 2000); //Filepath, flush interval
+const logger = new Logger(path.join(__dirname, "database.json") , 2000); //Filepath, flush interval
 
 serverOutput("\n\n-----Schedule Forge Server v0.1-----\n");
 serverOutput("INITIALIZING...");
