@@ -4,10 +4,12 @@
 */
 
 function generateTable(){
+    console.log(fileData);
     unfilteredGenData = parseWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
     var activePTORequests = getActivePTORequests(unfilteredGenData);
 
+    console.log(unfilteredGenData);
     //Create table HTML object
     var table = document.createElement('table');
     table.setAttribute("id","table");
@@ -172,29 +174,58 @@ function pickColor(index){
 
 //Parses Time objects into Date Objects 
 function parseWeek(inputData){
-    var dataIn = deepCopy(inputData)
+    var dataIn = new Array();
 
     //Chat GPT fixed this code! (it was very ugly before)
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     //loop thru employees
-    dataIn.forEach(employee => {
-        daysOfWeek.forEach(day => {     //loop thru days
-            if (employee[day]) {
-                //pass times to a date generator
-                employee[day].startTime = generateDay(daysOfWeek.indexOf(day), employee[day].startTime);
-                employee[day].endTime = generateDay(daysOfWeek.indexOf(day), employee[day].endTime);
+    inputData.forEach(employee => {
+        let revisedEmployee = {Name:employee.Name,PTO:employee.PTO,Index:employee.Index};
 
-                //If the start time is after end time we assume its an overnight shift and roll end onto next day
-                if (employee[day].startTime > employee[day].endTime){
-                    employee[day].endTime.setDate(employee[day].endTime.getDate() + 1);
+        genEnd = new Date(genDate);
+        genEnd.setDate(genEnd.getDate()+7);
+
+        let selectedSchedule = {}
+
+        employee.Schedules.forEach(schedule => {
+            if(schedule.startDate <= genDate){
+                if(schedule.endDate){
+                    if(schedule.endDate >= genEnd){
+                        selectedSchedule = {...{Name:employee.Name,Index:employee.Index,PTO:employee.PTO}
+                        , ...schedule};
+                    }
+                }else { 
+                    selectedSchedule = {...{Name:employee.Name,Index:employee.Index,PTO:employee.PTO}
+                    , ...schedule};
                 }
             }
         });
+
+        console.log(selectedSchedule)
+
+        daysOfWeek.forEach(day => {     //loop thru days
+            if (selectedSchedule[day]) {
+                console.log(selectedSchedule[day]);
+                //pass times to a date generator
+                revisedEmployee[day] = {
+                    startTime : generateDay(daysOfWeek.indexOf(day), selectedSchedule[day].startTime),
+                    endTime : generateDay(daysOfWeek.indexOf(day), selectedSchedule[day].endTime)
+                }
+
+                //If the start time is after end time we assume its an overnight shift and roll end onto next day
+                if (revisedEmployee[day].startTime > revisedEmployee[day].endTime){
+                    revisedEmployee[day].endTime.setDate(revisedEmployee[day].endTime.getDate() + 1);
+                }
+            }
+        });
+        dataIn.push(revisedEmployee);
     });
 
     return dataIn;
 }
+
+
 
 //used to set individual shifts for PTO Fitering
 function generateDay(dayOfWeek, time){

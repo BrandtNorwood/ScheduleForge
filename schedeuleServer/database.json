@@ -1,352 +1,346 @@
 [
   {
-    "Index": "1",
     "Name": "Audry",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "1",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "2",
     "Name": "Ben",
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "2",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "3",
     "Name": "Charlie",
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
     "PTO": [
       {
         "start": "2024-04-17T20:00:00.000Z",
         "end": "2024-04-18T04:59:00.000Z"
       }
+    ],
+    "Index": "3",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
+      }
     ]
   },
   {
-    "Index": "4",
     "Name": "David",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "4",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "5",
     "Name": "Eddie",
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "5",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "6",
     "Name": "Freddie",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "6",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "7",
     "Name": "George",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
     "PTO": [
       {
         "start": "2024-04-14T17:00:00.000Z",
         "end": "2024-04-14T19:00:00.000Z"
       }
+    ],
+    "Index": "7",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
+      }
     ]
   },
   {
-    "Index": "8",
     "Name": "Helen",
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
     "PTO": [
       {
         "start": "2024-04-16T05:00:00.000Z",
@@ -356,627 +350,743 @@
         "start": "2024-04-20T22:00:00.000Z",
         "end": "2024-04-21T03:00:00.000Z"
       }
+    ],
+    "Index": "8",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
+      }
     ]
   },
   {
-    "Index": "9",
     "Name": "Isabel",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "21"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "07"
+    "PTO": null,
+    "Index": "9",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "21"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "07"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "10",
     "Name": "Jesse",
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "10",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "11",
     "Name": "Kennedy",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "11",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "14"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "14"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "12",
     "Name": "Leo",
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "12",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "13",
     "Name": "Mike",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "13",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "14",
     "Name": "Niko",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "14",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "15",
     "Name": "Oliver",
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "6"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "13"
+    "PTO": null,
+    "Index": "15",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "6"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "13"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "6"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "10"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "6"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "13"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "6"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "10"
+          }
+        }
       }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "6"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "10"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "6"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "13"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "6"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "10"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "16",
     "Name": "Penny",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
     "PTO": [
       {
         "start": "2024-04-14T17:00:00.000Z",
         "end": "2024-04-14T23:00:00.000Z",
         "notes": ""
       }
+    ],
+    "Index": "16",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
+      }
     ]
   },
   {
-    "Index": "17",
     "Name": "Lora",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "17",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "14"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "14"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "18",
     "Name": "Rachel",
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Wed": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
     "PTO": [
       {
         "start": "2024-04-15T05:00:00.000Z",
         "end": "2024-04-16T04:59:00.000Z"
       }
+    ],
+    "Index": "18",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Wed": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
+      }
     ]
   },
   {
-    "Index": "19",
     "Name": "Steven",
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "19",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        }
       }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "20",
     "Name": "Thomas",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
+    "PTO": null,
+    "Index": "20",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "12"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "22"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "21"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "5"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "21"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "5"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "12"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "22"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "21"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "5"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "21"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "5"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "21",
     "Name": "Viktor",
-    "Sun": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "21",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Sun": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Mon": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Mon": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   },
   {
-    "Index": "22",
     "Name": "William",
-    "Tue": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
+    "PTO": null,
+    "Index": "22",
+    "Schedules": [
+      {
+        "startDate": "2024-03-16T05:00:00.000Z",
+        "Tue": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Thu": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Fri": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        },
+        "Sat": {
+          "startTime": {
+            "minute": "00",
+            "hour": "4"
+          },
+          "endTime": {
+            "minute": "00",
+            "hour": "14"
+          }
+        }
       }
-    },
-    "Thu": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Fri": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "Sat": {
-      "startTime": {
-        "minute": "00",
-        "hour": "4"
-      },
-      "endTime": {
-        "minute": "00",
-        "hour": "14"
-      }
-    },
-    "PTO": null
+    ]
   }
 ]

@@ -229,6 +229,12 @@ function parseJSON(jsonContent) {
                     request.end = new Date(request.end);
                 })
             }
+            employee.Schedules.forEach(schedule =>{
+                schedule.startDate = new Date(schedule.startDate);
+                if (schedule.endDate) {
+                    schedule.endDate = new Date(schedule.endDate);
+                }
+            })
         })
 
         //get outa here
