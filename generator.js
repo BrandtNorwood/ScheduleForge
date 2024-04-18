@@ -184,7 +184,7 @@ function parseWeek(inputData){
         let revisedEmployee = {Name:employee.Name,PTO:employee.PTO,Index:employee.Index};
 
         genEnd = new Date(genDate);
-        genEnd.setDate(genEnd.getDate()+7);
+        genEnd.setDate(genEnd.getDate()+6);
 
         let selectedSchedule = {}
 
@@ -202,11 +202,11 @@ function parseWeek(inputData){
             }
         });
 
-        console.log(selectedSchedule)
+        let onWeekFlag = false;
 
         daysOfWeek.forEach(day => {     //loop thru days
             if (selectedSchedule[day]) {
-                console.log(selectedSchedule[day]);
+                onWeekFlag = true;
                 //pass times to a date generator
                 revisedEmployee[day] = {
                     startTime : generateDay(daysOfWeek.indexOf(day), selectedSchedule[day].startTime),
@@ -219,7 +219,7 @@ function parseWeek(inputData){
                 }
             }
         });
-        dataIn.push(revisedEmployee);
+        if(onWeekFlag){dataIn.push(revisedEmployee);}
     });
 
     return dataIn;

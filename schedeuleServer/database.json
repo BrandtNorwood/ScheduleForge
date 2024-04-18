@@ -6,6 +6,7 @@
     "Schedules": [
       {
         "startDate": "2024-03-16T05:00:00.000Z",
+        "endDate": "2024-04-20T23:59:59.000Z",
         "Sun": {
           "startTime": {
             "minute": "00",
