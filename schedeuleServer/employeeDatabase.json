@@ -1,0 +1,201 @@
+[
+  {
+    "Name": "Audry",
+    "PTO": null,
+    "Index": "1",
+    "Shifts": [
+      {
+        "origin":"2024-04-17T04:08:15.160Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency" : 7
+      },
+      {
+        "origin":"2024-04-18T04:08:15.160Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency" : 7
+      },
+      {
+        "origin":"2024-04-19T04:08:15.160Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency" : 7
+      }
+    ]
+  },
+  {
+    "Name": "Ben",
+    "PTO": null,
+    "Index": "2",
+    "Shifts": []
+  },
+  {
+    "Name": "Charlie",
+    "PTO": [
+      {
+        "start": "2024-04-17T20:00:00.000Z",
+        "end": "2024-04-18T04:59:00.000Z"
+      }
+    ],
+    "Index": "3",
+    "Shifts": []
+  },
+  {
+    "Name": "David",
+    "PTO": null,
+    "Index": "4",
+    "Shifts": []
+  },
+  {
+    "Name": "Eddie",
+    "PTO": null,
+    "Index": "5",
+    "Shifts": []
+  },
+  {
+    "Name": "Freddie",
+    "PTO": null,
+    "Index": "6",
+    "Shifts": []
+  },
+  {
+    "Name": "George",
+    "PTO": [
+      {
+        "start": "2024-04-14T17:00:00.000Z",
+        "end": "2024-04-14T19:00:00.000Z"
+      }
+    ],
+    "Index": "7",
+    "Shifts": []
+  },
+  {
+    "Name": "Helen",
+    "PTO": [
+      {
+        "start": "2024-04-16T05:00:00.000Z",
+        "end": "2024-04-17T04:59:00.000Z"
+      },
+      {
+        "start": "2024-04-20T22:00:00.000Z",
+        "end": "2024-04-21T03:00:00.000Z"
+      }
+    ],
+    "Index": "8",
+    "Shifts": []
+  },
+  {
+    "Name": "Isabel",
+    "PTO": null,
+    "Index": "9",
+    "Shifts": []
+  },
+  {
+    "Name": "Jesse",
+    "PTO": null,
+    "Index": "10",
+    "Shifts": []
+  },
+  {
+    "Name": "Kennedy",
+    "PTO": null,
+    "Index": "11",
+    "Shifts": []
+  },
+  {
+    "Name": "Leo",
+    "PTO": null,
+    "Index": "12",
+    "Shifts": []
+  },
+  {
+    "Name": "Mike",
+    "PTO": null,
+    "Index": "13",
+    "Shifts": []
+  },
+  {
+    "Name": "Niko",
+    "PTO": null,
+    "Index": "14",
+    "Shifts": []
+  },
+  {
+    "Name": "Oliver",
+    "PTO": null,
+    "Index": "15",
+    "Shifts": []
+  },
+  {
+    "Name": "Penny",
+    "PTO": [
+      {
+        "start": "2024-04-14T17:00:00.000Z",
+        "end": "2024-04-14T23:00:00.000Z",
+        "notes": ""
+      }
+    ],
+    "Index": "16",
+    "Shifts": []
+  },
+  {
+    "Name": "Lora",
+    "PTO": null,
+    "Index": "17",
+    "Shifts": []
+  },
+  {
+    "Name": "Rachel",
+    "PTO": [
+      {
+        "start": "2024-04-15T05:00:00.000Z",
+        "end": "2024-04-16T04:59:00.000Z"
+      }
+    ],
+    "Index": "18",
+    "Shifts": []
+  },
+  {
+    "Name": "Steven",
+    "PTO": null,
+    "Index": "19",
+    "Shifts": []
+  },
+  {
+    "Name": "Thomas",
+    "PTO": null,
+    "Index": "20",
+    "Shifts": []
+  },
+  {
+    "Name": "Viktor",
+    "PTO": null,
+    "Index": "21",
+    "Shifts": []
+  },
+  {
+    "Name": "William",
+    "PTO": null,
+    "Index": "22",
+    "Shifts": []
+  }
+]

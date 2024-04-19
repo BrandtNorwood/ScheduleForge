@@ -68,29 +68,13 @@ function convertToTimeline(){
     newFileCache = new Array()
 
     fileCache.forEach(employee=>{
-        if (!employee.Schedules){
+        newEmployee = {Name:employee.Name,PTO:employee.PTO,Index:employee.Index};
 
-            newEmployee = {Name:employee.Name,PTO:employee.PTO,Index:employee.Index};
+        newEmployee.Shifts = new Array();
 
-            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        newFileCache.push(newEmployee);
 
-            schedules = new Array();
-            thisSchedule = {startDate:new Date("2024-03-16T00:00:00")};
-
-            daysOfWeek.forEach(day =>{
-                if (employee[day]){
-                    thisSchedule[day] = employee[day];
-                }
-            });
-
-            schedules.push(thisSchedule);
-
-            newEmployee.Schedules = schedules;
-
-            newFileCache.push(newEmployee);
-
-            console.log("Compleated operation on " + employee.Name);
-        }
+        console.log("Compleated operation on " + employee.Name);
     });
 
     fileCache = newFileCache;

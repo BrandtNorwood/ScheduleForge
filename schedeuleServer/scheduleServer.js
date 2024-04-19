@@ -36,6 +36,10 @@ app.use((req, res, next) => {
 });
 
 
+let databaseFilePath = path.join(__dirname, "database.json");
+let logFilePath  = path.join(__dirname, "serverLog.txt")
+
+
 
 //This class and its functions are for logging output to the serverLog.txt
 class Logger {
@@ -69,7 +73,7 @@ class Logger {
         this.flushQueue();
     }
 }
-const logger = new Logger(path.join(__dirname, "database.json") , 2000); //Filepath, flush interval
+const logger = new Logger(logFilePath, 2000); //Filepath, flush interval
 
 serverOutput("\n\n-----Schedule Forge Server v0.1-----\n");
 serverOutput("INITIALIZING...");
@@ -223,7 +227,7 @@ function saveFileCache(){
         const data = JSON.stringify(fileCache, null, 2);
         
         // Write the JSON string to the database.json file
-        fs.writeFileSync(path.join(__dirname, "database.json"), data);
+        fs.writeFileSync(databaseFilePath, data);
         
         debugOutput('Database file updated successfully!');
     } catch (err) {
@@ -237,7 +241,7 @@ function saveFileCache(){
 function updateFileCache(){
     return new Promise ((resolve,reject) => {
         // Read the contents of the database.json file
-        fs.readFile(path.join(__dirname, "database.json"), (err, data) => {
+        fs.readFile(databaseFilePath, (err, data) => {
             if (err) {
                 // If there's an error reading the file, send an error response
                 reject("Error reading file:", err);

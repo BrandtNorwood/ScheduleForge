@@ -426,19 +426,6 @@ function saveRemoteEmployee(saveEmployee) {
         }
     });
 }
-
-
-
-//creates new user
-function createNewEmployee(){
-    let lastIndex = parseInt(fileData[fileData.length - 1].Index);
-    let Index = lastIndex + 1;
-
-    //construct new emp object
-    selectedEmployee = {Index: Index, Name: "New Employee", PTO: null};
-
-    loadPreview(selectedEmployee);
-}
  
 
 function ptoAllDay(){
