@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 
-let databaseFilePath = path.join(__dirname, "database.json");
+let databaseFilePath = path.join(__dirname, "employeeDatabase.json");
 let logFilePath  = path.join(__dirname, "serverLog.txt")
 
 

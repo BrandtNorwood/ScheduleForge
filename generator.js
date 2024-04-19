@@ -4,8 +4,7 @@
 */
 
 function generateTable(){
-    console.log(fileData);
-    unfilteredGenData = parseWeek(fileData);
+    unfilteredGenData = buildWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
     var activePTORequests = getActivePTORequests(unfilteredGenData);
 
@@ -25,7 +24,8 @@ function generateTable(){
         if (feilds[i] == "Name"){
             labelElement.appendChild(document.createTextNode(feilds[i]));
         } else{
-            let thisDate = generateDay(i-1,new Time('0000'))
+            let thisDate = new Date(genDate);
+            thisDate.setDate(thisDate.getDate() + i-1);
             labelElement.appendChild(document.createTextNode(
                 feilds[i] + " " + (thisDate.getMonth()+1) + "/" + thisDate.getDate() + "/" + thisDate.getFullYear()
             ));
@@ -45,7 +45,7 @@ function generateTable(){
                 if(employee[feild].filtered){}
                 else {feildElement.style.background = pickColor(employee.Index);}
 
-                if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }
+                if(employee[feild].changed){feildElement.style.textDecoration = "underline"; }  
 
                 if (feild == "Name"){
                     feildElement.appendChild(document.createTextNode(employee[feild]));
@@ -173,7 +173,7 @@ function pickColor(index){
 
 
 //Parses Time objects into Date Objects 
-function parseWeek(inputData){
+function buildWeek(inputData){
     var dataIn = new Array();
 
     //Chat GPT fixed this code! (it was very ugly before)
@@ -183,43 +183,45 @@ function parseWeek(inputData){
     inputData.forEach(employee => {
         let revisedEmployee = {Name:employee.Name,PTO:employee.PTO,Index:employee.Index};
 
-        genEnd = new Date(genDate);
-        genEnd.setDate(genEnd.getDate()+6);
+        let builtWeek = {}
 
-        let selectedSchedule = {}
+        let activeEmployeeFlag = false;
 
-        employee.Schedules.forEach(schedule => {
-            if(schedule.startDate <= genDate){
-                if(schedule.endDate){
-                    if(schedule.endDate >= genEnd){
-                        selectedSchedule = {...{Name:employee.Name,Index:employee.Index,PTO:employee.PTO}
-                        , ...schedule};
+        employee.Shifts.forEach(thisShift=>{
+            let inRange = false;
+
+            if (thisShift.origin < new Date(genDate.getTime() + 7 * 24 * 60 * 60 * 1000)){
+                if(thisShift.endDate){
+                    inRange = (thisShift.endDate > genDate);
+                } else {inRange = true;}
+            }
+
+
+            if(inRange){
+                let thisShiftDate = adjustDateToRange(thisShift.origin, thisShift.repeatFrequency);
+
+                //This needs to be optimized by checking if the shift is within the week
+                daysOfWeek.forEach((dayOfWeek,index) => {
+                    let thisDate = new Date(genDate);
+                    thisDate.setDate(thisDate.getDate() + index);
+
+                    if(thisShiftDate.getFullYear() == thisDate.getFullYear()){
+                        if(thisShiftDate.getMonth() == thisDate.getMonth()){
+                            if(thisShiftDate.getDate() == thisDate.getDate()){
+                                console.log(thisShift);
+                                activeEmployeeFlag = true;
+                                revisedEmployee[dayOfWeek]={
+                                    start : generateDay(thisShift.origin,thisShift.startTime),
+                                    end : generateDay(thisShift.origin,thisShift.endTime)
+                                }
+                            }   
+                        }
                     }
-                }else { 
-                    selectedSchedule = {...{Name:employee.Name,Index:employee.Index,PTO:employee.PTO}
-                    , ...schedule};
-                }
+                });
             }
         });
 
-        let onWeekFlag = false;
-
-        daysOfWeek.forEach(day => {     //loop thru days
-            if (selectedSchedule[day]) {
-                onWeekFlag = true;
-                //pass times to a date generator
-                revisedEmployee[day] = {
-                    startTime : generateDay(daysOfWeek.indexOf(day), selectedSchedule[day].startTime),
-                    endTime : generateDay(daysOfWeek.indexOf(day), selectedSchedule[day].endTime)
-                }
-
-                //If the start time is after end time we assume its an overnight shift and roll end onto next day
-                if (revisedEmployee[day].startTime > revisedEmployee[day].endTime){
-                    revisedEmployee[day].endTime.setDate(revisedEmployee[day].endTime.getDate() + 1);
-                }
-            }
-        });
-        if(onWeekFlag){dataIn.push(revisedEmployee);}
+        if(activeEmployeeFlag) dataIn.push(revisedEmployee);
     });
 
     return dataIn;
@@ -227,11 +229,34 @@ function parseWeek(inputData){
 
 
 
-//used to set individual shifts for PTO Fitering
-function generateDay(dayOfWeek, time){
-    let newDay = new Date(genDate);
+//Advances the date to the required week
+function adjustDateToRange(startDate, repeatFrequency) {
+    // Check if startDate is already within the range
+    if (startDate >= genDate && startDate <= genDate) {
+        return startDate;
+    }
 
-    newDay.setDate(newDay.getDate() + dayOfWeek);
+    // Calculate the number of days to add to the startDate
+    let daysToAdd = 0;
+    if (startDate < genDate) {
+        daysToAdd = Math.ceil((genDate - startDate) / (1000 * 60 * 60 * 24));
+    }
+
+    daysToAdd =  Math.ceil(daysToAdd / repeatFrequency) * repeatFrequency;
+
+    // Add days to the startDate until it falls within the range
+    const adjustedDate = new Date(startDate);
+    adjustedDate.setDate(adjustedDate.getDate() + daysToAdd);
+
+    return adjustedDate;
+}
+
+
+
+//used to set individual shifts for PTO Fitering
+function generateDay(date, time){
+    let newDay = new Date(date);
+
     newDay.setHours(time.hour);
     newDay.setMinutes(time.minute);
     newDay.setSeconds(0);

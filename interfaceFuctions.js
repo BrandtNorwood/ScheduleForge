@@ -72,8 +72,8 @@ function AutoTimeSkip(thisDate){
 
 //Parses a shift object into readable text
 function outputDay(shiftObject){
-    let start = shiftObject.startTime;
-    let end = shiftObject.endTime;
+    let start = shiftObject.start;
+    let end = shiftObject.end;
 
     return (
         start.getHours() + ":" + 

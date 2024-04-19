@@ -1,11 +1,17 @@
 [
   {
     "Name": "Audry",
-    "PTO": null,
+    "PTO": [
+      {
+        "start": "2024-04-16T05:00:00.000Z",
+        "end": "2024-04-17T04:59:00.000Z"
+      }
+    ],
     "Index": "1",
     "Shifts": [
       {
-        "origin":"2024-04-17T04:08:15.160Z",
+        "origin":"2024-04-17T05:00:00.000Z",
+        "endDate":"2024-04-27T04:59:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -17,7 +23,7 @@
         "repeatFrequency" : 7
       },
       {
-        "origin":"2024-04-18T04:08:15.160Z",
+        "origin":"2024-04-18T05:00:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -29,7 +35,7 @@
         "repeatFrequency" : 7
       },
       {
-        "origin":"2024-04-19T04:08:15.160Z",
+        "origin":"2024-04-19T05:00:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
