@@ -184,31 +184,6 @@ app.post("/saveEMP", (req,res) => {
 
 
 
-//
-app.delete("/removeEMP", (req,res) => {
-    let user = req.body.userCred
-    let selectedEmployee = req.body.selectedEmployee;
-    let authenticated = authenticateUser(user);
-    let status = "rejected";
-
-    updateFileCache();
-
-    if(authenticated){
-        const index = fileCache.findIndex(employee => employee.Index === selectedEmployee.Index);
-        if (index > -1) {
-            debugOutput(`Removed employee ${selectedEmployee.Name}`);
-            fileCache.splice(index, 1);
-
-            saveFileCache();
-            status = "received"
-        }
-    }
-
-    res.send({authenticated,status});
-})
-
-
-
 //start Server
 app.listen(port, () =>{serverOutput(`Server Online at port ${port}`)})
 

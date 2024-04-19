@@ -47,28 +47,21 @@
 
             <div id="previewPane"></div>
 
-            <!--Ugly stack for selecting which days and at what times someone should work-->
             <form id="shiftEditor" onchange="updateShiftHighlights()">
-                <h2>Employee</h2>
+                <h2>Employee <input type="text" id="nameFeild"></h2>
 
-                <input type="text" id="nameFeild">
 
-                <div class="dayDiv"><input id="SunOn" type="checkbox"><label for="SunOn">Sunday</label>
-                    <div id="SunTimes" class="shiftDis"><input id="startSun" type="time"><a>-</a><input id="endSun" type="time"></div></div>
-                <div class="dayDiv"><input id="MonOn" type="checkbox"><label for="MonOn">Monday</label>
-                    <div id="MonTimes" class="shiftDis"><input id="startMon" type="time"><a>-</a><input id="endMon" type="time"></div></div>
-                <div class="dayDiv"><input id="TueOn" type="checkbox"><label for="TueOn">Tuesday</label>
-                    <div id="TueTimes" class="shiftDis"><input id="startTue" type="time"><a>-</a><input id="endTue" type="time"></div></div>
-                <div class="dayDiv"><input id="WedOn" type="checkbox"><label for="WedOn">Wednesday</label>
-                    <div id="WedTimes" class="shiftDis"><input id="startWed" type="time"><a>-</a><input id="endWed" type="time"></div></div>
-                <div class="dayDiv"><input id="ThuOn" type="checkbox"><label for="ThuOn">Thursday</label>
-                    <div id="ThuTimes" class="shiftDis"><input id="startThu" type="time"><a>-</a><input id="endThu" type="time"></div></div>
-                <div class="dayDiv"><input id="FriOn" type="checkbox"><label for="FriOn">Friday</label>
-                    <div id="FriTimes" class="shiftDis"><input id="startFri" type="time"><a>-</a><input id="endFri" type="time"></div></div>   
-                <div class="dayDiv"><input id="SatOn" type="checkbox"><label for="SatOn">Saturday</label>
-                    <div id="SatTimes" class="shiftDis"><input id="startSat" type="time"><a>-</a><input id="endSat" type="time"></div></div>
+                <select id = "ShiftSelect"  multiple size="4"></select>
+                <div>
+                    <a>Notes</a><br>
+                    <input type="text" id = "notesBox">
+                </div>
+                <div id = "shiftWorkbench">
+                    <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
+                    <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
+                    <input type="checkbox" id="allDayCheck"><label for="allDayCheck">All day</label>
+                </div>
                 
-                <input type="button" value="Save Changes" onclick="saveShiftChanges()">
             </form>
 
             <form id="PTOEditor">

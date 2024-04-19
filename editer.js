@@ -10,6 +10,9 @@ var timeOptions = { hour12: false };
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(passedEmpData){
+    //disabled for rework
+    return;
+
     var employeeSelected = document.getElementById("empSelect").selectedIndex
     if(employeeSelected < 0) {employeeSelected = 0;}
     
@@ -81,6 +84,10 @@ function loadPreview(passedEmpData){
 
 //to load times and checkboxes
 function loadTimeEditor(){  
+
+    //disabled for rework
+    return;
+
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
     //Populates name feild
@@ -120,23 +127,13 @@ function loadTimeEditor(){
 
 
 
-//Updates highlighting on the weekly shift editor (called any time a change is made in shiftEdit)
-function updateShiftHighlights(){
-    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-
-    days.forEach(day =>{
-        if(document.getElementById((day+"On")).checked){
-            document.getElementById((day+"Times")).classList.remove("inactive");
-        } else {
-            document.getElementById((day+"Times")).classList.add("inactive");
-        }
-    });
-}
-
-
-
 //Takes times from the edit panel and populates the fileData Array
 function saveShiftChanges(){
+
+    //disabled for rework
+    return;
+    
+    
     const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     let nameFeild = document.getElementById("nameFeild").value;
 
@@ -214,6 +211,9 @@ function populatePTOSelect(){
 
 //Handles deleting employees.
 function deleteEmployee(){
+    //disable function till rework
+    return;
+
     if (confirm(`Are you sure you want to remove ${selectedEmployee.Name}`)){
         if (onlineMode){
             if (onlineMode == "authOn" && userCred.username.length == 0){

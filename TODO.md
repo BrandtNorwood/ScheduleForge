@@ -1,15 +1,9 @@
 ## TODO
-
-* changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
-  - This could be done by moving to an array of start-end objects with start end dates. Allows to keep most of the same datatype and parser while adding substantial functionality
-  - Generator side of things
-!   * hyjack parseWeek to select the reqired schedule
-    * fix schedule editor display
-  - Editor side of things
-    * Automatic creation of new schedule if it differs from ones in front and behind it.
-    * allow a way to set a schedule to end
-      - Change how delete employee works to make it end the schedule at current date.
-
+ 
+* Rework entire way schedlues are stored and parsed. 
+  - Move to "Schedules" with "Shifts" that repeat every x amount of days from an origin date. This will allow significantly more flexability at the sacrifice of my sanity.
+  - Gut the CSV parser
+  - changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
 
 * CORS config
 

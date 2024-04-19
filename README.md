@@ -1,13 +1,15 @@
-# CSV Based Schedule generator #
+# Web Based Schedule generator #
 *By Niko Norwood*
 
-A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script. The primary data type is a JSON file storing the state of an array however CSV files are also supported. Currently this project is not security focused and is intended to be used in a rather isolated enviroment. Security features will be implemented in the future.
+Currently in process of major rework
+
+A small script to automate aspects of schedule creation. Developed for a user still using an excel spreadsheet without any automation. The site supports both local file uploading and downloading as well as local server storage using a nodeJS script. The primary data type is a JSON file storing the state of an array. Currently this project is not security focused and is intended to be used in a rather isolated enviroment. Security features will be implemented in the future. 
 
 
-This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/CSV_Scheduler/](url)
+This project was initialy funded by the company who requested it but is not formaly licened and is now maintained for the public. Feel free to use it at [https://brandtnorwood.github.io/ScheduleForge/](url)
 
 
-## CSV FILE FORMATTING RULES
+## CSV FILE FORMATTING RULES (Depreciated)
 
 This project uses a basic CSV file to store data however that file must follow certian rules. Please read the folowing sections as well as review the example sheet if you plan on creating the table by hand. Otherwise the web editor <TODO> will do all this formating for you.
 
