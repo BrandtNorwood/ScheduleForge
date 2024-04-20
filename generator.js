@@ -208,7 +208,6 @@ function buildWeek(inputData){
                     if(thisShiftDate.getFullYear() == thisDate.getFullYear()){
                         if(thisShiftDate.getMonth() == thisDate.getMonth()){
                             if(thisShiftDate.getDate() == thisDate.getDate()){
-                                console.log(thisShift);
                                 activeEmployeeFlag = true;
                                 revisedEmployee[dayOfWeek]={
                                     start : generateDay(thisShift.origin,thisShift.startTime),
