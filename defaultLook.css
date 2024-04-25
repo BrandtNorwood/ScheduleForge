@@ -68,6 +68,10 @@ th, td {
     border: 1px solid black;
 }
 
+#shiftSelector{
+    width: 40%;
+}
+
 #edit .inactive input{
     background-color: var(--grayedOut);
 }
@@ -85,7 +89,6 @@ th, td {
 #PTOSelect{
     width: 40%;
 }
-
 
 
 .dayDiv {

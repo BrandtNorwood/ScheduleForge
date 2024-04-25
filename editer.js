@@ -9,15 +9,26 @@ var userCred = {username:"",password:""};
 var timeOptions = { hour12: false };
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
-function loadPreview(passedEmpData){
-    //disabled for rework
+function loadPreview(){
+    selectedEmployee = fileData[1];
+    loadTimeEditor();
 }
 
 
 
 //to load times and checkboxes
 function loadTimeEditor(){  
-    //disabled for rework
+    console.log(selectedEmployee);
+    let shiftSelector = document.getElementById("shiftSelector");
+    
+    let activeShifts = selectedEmployee.Shifts;
+
+    activeShifts.forEach(thisShift => {
+        shiftSelector.options[shiftSelector.options.length] = new Option( "Generated - " +
+            adjustDateToRange(thisShift.origin,thisShift.repeatFrequency).toLocaleString('en-US',timeOptions) +
+            " and repeats every " + thisShift.repeatFrequency + " days"
+        );
+    });
 }
 
 

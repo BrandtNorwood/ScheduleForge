@@ -27,8 +27,8 @@ function loadEditor() {
     document.getElementById("outputPane").style.display="none";
 
     clearPTOEdit();
-    loadPreview();
     loadEMPSelect();
+    loadPreview();
 }
 
 
