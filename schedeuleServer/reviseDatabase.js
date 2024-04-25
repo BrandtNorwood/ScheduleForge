@@ -10,7 +10,7 @@ function saveFileCache(){
         const data = JSON.stringify(fileCache, null, 2);
         
         // Write the JSON string to the database.json file
-        fs.writeFileSync(path.join(__dirname, "new_database.json"), data);
+        fs.writeFileSync(path.join(__dirname, "employeeDatabase.json"), data);
         
         console.log('Database file updated successfully!');
     } catch (err) {
@@ -62,6 +62,8 @@ updateFileCache().then(function(){
 
 });
 
+var genDate = AutoTimeSkip(new Date(Date.now()));
+
 function convertToTimeline(){
     console.log("\nConverting file to timeline compatible");
 
@@ -72,10 +74,44 @@ function convertToTimeline(){
 
         newEmployee.Shifts = new Array();
 
-        newFileCache.push(newEmployee);
+        const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+        days.forEach(day => {
+            if (employee[day]){
+                newEmployee.Shifts.push({
+                    origin:generateDay(days.indexOf(day)),
+                    startTime:employee[day].startTime,
+                    endTime:employee[day].endTime,
+                    repeatFrequency: 7
+                });
+            }
+        });
 
-        console.log("Compleated operation on " + employee.Name);
+        newFileCache.push(newEmployee);
     });
 
     fileCache = newFileCache;
+    console.log(fileCache.length + " operations compleated");
+}
+
+//used to set individual shifts (stolen from old version of generator)
+function generateDay(dayOfWeek, time){
+    let newDay = new Date(genDate);
+
+    newDay.setDate(newDay.getDate() + dayOfWeek);
+    newDay.setHours(0);
+    newDay.setMinutes(0);
+    newDay.setSeconds(0);
+    newDay.setMilliseconds(0);
+
+    return newDay;
+}
+
+//returns a date set to sunday
+function AutoTimeSkip(thisDate){
+    thisDate.setDate(thisDate.getDate() + (7-thisDate.getDay()) - 14); 
+    thisDate.setHours(0);
+    thisDate.setMinutes(0);
+    thisDate.setSeconds(0);
+
+    return thisDate;
 }

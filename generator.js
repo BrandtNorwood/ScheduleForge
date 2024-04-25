@@ -4,11 +4,11 @@
 */
 
 function generateTable(){
+    console.log(fileData)
     unfilteredGenData = buildWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
     var activePTORequests = getActivePTORequests(unfilteredGenData);
 
-    console.log(unfilteredGenData);
     //Create table HTML object
     var table = document.createElement('table');
     table.setAttribute("id","table");
@@ -210,8 +210,8 @@ function buildWeek(inputData){
                             if(thisShiftDate.getDate() == thisDate.getDate()){
                                 activeEmployeeFlag = true;
                                 revisedEmployee[dayOfWeek]={
-                                    start : generateDay(thisShift.origin,thisShift.startTime),
-                                    end : generateDay(thisShift.origin,thisShift.endTime)
+                                    start : generateDay(thisShiftDate,thisShift.startTime),
+                                    end : generateDay(thisShiftDate,thisShift.endTime)
                                 }
                             }   
                         }
@@ -238,10 +238,12 @@ function adjustDateToRange(startDate, repeatFrequency) {
     // Calculate the number of days to add to the startDate
     let daysToAdd = 0;
     if (startDate < genDate) {
-        daysToAdd = Math.ceil((genDate - startDate) / (1000 * 60 * 60 * 24));
+        daysToAdd = Math.ceil(((genDate-1000) - startDate) / (1000 * 60 * 60 * 24));
     }
 
-    daysToAdd =  Math.ceil(daysToAdd / repeatFrequency) * repeatFrequency;
+    if (daysToAdd % repeatFrequency !== 0) {
+        daysToAdd = Math.ceil(daysToAdd / repeatFrequency) * repeatFrequency;
+    }
 
     // Add days to the startDate until it falls within the range
     const adjustedDate = new Date(startDate);

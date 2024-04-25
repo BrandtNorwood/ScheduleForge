@@ -1,17 +1,11 @@
 [
   {
     "Name": "Audry",
-    "PTO": [
-      {
-        "start": "2024-04-16T05:00:00.000Z",
-        "end": "2024-04-17T04:59:00.000Z"
-      }
-    ],
+    "PTO": null,
     "Index": "1",
     "Shifts": [
       {
-        "origin":"2024-04-17T05:00:00.000Z",
-        "endDate":"2024-04-27T04:59:00.000Z",
+        "origin": "2024-04-14T05:00:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -20,10 +14,10 @@
           "minute": "00",
           "hour": "22"
         },
-        "repeatFrequency" : 7
+        "repeatFrequency": 7
       },
       {
-        "origin":"2024-04-18T05:00:00.000Z",
+        "origin": "2024-04-15T05:00:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -32,10 +26,10 @@
           "minute": "00",
           "hour": "22"
         },
-        "repeatFrequency" : 7
+        "repeatFrequency": 7
       },
       {
-        "origin":"2024-04-19T05:00:00.000Z",
+        "origin": "2024-04-16T05:00:00.000Z",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -44,7 +38,19 @@
           "minute": "00",
           "hour": "22"
         },
-        "repeatFrequency" : 7
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
       }
     ]
   },
@@ -52,7 +58,56 @@
     "Name": "Ben",
     "PTO": null,
     "Index": "2",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Charlie",
@@ -63,25 +118,221 @@
       }
     ],
     "Index": "3",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "David",
     "PTO": null,
     "Index": "4",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Eddie",
     "PTO": null,
     "Index": "5",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Freddie",
     "PTO": null,
     "Index": "6",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "George",
@@ -92,7 +343,32 @@
       }
     ],
     "Index": "7",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Helen",
@@ -107,49 +383,429 @@
       }
     ],
     "Index": "8",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Isabel",
     "PTO": null,
     "Index": "9",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "21"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "07"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Jesse",
     "PTO": null,
     "Index": "10",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Kennedy",
     "PTO": null,
     "Index": "11",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Leo",
     "PTO": null,
     "Index": "12",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Mike",
     "PTO": null,
     "Index": "13",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Niko",
     "PTO": null,
     "Index": "14",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Oliver",
     "PTO": null,
     "Index": "15",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "6"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "13"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "6"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "10"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "6"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "13"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "6"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "10"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Penny",
@@ -161,13 +817,99 @@
       }
     ],
     "Index": "16",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Lora",
     "PTO": null,
     "Index": "17",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Rachel",
@@ -178,30 +920,275 @@
       }
     ],
     "Index": "18",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-17T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Steven",
     "PTO": null,
     "Index": "19",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Thomas",
     "PTO": null,
     "Index": "20",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "21"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "5"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "21"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "5"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "Viktor",
     "PTO": null,
     "Index": "21",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-14T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-15T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   },
   {
     "Name": "William",
     "PTO": null,
     "Index": "22",
-    "Shifts": []
+    "Shifts": [
+      {
+        "origin": "2024-04-16T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-18T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-19T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-04-20T05:00:00.000Z",
+        "startTime": {
+          "minute": "00",
+          "hour": "4"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "14"
+        },
+        "repeatFrequency": 7
+      }
+    ]
   }
 ]
