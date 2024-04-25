@@ -47,7 +47,7 @@
 
             <div id="previewPane"></div>
 
-            <form id="shiftEditor" onchange="updateShiftHighlights()">
+            <form id="shiftEditor" onchange="//TODO">
                 <h2>Employee <input type="text" id="nameFeild"></h2>
 
 
@@ -57,11 +57,15 @@
                     <input type="text" id = "notesBox">
                 </div>
                 <div id = "shiftWorkbench">
-                    <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
-                    <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
-                    <input type="checkbox" id="allDayCheck"><label for="allDayCheck">All day</label>
+                    <input type="date" id="shiftOrigin"><a>  -  </a>
+                    <input type="date" id="shiftEndDate">
+                    <input type="checkbox" id="shiftNeverEnds"><label for="shiftNeverEnds">no end date</label>
                 </div>
-                
+                <div>
+                    <a>Repeat frequency </a>
+                    <input type="number" id="shiftFrequency" name="shiftFrequency" min="1" style="width:4%;">
+                </div> 
+
             </form>
 
             <form id="PTOEditor">
