@@ -5,9 +5,11 @@
   - Gut the CSV parser
   - changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
 
-* CORS config
+* Filter out inactive employees in the empSelector
 
 * Shift 'Groups'
+
+* CORS config
 
 * Temporary shift (reverse pto)
 

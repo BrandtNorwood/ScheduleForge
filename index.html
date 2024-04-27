@@ -50,7 +50,7 @@
             <form id="shiftEditor" onchange="//TODO">
                 <h2>Employee <input type="text" id="nameFeild"></h2>
 
-
+                <a>Shifts</a><br>
                 <select id = "shiftSelector"  multiple size="4"></select>
                 <div>
                     <a>Notes</a><br>
@@ -64,6 +64,8 @@
                     <a>Repeat frequency </a>
                     <input type="number" id="shiftFrequency" name="shiftFrequency" min="1" style="width:4%;">
                 </div> 
+                <input type="button" value="Save Changes" onclick="saveShiftChange()">
+                <input type="button" value="Clear Changes" onclick="clearShiftEdit()">
 
             </form>
 

@@ -13,6 +13,7 @@ function loadPreview(){
     console.log(selectEmployee());
     selectedEmployee = selectEmployee();
     loadTimeEditor();
+    document.getElementById("nameFeild").value = selectedEmployee.Name;
 }
 
 
@@ -38,17 +39,29 @@ function selectEmployee(){
 }
 
 
+
 //to load times and checkboxes
-function loadTimeEditor(){
+function loadTimeEditor(){  
     let shiftSelector = document.getElementById("shiftSelector");
+
+    //clear selector
+    shiftSelector.length = 0;
     
     let activeShifts = selectedEmployee.Shifts;
 
     activeShifts.forEach(thisShift => {
-        shiftSelector.options[shiftSelector.options.length] = new Option( "Generated - " +
-            adjustDateToRange(thisShift.origin,thisShift.repeatFrequency).toLocaleString('en-US',timeOptions) +
-            " and repeats every " + thisShift.repeatFrequency + " days"
-        );
+        if (thisShift.endDate){
+            shiftSelector.options[shiftSelector.options.length] = new Option(
+                "Starts on " + thisShift.origin.toDateString() + 
+                ", ends on " + thisShift.endDate.toDateString() + 
+                " and repeats every " + thisShift.repeatFrequency + " days"
+            );
+        }else {
+            shiftSelector.options[shiftSelector.options.length] = new Option(
+                "Starts on " + thisShift.origin.toDateString() +
+                " and repeats every " + thisShift.repeatFrequency + " days"
+            );
+        }
     });
 }
 
