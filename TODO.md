@@ -1,5 +1,7 @@
 ## TODO
  
+* BUG - Employee End dates are not functioning as expected and seem to be rolling off a day early.
+
 * Rework entire way schedlues are stored and parsed. 
   - Move to "Schedules" with "Shifts" that repeat every x amount of days from an origin date. This will allow significantly more flexability at the sacrifice of my sanity.
   - Gut the CSV parser

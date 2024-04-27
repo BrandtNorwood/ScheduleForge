@@ -114,6 +114,11 @@
             });
 
             //When PTO request is changed reload the editor
+            document.getElementById("shiftSelector").addEventListener("change", (event) => {
+                loadTimeEditor();
+            });
+
+            //When PTO request is changed reload the editor
             document.getElementById("PTOSelect").addEventListener("change", (event) => {
                 populatePTOEdit();
             });

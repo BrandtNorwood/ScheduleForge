@@ -4,6 +4,7 @@
 */
 //used to store ref to employee from fileData Array
 var selectedEmployee = {};
+var activeShifts = [];
 var userCred = {username:"",password:""};
 
 var timeOptions = { hour12: false }; //makes dates into 24hr
@@ -12,7 +13,7 @@ var timeOptions = { hour12: false }; //makes dates into 24hr
 function loadPreview(){
     console.log(selectEmployee());
     selectedEmployee = selectEmployee();
-    loadTimeEditor();
+    activeShifts = loadShiftSelector();
     document.getElementById("nameFeild").value = selectedEmployee.Name;
 }
 
@@ -42,6 +43,22 @@ function selectEmployee(){
 
 //to load times and checkboxes
 function loadTimeEditor(){  
+    selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
+
+    document.getElementById("shiftOrigin").value = htmlDateFormat(selectedShift.origin);
+    if (selectedShift.endDate){
+        document.getElementById("shiftNeverEnds").checked = false;
+        document.getElementById("shiftEndDate").value = htmlDateFormat(selectedShift.endDate);
+    } else {
+        document.getElementById("shiftNeverEnds").checked = true;
+    }
+    document.getElementById("shiftFrequency").value = selectedShift.repeatFrequency;
+}
+
+
+
+//populates the shift selector object
+function loadShiftSelector(){  
     let shiftSelector = document.getElementById("shiftSelector");
 
     //clear selector
@@ -63,6 +80,8 @@ function loadTimeEditor(){
             );
         }
     });
+
+    return activeShifts;
 }
 
 
@@ -317,4 +336,12 @@ function ptoAllDay(){
         document.getElementById("ptoStartTime").classList.remove("inactive");
         document.getElementById("ptoEndTime").classList.remove("inactive");
     }
+}
+
+
+
+function htmlDateFormat(date){
+    return  date.getFullYear() + "-" + 
+            (date.getMonth() + 1).toString().padStart(2, '0') + "-" + 
+            date.getDate().toString().padStart(2, '0');
 }
