@@ -1,4 +1,4 @@
-/*  File Holds functions for editing the csv file.
+/*  File Holds functions for editing the data
 
     Niko Norwood - March 19 2024
 */
@@ -6,19 +6,40 @@
 var selectedEmployee = {};
 var userCred = {username:"",password:""};
 
-var timeOptions = { hour12: false };
+var timeOptions = { hour12: false }; //makes dates into 24hr
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(){
-    selectedEmployee = fileData[1];
+    console.log(selectEmployee());
+    selectedEmployee = selectEmployee();
     loadTimeEditor();
 }
 
 
 
+//Takes the value in the empSelector and loads the apropriate emp out of the filedata
+function selectEmployee(){
+    empSelector = document.getElementById("empSelect");
+
+    if (empSelector.value == fileData[empSelector.selectedIndex].Name){
+        return fileData[empSelector.selectedIndex];
+    } 
+    //If there is a missmatch we advance the index till we find the correct emp
+    else {
+        let onIndex = empSelector.selectedIndex;
+
+        //Capped at 5000 just in case
+        while (empSelector.value != fileData[onIndex].Name && onIndex < 5000){
+            onIndex++;
+        }
+
+        return fileData[onIndex]
+    }
+}
+
+
 //to load times and checkboxes
-function loadTimeEditor(){  
-    console.log(selectedEmployee);
+function loadTimeEditor(){
     let shiftSelector = document.getElementById("shiftSelector");
     
     let activeShifts = selectedEmployee.Shifts;
@@ -83,7 +104,15 @@ function populatePTOSelect(){
 
 //Handles deleting employees.
 function deleteEmployee(){
-    //disable function till rework
+    selectedEmployee.Shifts.forEach(shift =>{
+        shift.endDate = genDate;
+    });
+
+    if(onlineMode){
+        saveRemoteEmployee(selectedEmployee);
+    }else{
+        loadEditor();
+    }
 }
 
 
