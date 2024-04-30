@@ -2,27 +2,32 @@
  
 * BUG - Employee End dates are not functioning as expected and seem to be rolling off a day early.
 
-* Rework entire way schedlues are stored and parsed. 
-  - Move to "Schedules" with "Shifts" that repeat every x amount of days from an origin date. This will allow significantly more flexability at the sacrifice of my sanity.
-  - Gut the CSV parser
-  - changes to schedule should only be applied after a date. You should be able to go back and view the way things were before
+* Finish reimplementation
 
-* Filter out inactive employees in the empSelector
+* Massive code refactor
+  - Split code into interface based and pure parsers 
+      * for possible react rewrite
+  - Gut remaining CSV code
+  - Rework the way data based calls are made and move away from referencing shared objects
 
-* Shift 'Groups'
-
-* CORS config
+* Interface rework
+  - Evaluate move to React framework
+  - Redesign interface 
+    * Create a color scheme and layout rules
+    * rethink editing pane
+  - Shift 'Groups'
+    * Should be able to seperate employees in most if not all panes
+    * Potentialy put the group selector at the top of the screen
 
 * Temporary shift (reverse pto)
 
-* Be able to generate an empty file from scratch
+* Reimplement offline functionality
+  - Be able to generate an empty file from scratch
 
-* More secure super user storage method
+* SECURITY
+  - More secure super user storage method
+  - CORS config
 
-* Support Multiple shifts per day
-
-* MASSIVE UI Overhaul
+* Properly render multiple shifts per day
 
 * Server automatic setup
-
-* Multiple databases per server?
