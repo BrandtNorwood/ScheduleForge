@@ -7,6 +7,8 @@
 class Time {
     //for when we want to pass a raw 4 char string as time
     constructor(rawTime){
+        rawTime = rawTime.replace(":","");
+
         this.minute = rawTime.slice(-2);
         rawTime = rawTime.slice(0, -2); 
         this.hour = rawTime;

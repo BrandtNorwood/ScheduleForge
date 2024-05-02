@@ -46,11 +46,14 @@ function loadTimeEditor(){
     selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
 
     document.getElementById("shiftOrigin").value = htmlDateFormat(selectedShift.origin);
+    document.getElementById("shiftStartTime").value = htmlTimeFormat(selectedShift.startTime);
+    document.getElementById("shiftEndTime").value = htmlTimeFormat(selectedShift.endTime);
     if (selectedShift.endDate){
         document.getElementById("shiftNeverEnds").checked = false;
         document.getElementById("shiftEndDate").value = htmlDateFormat(selectedShift.endDate);
     } else {
         document.getElementById("shiftNeverEnds").checked = true;
+        document.getElementById("shiftEndDate").value = "";
     }
     document.getElementById("shiftFrequency").value = selectedShift.repeatFrequency;
 }
@@ -88,7 +91,41 @@ function loadShiftSelector(){
 
 //Takes times from the edit panel and populates the fileData Array
 function saveShiftChanges(){
-    //disabled for rework
+    let newOrigin = document.getElementById("shiftOrigin").value;
+    let newStartTime = document.getElementById("shiftStartTime").value
+    let newEndTime = document.getElementById("shiftEndTime").value
+    let noEnd = document.getElementById("shiftNeverEnds").checked
+    let newEndDate = document.getElementById("shiftEndDate").value
+    let newRepeatFrequency =  document.getElementById("shiftFrequency").value;
+
+    let parsedStartTime = new Time(newStartTime);
+    let parsedEndTime = new Time(newEndTime);
+
+    console.log(newStartTime);
+
+    let activeShifts = selectedEmployee.Shifts;
+    selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
+
+    selectedShift = {
+        origin:new Date(newOrigin),
+        repeatFrequency:newRepeatFrequency,
+        startTime:{
+            minute:parsedStartTime.minute,
+            hour:parsedStartTime.hour
+        },
+        endTime:{
+            minute:parsedEndTime.minute,
+            hour:parsedEndTime.hour
+        }
+    }
+
+    if (!noEnd){
+        selectedShift.endDate = new Date(newEndDate);
+    }
+
+    selectedEmployee.Shifts[document.getElementById("shiftSelector").selectedIndex] = selectedShift;
+
+    console.log(selectedShift);
 }
 
 
@@ -340,8 +377,17 @@ function ptoAllDay(){
 
 
 
+//formats a date object for use in an HTML date selector
 function htmlDateFormat(date){
     return  date.getFullYear() + "-" + 
             (date.getMonth() + 1).toString().padStart(2, '0') + "-" + 
             date.getDate().toString().padStart(2, '0');
+}
+
+
+
+//formats a time object for use in a HTML time selector
+function htmlTimeFormat(time){
+    return time.hour.toString().padStart(2, '0') 
+    + ":" + time.minute.toString().padStart(2, '0');
 }

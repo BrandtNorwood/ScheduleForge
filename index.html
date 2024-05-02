@@ -61,10 +61,12 @@
                     <input type="date" id="shiftEndDate">
                     <input type="checkbox" id="shiftNeverEnds"><label for="shiftNeverEnds">no end date</label>
                     <br>
+                    <input type="time" id="shiftStartTime"><a>  -  </a><input type="time" id="shiftEndTime">
+                    <br>
                     <a>Repeat frequency </a>
                     <input type="number" id="shiftFrequency" name="shiftFrequency" min="1" style="width:4%;">
                 </div> 
-                <input type="button" value="Save Changes" onclick="saveShiftChange()">
+                <input type="button" value="Save Changes" onclick="saveShiftChanges()">
                 <input type="button" value="Clear Changes" onclick="clearShiftEdit()">
 
             </form>
