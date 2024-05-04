@@ -130,6 +130,27 @@ function saveShiftChanges(){
 
 
 
+//Creates a new shift in the Shifts array
+function newShift(){
+    //follow PTO convention to create new shift with origin as genDate
+}
+
+
+
+//Sets end date to the end of gen week
+function endShift(){
+    //set end date to end of this week
+}
+
+
+
+//Remove selected shift from Shifts array
+function deleteShift(){
+    //confirm window then remove from array
+}
+
+
+
 //Chat GPT solution to turning the HTML time strings into ones I can pass to the Time constructer
 function convertFeildToTime(timeString) {
     // Extract hour and minute components
