@@ -52,15 +52,15 @@
 
                 <a>Shifts</a><br>
                 <select id = "shiftSelector"  multiple size="4"></select>
-                <div>
-                    <a>Notes</a><br>
-                    <input type="text" id = "notesBox">
-                </div>
                 <div id = "shiftWorkbench">
                     <div>
                         <input type="button" value="New Shift" onclick="">
-                        <input type="button" value="End Shift" onclick="">
+                        <input type="button" value="End Shift" onclick="endShift()">
                         <input type="button" value="Delete Shift" onclick="">
+                    </div>
+                    <div>
+                        <a>Notes</a><br>
+                        <input type="text" id = "notesBox">
                     </div>
                     <input type="date" id="shiftOrigin"><a>  -  </a>
                     <input type="date" id="shiftEndDate">

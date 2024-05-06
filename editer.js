@@ -95,7 +95,7 @@ function saveShiftChanges(){
     let newStartTime = document.getElementById("shiftStartTime").value
     let newEndTime = document.getElementById("shiftEndTime").value
     let noEnd = document.getElementById("shiftNeverEnds").checked
-    let newEndDate = document.getElementById("shiftEndDate").value
+    let newEnd = document.getElementById("shiftEndDate").value
     let newRepeatFrequency =  document.getElementById("shiftFrequency").value;
 
     let parsedStartTime = new Time(newStartTime);
@@ -103,11 +103,14 @@ function saveShiftChanges(){
 
     console.log(newStartTime);
 
+    let newOriginDate = new Date(newOrigin);
+    newOriginDate.setDate(newOriginDate.getDate() + 1);
+
     let activeShifts = selectedEmployee.Shifts;
     selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
 
     selectedShift = {
-        origin:new Date(newOrigin),
+        origin:newOriginDate,
         repeatFrequency:newRepeatFrequency,
         startTime:{
             minute:parsedStartTime.minute,
@@ -120,7 +123,9 @@ function saveShiftChanges(){
     }
 
     if (!noEnd){
-        selectedShift.endDate = new Date(newEndDate);
+        let newEndDate = new Date(newEnd);
+        newEndDate.setDate(newEndDate.getDate()+1);
+        selectedShift.endDate = newEndDate;
     }
 
     selectedEmployee.Shifts[document.getElementById("shiftSelector").selectedIndex] = selectedShift;
@@ -139,17 +144,14 @@ function newShift(){
 
 //Sets end date to the end of gen week
 function endShift(){
-    let noEnd = document.getElementById("shiftNeverEnds").checked
-    let newEndDate = document.getElementById("shiftEndDate").value
-
     let activeShifts = selectedEmployee.Shifts;
     selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
 
-    let endOfWeek = new Date(selectedShift.origin);
-    endOfWeek.setDate(endOfWeek.getDate()+1);
-
-    noEnd = false;
-    newEndDate = htmlDateFormat(endOfWeek)
+    let endOfWeek = new Date(genDate);
+    endOfWeek.setDate(endOfWeek.getDate()+7);
+    
+    document.getElementById("shiftNeverEnds").checked = false;
+    document.getElementById("shiftEndDate").value = htmlDateFormat(endOfWeek);
 
     saveShiftChanges();
 }
