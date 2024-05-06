@@ -11,7 +11,6 @@ var timeOptions = { hour12: false }; //makes dates into 24hr
 
 //Loads Preveiw pane. Most of this code is stolen from the table generator
 function loadPreview(){
-    console.log(selectEmployee());
     selectedEmployee = selectEmployee();
     activeShifts = loadShiftSelector();
     document.getElementById("nameFeild").value = selectedEmployee.Name;
@@ -130,7 +129,7 @@ function saveShiftChanges(){
 
     selectedEmployee.Shifts[document.getElementById("shiftSelector").selectedIndex] = selectedShift;
 
-    console.log(selectedShift);
+    //Save Change to server
 }
 
 
@@ -161,6 +160,14 @@ function endShift(){
 //Remove selected shift from Shifts array
 function deleteShift(){
     //confirm window then remove from array
+    if (confirm("Delete Selected Shift?")){
+        let activeShifts = selectedEmployee.Shifts;
+        shiftIndex = document.getElementById("shiftSelector").selectedIndex;
+
+        activeShifts.splice(shiftIndex,1);
+
+        loadPreview();
+    }
 }
 
 
