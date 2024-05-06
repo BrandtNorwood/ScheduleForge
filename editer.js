@@ -139,7 +139,19 @@ function newShift(){
 
 //Sets end date to the end of gen week
 function endShift(){
-    //set end date to end of this week
+    let noEnd = document.getElementById("shiftNeverEnds").checked
+    let newEndDate = document.getElementById("shiftEndDate").value
+
+    let activeShifts = selectedEmployee.Shifts;
+    selectedShift = activeShifts[document.getElementById("shiftSelector").selectedIndex];
+
+    let endOfWeek = new Date(selectedShift.origin);
+    endOfWeek.setDate(endOfWeek.getDate()+1);
+
+    noEnd = false;
+    newEndDate = htmlDateFormat(endOfWeek)
+
+    saveShiftChanges();
 }
 
 
