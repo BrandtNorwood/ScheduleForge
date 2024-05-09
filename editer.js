@@ -137,7 +137,30 @@ function saveShiftChanges(){
 
 //Creates a new shift in the Shifts array
 function newShift(){
-    //follow PTO convention to create new shift with origin as genDate
+    let now = new Date(genDate);
+
+    //Add option to shift selector
+    let selector = document.getElementById("shiftSelector");
+    selector.options[selector.options.length] = new Option("New Shift")
+
+    //send selector to new shift
+    document.getElementById("shiftSelector").selectedIndex = (selector.length - 1);
+
+    //initialize the UI
+    document.getElementById("shiftOrigin").value = 
+        now.getFullYear() + "-" + (now.getMonth() + 1).toString().padStart(2, '0') + "-" + now.getDate().toString().padStart(2, '0');
+    document.getElementById("shiftNeverEnds").checked = true;
+    document.getElementById("shiftStartTime").value = "12:00";
+    document.getElementById("shiftEndTime").value = "14:00";
+    document.getElementById("shiftFrequency").value = 0;
+
+    //If shifts array does not exist initialize it
+    if(!selectedEmployee.Shifts){selectedEmployee.Shifts = new Array();}
+
+    //create object to save too
+    selectedEmployee.Shifts.push({origin:now,startTime:{minute:"00",hour:"12"},endTime:{minute:"00",hour:"14"},repeatFrequency:0})
+
+    console.log(selectedEmployee);
 }
 
 
