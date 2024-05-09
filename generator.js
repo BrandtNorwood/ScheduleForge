@@ -200,23 +200,26 @@ function buildWeek(inputData){
             if(inRange){
                 let thisShiftDate = adjustDateToRange(thisShift.origin, thisShift.repeatFrequency);
 
-                //This needs to be optimized by checking if the shift is within the week
-                daysOfWeek.forEach((dayOfWeek,index) => {
-                    let thisDate = new Date(genDate);
-                    thisDate.setDate(thisDate.getDate() + index);
+                if (thisShiftDate != null){
 
-                    if(thisShiftDate.getFullYear() == thisDate.getFullYear()){
-                        if(thisShiftDate.getMonth() == thisDate.getMonth()){
-                            if(thisShiftDate.getDate() == thisDate.getDate()){
-                                activeEmployeeFlag = true;
-                                revisedEmployee[dayOfWeek]={
-                                    start : generateDay(thisShiftDate,thisShift.startTime),
-                                    end : generateDay(thisShiftDate,thisShift.endTime)
-                                }
-                            }   
+                    //This needs to be optimized by checking if the shift is within the week
+                    daysOfWeek.forEach((dayOfWeek,index) => {
+                        let thisDate = new Date(genDate);
+                        thisDate.setDate(thisDate.getDate() + index);
+
+                        if(thisShiftDate.getFullYear() == thisDate.getFullYear()){
+                            if(thisShiftDate.getMonth() == thisDate.getMonth()){
+                                if(thisShiftDate.getDate() == thisDate.getDate()){
+                                    activeEmployeeFlag = true;
+                                    revisedEmployee[dayOfWeek]={
+                                        start : generateDay(thisShiftDate,thisShift.startTime),
+                                        end : generateDay(thisShiftDate,thisShift.endTime)
+                                    }
+                                }   
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -233,6 +236,10 @@ function adjustDateToRange(startDate, repeatFrequency) {
     // Check if startDate is already within the range
     if (startDate >= genDate && startDate <= genDate) {
         return startDate;
+    }
+
+    if (repeatFrequency == 0){
+        return null;
     }
 
     // Calculate the number of days to add to the startDate
