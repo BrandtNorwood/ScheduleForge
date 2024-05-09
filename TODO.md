@@ -1,8 +1,13 @@
 ## TODO
- 
+
 * BUG - Employee End dates are not functioning as expected and seem to be rolling off a day early.
 
 * Finish reimplementation
+ - Test and reimplement saving to server
+
+
+### Rewrite
+
 
 * Massive code refactor
   - Split code into interface based and pure parsers 
