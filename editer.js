@@ -100,8 +100,6 @@ function saveShiftChanges(){
     let parsedStartTime = new Time(newStartTime);
     let parsedEndTime = new Time(newEndTime);
 
-    console.log(newStartTime);
-
     let newOriginDate = new Date(newOrigin);
     newOriginDate.setDate(newOriginDate.getDate() + 1);
 
@@ -129,7 +127,10 @@ function saveShiftChanges(){
 
     selectedEmployee.Shifts[document.getElementById("shiftSelector").selectedIndex] = selectedShift;
 
+    loadPreview();
+
     //Save Change to server
+    //saveRemoteChanges();
 }
 
 
@@ -167,6 +168,8 @@ function deleteShift(){
         activeShifts.splice(shiftIndex,1);
 
         loadPreview();
+
+        //saveRemoteChanges();
     }
 }
 

@@ -4,7 +4,6 @@
 */
 
 function generateTable(){
-    console.log(fileData)
     unfilteredGenData = buildWeek(fileData);
     var filteredGenData = filterPTO(unfilteredGenData);
     var activePTORequests = getActivePTORequests(unfilteredGenData);
@@ -238,6 +237,7 @@ function adjustDateToRange(startDate, repeatFrequency) {
         return startDate;
     }
 
+    //If the repeat frequency is 0 we assume it should not be repeated
     if (repeatFrequency == 0){
         return null;
     }
