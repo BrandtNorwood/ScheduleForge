@@ -160,7 +160,7 @@ function newShift(){
     //create object to save too
     selectedEmployee.Shifts.push({origin:now,startTime:{minute:"00",hour:"12"},endTime:{minute:"00",hour:"14"},repeatFrequency:0})
 
-    console.log(selectedEmployee);
+    loadPreview();
 }
 
 
