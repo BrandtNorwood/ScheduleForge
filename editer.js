@@ -55,6 +55,9 @@ function loadTimeEditor(){
         document.getElementById("shiftEndDate").value = "";
     }
     document.getElementById("shiftFrequency").value = selectedShift.repeatFrequency;
+
+    //updates highlighting
+    shiftNoEnd();
 }
 
 
@@ -427,6 +430,8 @@ function saveRemoteEmployee(saveEmployee) {
 }
  
 
+
+//updates Highlighting on pto boxes 
 function ptoAllDay(){
     if (document.getElementById("allDayCheck").checked){
         document.getElementById("ptoStartTime").value = "00:00:00";
@@ -440,6 +445,21 @@ function ptoAllDay(){
 
         document.getElementById("ptoStartTime").classList.remove("inactive");
         document.getElementById("ptoEndTime").classList.remove("inactive");
+    }
+}
+
+
+
+//Updates highlighting on shift end box
+function shiftNoEnd(){
+    let now = new Date(genDate);
+    if (document.getElementById("shiftNeverEnds").checked){
+        document.getElementById("shiftEndDate").value = null;
+        document.getElementById("shiftEndDate").classList.add("inactive");
+    } else {
+        document.getElementById("shiftEndDate").value = 
+        now.getFullYear() + "-" + (now.getMonth() + 1).toString().padStart(2, '0') + "-" + now.getDate().toString().padStart(2, '0');
+        document.getElementById("shiftEndDate").classList.remove("inactive");
     }
 }
 
