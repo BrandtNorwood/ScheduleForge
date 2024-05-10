@@ -17,7 +17,8 @@
         "repeatFrequency": 7
       },
       {
-        "origin": "2024-04-15T05:00:00.000Z",
+        "origin": "2024-04-16T00:00:00.000Z",
+        "repeatFrequency": "7",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -25,11 +26,11 @@
         "endTime": {
           "minute": "00",
           "hour": "22"
-        },
-        "repeatFrequency": 7
+        }
       },
       {
-        "origin": "2024-04-16T05:00:00.000Z",
+        "origin": "2024-04-17T00:00:00.000Z",
+        "repeatFrequency": "7",
         "startTime": {
           "minute": "00",
           "hour": "12"
@@ -38,7 +39,7 @@
           "minute": "00",
           "hour": "22"
         },
-        "repeatFrequency": 7
+        "endDate": "2024-05-10T00:00:00.000Z"
       },
       {
         "origin": "2024-04-17T05:00:00.000Z",
@@ -51,6 +52,18 @@
           "hour": "22"
         },
         "repeatFrequency": 7
+      },
+      {
+        "origin": "2024-05-17T00:00:00.000Z",
+        "repeatFrequency": "0",
+        "startTime": {
+          "minute": "00",
+          "hour": "12"
+        },
+        "endTime": {
+          "minute": "00",
+          "hour": "22"
+        }
       }
     ]
   },

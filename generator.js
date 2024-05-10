@@ -233,7 +233,7 @@ function buildWeek(inputData){
 //Advances the date to the required week
 function adjustDateToRange(startDate, repeatFrequency) {
     // Check if startDate is already within the range
-    if (startDate >= genDate && startDate <= genDate) {
+    if (startDate >= genDate && startDate <= (genDate.getTime() + (1000 * 60 * 60 * 24 * 7))) {
         return startDate;
     }
 

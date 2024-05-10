@@ -130,7 +130,7 @@ function saveShiftChanges(){
     loadPreview();
 
     //Save Change to server
-    //saveRemoteChanges();
+    saveRemoteEmployee(selectedEmployee);
 }
 
 
@@ -192,7 +192,7 @@ function deleteShift(){
 
         loadPreview();
 
-        //saveRemoteChanges();
+        saveRemoteEmployee(selectedEmployee);
     }
 }
 
