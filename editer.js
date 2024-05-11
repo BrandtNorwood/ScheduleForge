@@ -14,6 +14,8 @@ function loadPreview(){
     selectedEmployee = selectEmployee();
     activeShifts = loadShiftSelector();
     document.getElementById("nameFeild").value = selectedEmployee.Name;
+
+    populatePTOSelect();
 }
 
 
@@ -263,9 +265,6 @@ function populatePTOEdit(){
 
     if(selectedPTO.notes){document.getElementById("notesBox").value = selectedPTO.notes;}
     else {document.getElementById("notesBox").value = "";}
-
-    console.log(selectedPTO.start.getHours() == 0 , selectedPTO.start.getMinutes() == 0 ,
-        selectedPTO.end.getHours() == 23 , selectedPTO.end.getMinutes() == 59); 
 
     if(selectedPTO.start.getHours() == 0 && selectedPTO.start.getMinutes() == 0 &&
             selectedPTO.end.getHours() == 23 && selectedPTO.end.getMinutes() == 59){
