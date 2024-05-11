@@ -14,7 +14,6 @@ function loadPreview(){
     selectedEmployee = selectEmployee();
     activeShifts = loadShiftSelector();
     document.getElementById("nameFeild").value = selectedEmployee.Name;
-
     populatePTOSelect();
 }
 
