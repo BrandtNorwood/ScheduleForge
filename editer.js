@@ -131,10 +131,19 @@ function saveShiftChanges(){
 
     selectedEmployee.Shifts[document.getElementById("shiftSelector").selectedIndex] = selectedShift;
 
-    loadPreview();
+    let nameFeild = document.getElementById("nameFeild").value;
+
+    if(selectedEmployee.Name != nameFeild){
+        if (confirm(`Change name from ${selectedEmployee.Name} to ${nameFeild}?`)){
+            selectedEmployee.Name = nameFeild;
+            loadShiftSelector();
+        }
+    }
 
     //Save Change to server
     saveRemoteEmployee(selectedEmployee);
+
+    loadPreview();
 }
 
 
