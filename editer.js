@@ -486,3 +486,27 @@ function htmlTimeFormat(time){
     return time.hour.toString().padStart(2, '0') 
     + ":" + time.minute.toString().padStart(2, '0');
 }
+
+
+
+//Creates new Employee
+function createNewEmployee(){
+    //create the new object and push it to the array
+    let newIndex = fileData[fileData.length -1].Index + 1;
+    let newEmployee = {Name:"new employee",Shifts:new Array(),PTO:new Array(),Index:newIndex}
+    fileData.push(newEmployee)
+
+    //reload the selector
+    loadEMPSelect();
+
+    //select the new employee
+    let empSelector = document.getElementById("empSelect");
+    empSelector.selectedIndex = empSelector.length - 1;
+
+    //reload data on the new employee
+    selectedEmployee = selectEmployee(); 
+    
+    loadPreview();
+
+    //when user hits save changes it will push the new employee to the server
+}
