@@ -139,55 +139,6 @@ loadSuperUsers();
 
 
 
-//Used to send state of server and prep client
-app.get("/status", (req,res) => {
-    res.send((authEnabled)? "authentication_required" : "no_authentication");
-    debugOutput(`-Status Handed as authentication:${authEnabled}`);
-});
-
-
-
-// Sends the database.json file
-app.get("/file", (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
-    updateFileCache();
-    debugOutput(`Data handed off`);
-    res.send(JSON.stringify(fileCache));
-});
-
-
-
-//receives employee and overwrite the file with that user changed
-app.post("/saveEMP", (req,res) => {
-    let user = req.body.userCred
-    let selectedEmployee = req.body.employee;
-    let authenticated = authenticateUser(user);
-
-    updateFileCache();
-
-    //receive employee and match by index. If its not found then append it to the end of the list.
-    if(authenticated){
-        let employeeExists = false;
-        fileCache.forEach((employee, index) => {
-            if (selectedEmployee.Index === employee.Index){
-                fileCache[index] = selectedEmployee; // Update the element in fileCache
-                employeeExists = true; //Mark that a change has been made and no new employee needs to be created
-            }
-        });    
-
-        if(!employeeExists){
-            debugOutput("--Created new employee")
-            fileCache.push(selectedEmployee);
-        }
-
-        saveFileCache();
-    }
-
-    res.send({authenticated,status:(authenticated)?"received":"rejected"});
-});
-
-
-
 //start Server
 app.listen(port, () =>{serverOutput(`Server Online at port ${port}`)})
 

@@ -1,4 +1,4 @@
-<!--Writen by Niko Norwood 03/04/2024-->
+<!--Writen by Niko Norwood 06/20/2024-->
 
 <!DOCTYPE html>
 <html>
@@ -23,135 +23,12 @@
             <li><button onclick="timeSkipButton(false);"> < </button></li>
             <li><button id="weekDisplay"></button></li>
             <li><button onclick="timeSkipButton(true);"> > </button></li>
-
-            <li style="float:right;"><button onclick="window.open('demoText.html')">READ ME</button></li>
-            <li style="float:right;" id="saveButton"><button onclick="downloadJSON()"> Save Copy</button></li>
-            <li style="float:right;" id="editButton"><button onclick="loadEditor()"> Edit </button></li>
-            <li style="float:right; display: none;" id="genButton"><button onclick="loadGenerator()"> View </button></li>    
         </ul>
 
-        <a id="serverStatus"></a>
-
-        <div id="downloadDiv" style="padding-left: 44%; padding-top:15%;"> 
-            <a>Please Select Valid Json file</a><br>
-            <input type="file" id="fileInput" name="filename">
-            <a id="fileErrorPanel"style="display:block; margin-top:5%; color:red;"></a>
-        </div>
-
-        <div id="edit" style="display: none;">
-            <ul style="background-color: var(--secondary);">
-                <li><select id="empSelect"></select></li>
-                <li><input type="button" value="Create Employee" onclick="createNewEmployee()"></li>
-                <li><input type="button" value="Remove Employee" onclick="deleteEmployee()"></li>
-            </ul>
-
-            <div id="previewPane"></div>
-
-            <form id="shiftEditor" onchange="//TODO">
-                <h2>Employee <input type="text" id="nameFeild"></h2>
-
-                <a>Shifts</a><br>
-                <select id = "shiftSelector"  multiple size="4"></select>
-                <div id = "shiftWorkbench">
-                    <div>
-                        <input type="button" value="New Shift" onclick="newShift()">
-                        <input type="button" value="End Shift" onclick="endShift()">
-                        <input type="button" value="Delete Shift" onclick="deleteShift()">
-                    </div>
-                    <div>
-                        <a>Notes</a><br>
-                        <input type="text" id = "notesBox">
-                    </div>
-                    <input type="date" id="shiftOrigin"><a>  -  </a>
-                    <input type="date" id="shiftEndDate">
-                    <input type="checkbox" id="shiftNeverEnds"><label for="shiftNeverEnds">no end date</label>
-                    <br>
-                    <input type="time" id="shiftStartTime"><a>  -  </a><input type="time" id="shiftEndTime">
-                    <br>
-                    <a>Repeat frequency </a>
-                    <input type="number" id="shiftFrequency" name="shiftFrequency" min="1" style="width:4%;">
-                </div> 
-                <input type="button" value="Save Changes" onclick="saveShiftChanges()">
-                <input type="button" value="Clear Changes" onclick="clearShiftEdit()">
-
-            </form>
-
-            <form id="PTOEditor">
-                <h2>PTO Requests</h2>
-                <div>
-                    <input type="button" value="New Request" onclick="newPTORequest()">
-                    <input type="button" value="Delete Request" onclick="deletePTO()">
-                </div>
-                <select id = "PTOSelect"  multiple size="4"></select>
-                <div>
-                    <a>Notes</a><br>
-                    <input type="text" id = "notesBox">
-                </div>
-                <div id = "PTOtimes">
-                    <input type="date" id="ptoStartDate"><input type="time" id="ptoStartTime"><a>  -  </a>
-                    <input type="date" id="ptoEndDate"><input type="time" id="ptoEndTime">
-                    <input type="checkbox" id="allDayCheck"><label for="allDayCheck">All day</label>
-                </div>
-                <input type="button" value="Save Changes" onclick="savePTOChange()">
-                <input type="button" value="Clear Changes" onclick="clearPTOEdit()">
-            </form>
-        </div>
-
-        <div id = "outputPane" style="display: none;"></div> <!--This is where the output will be displayed when generated-->
-
         <script>
-            //Global Variables
-            var genDate = AutoTimeSkip(new Date(Date.now())); //Stores selected week start date 
-            var fileData = new Array(); //Used to store current state of the file
-            var onlineMode = false; //if a server is found online this becomes the Auth type
             const Url = 'http://'+ window.location.hostname + ':3010';//Server address 
 
-            //Loads the selected week into the navbar on load
-            loadWeekDisplay();
-            contactServer();
-
-            //Listens for a file to be uploaded on pageload
-            document.getElementById('fileInput').addEventListener('change', function selectedFileChanged() {
-                loadOffline(this.files[0]);
-            });
-
-            //Reloads the page when a new Employee is selected 
-            document.getElementById("empSelect").addEventListener("change", (event) => {
-                loadPreview();//this also calls the other functions nessesary
-            });
-
-            //When PTO request is changed reload the editor
-            document.getElementById("shiftSelector").addEventListener("change", (event) => {
-                loadTimeEditor();
-            });
-
-            //When PTO request is changed reload the editor
-            document.getElementById("PTOSelect").addEventListener("change", (event) => {
-                populatePTOEdit();
-            });
-
-            //updates All Day checkmark
-            document.getElementById("allDayCheck").addEventListener("change", (event) => {
-                ptoAllDay();
-            });
-
-            //Updates no end checkmark
-            document.getElementById("shiftNeverEnds").addEventListener("change", (event) => {
-                shiftNoEnd()
-            });
-
-            /*little Easter egg for ya :3
-
-            The "Dev" Enviroments (where I've worked on this at)
-             * Starbucks in MHD by 94 (so many times they know my name)
-             * Starbucks in MHD by 10
-             * Atomic Coffee
-             * Bedroom (uncountable)
-             * Work (shhhh)
-            
-             Tested on Yavin server!
-             */
-
+           
         </script>
         
 
