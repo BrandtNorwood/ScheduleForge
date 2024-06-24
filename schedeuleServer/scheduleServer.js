@@ -139,6 +139,34 @@ loadSuperUsers();
 
 
 
+//Returns scheduled employees between certan dates (pre-parsed)
+app.get("/getWeek", (req, res) => {
+
+});
+
+
+
+//Returns Employee name, groups, and id
+app.get("/getEmployeeHeaders", (req, res) => {
+
+});
+
+
+
+//Returns Employee shifts
+app.get("/getEmployeeShifts", (req, res) => {
+
+});
+
+
+
+//
+app.get("/getEmployeePTOs", (req, res) => {
+
+});
+
+
+
 //start Server
 app.listen(port, () =>{serverOutput(`Server Online at port ${port}`)})
 
