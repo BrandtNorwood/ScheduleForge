@@ -13,7 +13,8 @@
 const express = require('express');
 const app = express();
 const path = require("path")
-const bygone = require ('./bygoneBackend');
+const startBygone = require ('./bygoneBackend/bygoneBackend.cjs');
+const cachedFile = require ('./bygoneBackend/bygoneCachedObj.cjs')
 
 const port = 3010;
 
@@ -29,15 +30,24 @@ app.use((req, res, next) => {
 });
 
 
+
+//Load server values
 let databaseFilePath = path.join(__dirname, "employeeDatabase.json");
 let logFilePath  = path.join(__dirname, "serverLog.txt")
 
+//Had to make this into a full function because fucking JS kept skiping lines of code
+console.log("-----Schedule Forge Server v0.2-----\n");
 
-serverOutput("\n\n-----Schedule Forge Server v0.2-----\n");
-serverOutput("INITIALIZING...");
+startBygone(logFilePath).then((bygone)=> {
 
-var database = new cachedFile(databaseFilePath);
-bygone.startBygone(logFilePath)
+    bygone.log("Loading Database...");
+    var database = new cachedFile(databaseFilePath,bygone);
+
+    //start Server
+    app.listen(port, () =>{bygone.log(`Now listening on port ${port}`)})
+});
+
+
 
 //Returns scheduled employees between certan dates (pre-parsed)
 app.get("/getWeek", (req, res) => {
@@ -63,16 +73,4 @@ app.get("/getEmployeeShifts", (req, res) => {
 //
 app.get("/getEmployeePTOs", (req, res) => {
 
-});
-
-
-
-//start Server
-app.listen(port, () =>{serverOutput(`Server Online at port ${port}`)})
-
-
-
-// Close the logger when application exits
-process.on('exit', () => {
-    logger.close();
 });
