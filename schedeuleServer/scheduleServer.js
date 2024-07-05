@@ -18,6 +18,9 @@ const cachedFile = require ('./bygoneBackend/bygoneCachedObj.cjs')
 
 const port = 3010;
 
+var database = {};
+var bygone = null;
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -38,10 +41,11 @@ let logFilePath  = path.join(__dirname, "serverLog.txt")
 //Had to make this into a full function because fucking JS kept skiping lines of code
 console.log("-----Schedule Forge Server v0.2-----\n");
 
-startBygone(logFilePath).then((bygone)=> {
+startBygone(logFilePath).then((builtBygone)=> {
+    bygone = builtBygone;
 
     bygone.log("Loading Database...");
-    var database = new cachedFile(databaseFilePath,bygone);
+    database = new cachedFile(databaseFilePath,bygone);
 
     //start Server
     app.listen(port, () =>{bygone.log(`Now listening on port ${port}`)})
@@ -50,27 +54,51 @@ startBygone(logFilePath).then((bygone)=> {
 
 
 //Returns scheduled employees between certan dates (pre-parsed)
-app.get("/getWeek", (req, res) => {
+app.get("/api/getWeek", (req, res) => {
 
 });
 
 
 
 //Returns Employee name, groups, and id
-app.get("/getEmployeeHeaders", (req, res) => {
+app.get("/api/getEmployeeHeaders", (req, res) => {
 
 });
 
 
 
 //Returns Employee shifts
-app.get("/getEmployeeShifts", (req, res) => {
+app.get("/api/getEmployeeShifts", (req, res) => {
 
 });
 
 
 
 //
-app.get("/getEmployeePTOs", (req, res) => {
+app.get("/api/getEmployeePTOs", (req, res) => {
 
 });
+
+
+
+app.get("/", (req,res) =>{
+    res.send(database.cache);
+    bygone.debug("responded to a /test request")
+});
+
+
+
+//Creates a 8 digit ID and validates that its unique
+function newUID(checkAgainst){
+    let newUID = Math.floor(Math.random() * 100000000);
+
+    checkAgainst.forEach(element => {
+        if (element.uid){
+            if(element.uid == newUID){
+                newUID = newUID(checkAgainst);
+            }
+        }
+    });
+
+    return newUID;
+}
