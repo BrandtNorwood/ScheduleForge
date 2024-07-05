@@ -1,0 +1,22 @@
+Employee datatype structure {
+
+Headers
+    uid (int)
+    Name (String)
+    Groups (Array)
+    Enables (Boolean)
+
+    Shifts (Array)
+        shift (object)
+            uid (int)
+            origin (DateTime)
+            expireDate (DateTime)
+            shiftStart (Time)
+            shiftEnd (Time)
+}
+
+uid - 8 digit integer for Unique identification
+    Unique identifyer for users and shifts.
+    A check should be run during generation to ensure no overlap within the same Array
+    Overlap between shifts on different employees are fine.
+    Each employee should have a unique uid and their shift UIDs shouldn't overlap with the empUID or eachother
